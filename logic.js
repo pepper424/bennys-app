@@ -128,12 +128,15 @@
   function buildBenefits(catalog, profile, now) {
     var t = today(now);
     var out = [];
+    var hidden = {};
+    (profile.hidden || []).forEach(function (k) { hidden[k] = 1; });
     var order = Object.keys(catalog.cards);
     order.forEach(function (card) {
       if (profile.cards.indexOf(card) < 0) return;
       var annISO = (profile.anniversaries || {})[card] || null;
       catalog.cards[card].benefits.forEach(function (b) {
         var key = stateKey(card, b.benefit);
+        if (hidden[key]) return;
         var saved = (profile.state || {})[key];
         var entry = {
           card: card, benefit: b.benefit, value: b.value,

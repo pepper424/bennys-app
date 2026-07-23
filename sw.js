@@ -1,6 +1,6 @@
 /* Bennys service worker - caches the app shell for fast, installable,
    offline-tolerant startup. Data calls (Supabase) are never cached. */
-const VERSION = "bennys-v1.0.0";
+const VERSION = "bennys-v1.0.1";
 const SHELL = [
   "./", "index.html", "styles.css", "app.js", "logic.js", "config.js",
   "manifest.webmanifest", "icon-192.png", "icon-512.png",

@@ -658,15 +658,84 @@
 
   S.installable = function () { return !!S.deferredInstall; };
 
+  /* ========= config normalizer / self-diagnosis =========
+     Repairs the mistakes that actually happen when pasting on a
+     phone, and explains anything it cannot repair in plain English. */
+  function normalizeSupabase(cfg) {
+    cfg = cfg || {};
+    var out = { url: "", key: "", problems: [], fixes: [] };
+    var rawUrl = String(cfg.SUPABASE_URL == null ? "" : cfg.SUPABASE_URL);
+    var rawKey = String(cfg.SUPABASE_ANON_KEY == null ? ""
+                        : cfg.SUPABASE_ANON_KEY);
+
+    // strip ALL whitespace incl. newlines pasted by mobile keyboards
+    var u = rawUrl.replace(/\s+/g, "");
+    var k = rawKey.replace(/\s+/g, "");
+    if (u !== rawUrl.trim()) out.fixes.push("Removed stray spaces from the URL.");
+    if (k !== rawKey.trim()) out.fixes.push("Removed stray spaces from the key.");
+
+    if (!u || u.indexOf("PASTE_") === 0) {
+      out.problems.push("No Project URL has been pasted into config.js yet.");
+    } else {
+      if (!/^https?:\/\//i.test(u)) { u = "https://" + u; out.fixes.push("Added https:// to the URL."); }
+      var host = "", path = "";
+      try { var p = new URL(u); host = p.host; path = p.pathname; }
+      catch (e) { out.problems.push("That Project URL is not a valid web address."); }
+
+      if (host) {
+        // the classic mistake: the dashboard address, not the project address
+        var dash = host.match(/(^|\.)supabase\.com$/i) &&
+                   path.match(/\/project\/([a-z0-9]+)/i);
+        if (dash) {
+          host = dash[1] + ".supabase.co";
+          out.fixes.push("You pasted your Supabase dashboard address. " +
+            "I converted it to your project address (" + host + ").");
+        } else if (!/supabase\.(co|in|red)$/i.test(host)) {
+          out.problems.push("Your Project URL should end in .supabase.co - " +
+            "yours points at \"" + host + "\". Copy it from Supabase: " +
+            "Project Settings -> API -> Project URL.");
+        } else if (path && path !== "/") {
+          out.fixes.push("Removed the extra \"" + path + "\" from the end of the URL.");
+        }
+        out.url = "https://" + host;      // origin only: no path, no slash
+      }
+    }
+
+    if (!k || k.indexOf("PASTE_") === 0) {
+      out.problems.push("No anon key has been pasted into config.js yet.");
+    } else if (/^sb_secret_/i.test(k)) {
+      out.problems.push("That is your SECRET key. Use the anon (publishable) key instead - " +
+        "and rotate the secret one in Supabase, since it is now public.");
+    } else if (/^eyJ/.test(k)) {
+      var isService = false;
+      try {
+        var body = JSON.parse(atob(k.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
+        isService = body && body.role === "service_role";
+      } catch (e) {}
+      if (isService) {
+        out.problems.push("That is your service_role key. Use the anon public key - " +
+          "and rotate the service_role key in Supabase, since it is now public.");
+      } else if (k.length < 100) {
+        out.problems.push("Your anon key looks cut off (only " + k.length +
+          " characters - a full key is several hundred). Re-copy it with the copy button.");
+      } else { out.key = k; }
+    } else if (/^sb_publishable_/i.test(k)) {
+      out.key = k;
+    } else {
+      out.problems.push("Your anon key does not look right - it should start with " +
+        "\"eyJ\" or \"sb_publishable_\".");
+    }
+    return out;
+  }
+
   /* ================= browser boot ================= */
   function boot() {
     var CFG = window.BENNYS_CONFIG || {};
+    var norm = normalizeSupabase(CFG);
     var sb = null;
-    var configured = CFG.SUPABASE_URL &&
-      CFG.SUPABASE_URL.indexOf("PASTE_") < 0;
+    var configured = norm.problems.length === 0 && norm.url && norm.key;
     if (configured && window.supabase) {
-      sb = window.supabase.createClient(
-        CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY);
+      sb = window.supabase.createClient(norm.url, norm.key);
     }
 
     val = function (id) {
@@ -875,14 +944,44 @@
     });
 
     /* startup */
+    window.__bennysDiag = function () {
+      var box = document.getElementById("diag-out");
+      box.textContent = "Testing...";
+      fetch(norm.url + "/auth/v1/health", {
+        headers: { apikey: norm.key }
+      }).then(function (r) {
+        box.innerHTML = r.ok
+          ? '<span style="color:#6fd39a">Connected. Your URL and key ' +
+            'are correct - reload the app.</span>'
+          : '<span style="color:#ff9d96">Supabase answered with error ' +
+            r.status + '. If 401, the anon key is wrong. If 404, the ' +
+            'Project URL is wrong.</span>';
+      }).catch(function () {
+        box.innerHTML = '<span style="color:#ff9d96">Could not reach ' +
+          norm.url + ' at all. Check the Project URL for typos.</span>';
+      });
+    };
+
     if (!configured) {
       document.getElementById("app").innerHTML = heroHTML() +
         '<div class="section" style="border-color:rgba(224,86,79,.5)">' +
-        '<div class="sub" style="color:#ff9d96"><b>Almost there.</b> ' +
-        'Open <b>config.js</b> and paste in your Supabase URL and ' +
-        'anon key (steps 2-4 of the setup instructions), then reload.' +
-        '</div></div>';
+        '<div class="sub" style="color:#ff9d96"><b>Setup needs one ' +
+        'fix.</b></div>' +
+        norm.problems.map(function (p) {
+          return '<div class="sub">&bull; ' + esc(p) + '</div>';
+        }).join("") +
+        (norm.fixes.length ? '<div class="hint">Also auto-corrected: ' +
+          norm.fixes.map(esc).join(" ") + '</div>' : "") +
+        '<div class="hint">Edit <b>config.js</b> in your GitHub repo, ' +
+        'commit, then fully close and reopen this app.</div>' +
+        '</div>';
       return;
+    }
+
+    if (norm.fixes.length) {
+      setTimeout(function () {
+        toast("Config auto-corrected: " + norm.fixes[0]);
+      }, 900);
     }
 
     fetch("benefits.json").then(function (r) { return r.json(); })
@@ -922,6 +1021,7 @@
   /* exports for Node tests */
   return {
     boot: boot, state: S, actions: A,
+    normalizeSupabase: normalizeSupabase,
     views: { authView: authView, onboardView: onboardView,
              dashView: dashView, manageView: manageView,
              benefitHTML: benefitHTML, toggleHTML: toggleHTML,

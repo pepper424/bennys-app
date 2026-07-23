@@ -7,8 +7,8 @@
       completing the optional Google sign-in setup in the instructions.
 */
 window.BENNYS_CONFIG = {
-  SUPABASE_URL: "PASTE_YOUR_SUPABASE_URL_HERE",
-  SUPABASE_ANON_KEY: "PASTE_YOUR_ANON_KEY_HERE",
+  SUPABASE_URL: "https://sftrhvrrjgnfglrfkjei.supabase.co/rest/v1/",
+  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNmdHJodnJyamduZmdscmZramVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ4MTMzNjcsImV4cCI6MjEwMDM4OTM2N30.YUGGqYXKxvpnQEdLI3a86m7HCNawQN6CpL5VrtLS2Co",
   ENABLE_GOOGLE: false,
   APP_VERSION: "1.0.0"
 };

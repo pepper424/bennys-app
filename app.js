@@ -122,11 +122,16 @@
           S.screen = "onboard"; S.pick = []; S.pickQuery = "";
         }
         paint();
-      }).catch(function () {
-        S.screen = "auth";
-        S.authMsg = "Could not reach the cloud - try again.";
+      }).catch(function (err) {
+        S.errMsg = describeDbError(err);
+        S.errRaw = rawErrorText(err);
+        S.screen = "error";
         paint();
       });
+    },
+
+    retry: function () {
+      if (S.user) { S.screen = "loading"; paint(); A.onSignedIn(S.user); }
     },
 
     finishOnboard: function (dates) {
@@ -210,6 +215,42 @@
       });
     }
   };
+
+  function rawErrorText(err) {
+    if (!err) return "(no details)";
+    var parts = [];
+    if (err.code) parts.push("code " + err.code);
+    if (err.message) parts.push(err.message);
+    if (err.hint) parts.push("hint: " + err.hint);
+    if (err.details) parts.push(err.details);
+    return parts.length ? parts.join(" | ") : String(err);
+  }
+
+  function describeDbError(err) {
+    var msg = (err && (err.message || err.error_description)) ||
+              String(err || "");
+    var code = err && err.code ? String(err.code) : "";
+    if (/failed to fetch|networkerror|load failed|fetch event/i.test(msg)) {
+      return "Your phone could not reach Supabase at all. Either you are " +
+        "offline, or your Supabase project is paused - open supabase.com, " +
+        "tap your project, and press Restore if you see it.";
+    }
+    if (code === "PGRST205" || code === "42P01" ||
+        /schema cache|relation .*does not exist|could not find the table/i.test(msg)) {
+      return "The 'dashboards' table does not exist in the project your " +
+        "keys point at. Run the setup SQL again - and make sure you run it " +
+        "in the SAME Supabase project whose URL is in your config.js.";
+    }
+    if (code === "42501" || /row-level security|permission denied/i.test(msg)) {
+      return "The table exists but its security policy is missing. Re-run " +
+        "the 'alter table' and 'create policy' lines from the setup SQL.";
+    }
+    if (/jwt|not authenticated|invalid token|no api key/i.test(msg)) {
+      return "You are signed up but not fully signed in. In Supabase, turn " +
+        "OFF Authentication -> Email -> 'Confirm email', then log in again.";
+    }
+    return msg || "Unknown error.";
+  }
 
   function friendlyAuthError(err) {
     var m = (err && (err.message || err)) + "";
@@ -639,6 +680,21 @@
   }
 
   /* ================= render / paint ================= */
+  function errorView() {
+    return heroHTML() +
+      '<div class="section" style="border-color:rgba(224,86,79,.5)">' +
+      '<div class="sub" style="color:#ff9d96;font-weight:700">' +
+      'Could not load your dashboard</div>' +
+      '<div class="sub">' + esc(S.errMsg) + '</div>' +
+      '<details class="section" style="margin-top:.6rem">' +
+      '<summary>Exact message from Supabase</summary>' +
+      '<div class="hint" style="word-break:break-word">' +
+      esc(S.errRaw) + '</div></details>' +
+      '<button data-a="retry">Try again</button>' +
+      '<button class="ghost" data-a="logout">Log out</button>' +
+      '</div>';
+  }
+
   function view() {
     if (S.screen === "loading") {
       return '<div class="hero" style="padding-top:4rem">' +
@@ -648,6 +704,7 @@
     if (S.screen === "auth") return authView();
     if (S.screen === "onboard") return onboardView();
     if (S.screen === "dash") return dashView();
+    if (S.screen === "error") return errorView();
     return "";
   }
 
@@ -917,6 +974,7 @@
       else if (a === "reset-yes") A.resetDashboard();
       else if (a === "reset-no") closeModal();
       else if (a === "modal-back" && e.target === el) closeModal();
+      else if (a === "retry") A.retry();
       else if (a === "logout") A.logout();
       else if (a === "install") {
         if (S.deferredInstall) {
@@ -1025,7 +1083,9 @@
     views: { authView: authView, onboardView: onboardView,
              dashView: dashView, manageView: manageView,
              benefitHTML: benefitHTML, toggleHTML: toggleHTML,
-             resetModalHTML: resetModalHTML, pickerHTML: pickerHTML },
+             resetModalHTML: resetModalHTML, pickerHTML: pickerHTML,
+             errorView: errorView },
+    describeDbError: describeDbError,
     _internals: { rebuild: rebuild, readAnnivRows: readAnnivRows,
                   setPaint: function (p) { paint = p; },
                   setToast: function (t) { toast = t; },

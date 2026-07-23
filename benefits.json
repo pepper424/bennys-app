@@ -1,0 +1,2910 @@
+{
+ "catalog_version": "2026-07-21b",
+ "audited": "2026-07-21 live web audit (credit unions, store cards, fintech, regional banks, remaining airline/hotel gaps) + prior 2026-07-20 sweep + knowledge base for stable multiplier cards; monthly auditor re-verifies all",
+ "cards": {
+  "Amex Platinum": {
+   "meta": "American Express - $895 AF",
+   "tab_label": "Platinum",
+   "annual_fee": 895,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "$600 Hotel Credit (FHR + THC)",
+     "value": 300,
+     "reset": "Semi-Annual",
+     "desc": "Up to $300 back Jan-Jun and $300 Jul-Dec on prepaid Fine Hotels + Resorts or The Hotel Collection (2-night min for THC) via Amex Travel. Current H2 window shown."
+    },
+    {
+     "benefit": "$400 Resy Dining Credit",
+     "value": 100,
+     "reset": "Quarterly",
+     "desc": "Up to $100 back per quarter at 10,000+ U.S. Resy restaurants. Pay with the Platinum at a participating restaurant. Enrollment required."
+    },
+    {
+     "benefit": "$300 lululemon Credit",
+     "value": 75,
+     "reset": "Quarterly",
+     "desc": "Up to $75 back per quarter at U.S. lululemon stores (not outlets) and lululemon.com. Enrollment required."
+    },
+    {
+     "benefit": "$300 Digital Entertainment Credit",
+     "value": 25,
+     "reset": "Monthly",
+     "desc": "Up to $25/month for Disney+, Hulu, ESPN, Paramount+, Peacock, NYT, WSJ, YouTube Premium/TV. Enrollment required."
+    },
+    {
+     "benefit": "$200 Uber Cash",
+     "value": 15,
+     "reset": "Monthly",
+     "desc": "$15 Uber Cash monthly (+$20 bonus in December) for U.S. rides and Uber Eats. Add the card to your Uber wallet."
+    },
+    {
+     "benefit": "$120 Uber One Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "Up to $120/yr in statement credits when an auto-renewing Uber One membership is paid with the Platinum."
+    },
+    {
+     "benefit": "$200 Airline Fee Credit",
+     "value": 200,
+     "reset": "Calendar Year",
+     "desc": "Incidental fees (bags, seats, in-flight) with your one selected airline. Select the airline in your Amex account first."
+    },
+    {
+     "benefit": "$155 Walmart+ Credit",
+     "value": 12.95,
+     "reset": "Monthly",
+     "desc": "Covers one Walmart+ monthly membership ($12.95 + tax) each month when paid with the card."
+    },
+    {
+     "benefit": "$300 Equinox Credit",
+     "value": 300,
+     "reset": "Calendar Year",
+     "desc": "Up to $300/yr toward Equinox club membership or Equinox+ digital. Enrollment required."
+    },
+    {
+     "benefit": "$200 Oura Ring Credit",
+     "value": 200,
+     "reset": "Calendar Year",
+     "desc": "Up to $200 back on Oura Ring hardware bought at oura.com. Enrollment required."
+    },
+    {
+     "benefit": "$219 CLEAR+ Credit",
+     "value": 219,
+     "reset": "Calendar Year",
+     "desc": "Covers a CLEAR+ membership (auto-renewing) paid with the card each calendar year. CLEAR raised pricing to $219 on Jul 1, 2026 and this credit matched."
+    },
+    {
+     "benefit": "Global Entry / TSA PreCheck Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "$120 Global Entry (every 4 yrs) or $85 TSA PreCheck (every 4.5 yrs) application fee credit. Mark USED after redeeming and ignore until eligible again."
+    },
+    {
+     "benefit": "FHR $100 On-Property Credit + Perks",
+     "value": 100,
+     "reset": "Per Stay",
+     "desc": "Every FHR/THC booking: about $100 property credit (food, beverage, spa), room upgrade when available, breakfast for two (FHR), 4pm checkout."
+    },
+    {
+     "benefit": "Global Lounge Collection",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited Centurion Lounges, 10 Delta Sky Club visits/yr on Delta tickets, Priority Pass Select (enroll), Plaza Premium + partners."
+    },
+    {
+     "benefit": "Hilton Gold + Marriott Bonvoy Gold Status",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Complimentary Gold elite status with both programs (enrollment required). Upgrades when available, late checkout, bonus points."
+    }
+   ]
+  },
+  "Amex Schwab Platinum": {
+   "meta": "Amex x Charles Schwab - $895 AF",
+   "tab_label": "Schwab",
+   "annual_fee": 895,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "$600 Hotel Credit (FHR + THC)",
+     "value": 300,
+     "reset": "Semi-Annual",
+     "desc": "Up to $300 back Jan-Jun and $300 Jul-Dec on prepaid Fine Hotels + Resorts or The Hotel Collection (2-night min for THC) via Amex Travel. Current H2 window shown."
+    },
+    {
+     "benefit": "$400 Resy Dining Credit",
+     "value": 100,
+     "reset": "Quarterly",
+     "desc": "Up to $100 back per quarter at 10,000+ U.S. Resy restaurants. Pay with the Platinum at a participating restaurant. Enrollment required."
+    },
+    {
+     "benefit": "$300 lululemon Credit",
+     "value": 75,
+     "reset": "Quarterly",
+     "desc": "Up to $75 back per quarter at U.S. lululemon stores (not outlets) and lululemon.com. Enrollment required."
+    },
+    {
+     "benefit": "$300 Digital Entertainment Credit",
+     "value": 25,
+     "reset": "Monthly",
+     "desc": "Up to $25/month for Disney+, Hulu, ESPN, Paramount+, Peacock, NYT, WSJ, YouTube Premium/TV. Enrollment required."
+    },
+    {
+     "benefit": "$200 Uber Cash",
+     "value": 15,
+     "reset": "Monthly",
+     "desc": "$15 Uber Cash monthly (+$20 bonus in December) for U.S. rides and Uber Eats. Add the card to your Uber wallet."
+    },
+    {
+     "benefit": "$120 Uber One Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "Up to $120/yr in statement credits when an auto-renewing Uber One membership is paid with the Platinum."
+    },
+    {
+     "benefit": "$200 Airline Fee Credit",
+     "value": 200,
+     "reset": "Calendar Year",
+     "desc": "Incidental fees (bags, seats, in-flight) with your one selected airline. Select the airline in your Amex account first."
+    },
+    {
+     "benefit": "$155 Walmart+ Credit",
+     "value": 12.95,
+     "reset": "Monthly",
+     "desc": "Covers one Walmart+ monthly membership ($12.95 + tax) each month when paid with the card."
+    },
+    {
+     "benefit": "$300 Equinox Credit",
+     "value": 300,
+     "reset": "Calendar Year",
+     "desc": "Up to $300/yr toward Equinox club membership or Equinox+ digital. Enrollment required."
+    },
+    {
+     "benefit": "$200 Oura Ring Credit",
+     "value": 200,
+     "reset": "Calendar Year",
+     "desc": "Up to $200 back on Oura Ring hardware bought at oura.com. Enrollment required."
+    },
+    {
+     "benefit": "$219 CLEAR+ Credit",
+     "value": 219,
+     "reset": "Calendar Year",
+     "desc": "Covers a CLEAR+ membership (auto-renewing) paid with the card each calendar year. CLEAR raised pricing to $219 on Jul 1, 2026 and this credit matched."
+    },
+    {
+     "benefit": "Global Entry / TSA PreCheck Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "$120 Global Entry (every 4 yrs) or $85 TSA PreCheck (every 4.5 yrs) application fee credit. Mark USED after redeeming and ignore until eligible again."
+    },
+    {
+     "benefit": "FHR $100 On-Property Credit + Perks",
+     "value": 100,
+     "reset": "Per Stay",
+     "desc": "Every FHR/THC booking: about $100 property credit (food, beverage, spa), room upgrade when available, breakfast for two (FHR), 4pm checkout."
+    },
+    {
+     "benefit": "Global Lounge Collection",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited Centurion Lounges, 10 Delta Sky Club visits/yr on Delta tickets, Priority Pass Select (enroll), Plaza Premium + partners."
+    },
+    {
+     "benefit": "Hilton Gold + Marriott Bonvoy Gold Status",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Complimentary Gold elite status with both programs (enrollment required). Upgrades when available, late checkout, bonus points."
+    },
+    {
+     "benefit": "Schwab Appreciation Bonus",
+     "value": 100,
+     "reset": "Calendar Year",
+     "desc": "Annual statement credit tied to qualifying Schwab holdings: $100 (250K+), $200 (1M+), $1,000 (10M+). Adjust the value to your tier."
+    },
+    {
+     "benefit": "Invest with Rewards (1.1c/pt Cash-Out)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Redeem Membership Rewards into your Schwab brokerage at 1.1 cents per point (first 1M pts per calendar year, then 0.8) - the best MR cash-out rate available."
+    }
+   ]
+  },
+  "Amex Morgan Stanley Platinum": {
+   "meta": "Amex x Morgan Stanley - $895 AF",
+   "tab_label": "Morgan S.",
+   "annual_fee": 895,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "$600 Hotel Credit (FHR + THC)",
+     "value": 300,
+     "reset": "Semi-Annual",
+     "desc": "Up to $300 back Jan-Jun and $300 Jul-Dec on prepaid Fine Hotels + Resorts or The Hotel Collection (2-night min for THC) via Amex Travel. Current H2 window shown."
+    },
+    {
+     "benefit": "$400 Resy Dining Credit",
+     "value": 100,
+     "reset": "Quarterly",
+     "desc": "Up to $100 back per quarter at 10,000+ U.S. Resy restaurants. Pay with the Platinum at a participating restaurant. Enrollment required."
+    },
+    {
+     "benefit": "$300 lululemon Credit",
+     "value": 75,
+     "reset": "Quarterly",
+     "desc": "Up to $75 back per quarter at U.S. lululemon stores (not outlets) and lululemon.com. Enrollment required."
+    },
+    {
+     "benefit": "$300 Digital Entertainment Credit",
+     "value": 25,
+     "reset": "Monthly",
+     "desc": "Up to $25/month for Disney+, Hulu, ESPN, Paramount+, Peacock, NYT, WSJ, YouTube Premium/TV. Enrollment required."
+    },
+    {
+     "benefit": "$200 Uber Cash",
+     "value": 15,
+     "reset": "Monthly",
+     "desc": "$15 Uber Cash monthly (+$20 bonus in December) for U.S. rides and Uber Eats. Add the card to your Uber wallet."
+    },
+    {
+     "benefit": "$120 Uber One Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "Up to $120/yr in statement credits when an auto-renewing Uber One membership is paid with the Platinum."
+    },
+    {
+     "benefit": "$200 Airline Fee Credit",
+     "value": 200,
+     "reset": "Calendar Year",
+     "desc": "Incidental fees (bags, seats, in-flight) with your one selected airline. Select the airline in your Amex account first."
+    },
+    {
+     "benefit": "$155 Walmart+ Credit",
+     "value": 12.95,
+     "reset": "Monthly",
+     "desc": "Covers one Walmart+ monthly membership ($12.95 + tax) each month when paid with the card."
+    },
+    {
+     "benefit": "$300 Equinox Credit",
+     "value": 300,
+     "reset": "Calendar Year",
+     "desc": "Up to $300/yr toward Equinox club membership or Equinox+ digital. Enrollment required."
+    },
+    {
+     "benefit": "$200 Oura Ring Credit",
+     "value": 200,
+     "reset": "Calendar Year",
+     "desc": "Up to $200 back on Oura Ring hardware bought at oura.com. Enrollment required."
+    },
+    {
+     "benefit": "$219 CLEAR+ Credit",
+     "value": 219,
+     "reset": "Calendar Year",
+     "desc": "Covers a CLEAR+ membership (auto-renewing) paid with the card each calendar year. CLEAR raised pricing to $219 on Jul 1, 2026 and this credit matched."
+    },
+    {
+     "benefit": "Global Entry / TSA PreCheck Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "$120 Global Entry (every 4 yrs) or $85 TSA PreCheck (every 4.5 yrs) application fee credit. Mark USED after redeeming and ignore until eligible again."
+    },
+    {
+     "benefit": "FHR $100 On-Property Credit + Perks",
+     "value": 100,
+     "reset": "Per Stay",
+     "desc": "Every FHR/THC booking: about $100 property credit (food, beverage, spa), room upgrade when available, breakfast for two (FHR), 4pm checkout."
+    },
+    {
+     "benefit": "Global Lounge Collection",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited Centurion Lounges, 10 Delta Sky Club visits/yr on Delta tickets, Priority Pass Select (enroll), Plaza Premium + partners."
+    },
+    {
+     "benefit": "Hilton Gold + Marriott Bonvoy Gold Status",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Complimentary Gold elite status with both programs (enrollment required). Upgrades when available, late checkout, bonus points."
+    },
+    {
+     "benefit": "Annual Engagement Bonus",
+     "value": 895,
+     "reset": "Card Anniversary",
+     "desc": "Up to $895/yr deposited to a Platinum CashPlus account - effectively wipes the annual fee. Requires the CashPlus account plus its deposit/balance requirements."
+    },
+    {
+     "benefit": "Free Additional Platinum Card",
+     "value": 195,
+     "reset": "Card Anniversary",
+     "desc": "First additional Platinum authorized user is $0/yr ($195 value) - full lounge access for a partner."
+    }
+   ]
+  },
+  "Amex Gold": {
+   "meta": "American Express - $325 AF",
+   "tab_label": "Gold",
+   "annual_fee": 325,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "$120 Dining Credit",
+     "value": 10,
+     "reset": "Monthly",
+     "desc": "Up to $10/month at Grubhub (incl. Seamless), The Cheesecake Factory, Five Guys, Buffalo Wild Wings, and Wonder. Enrollment required; resets on the 1st."
+    },
+    {
+     "benefit": "$120 Uber Cash",
+     "value": 10,
+     "reset": "Monthly",
+     "desc": "$10 Uber Cash monthly for U.S. rides and Uber Eats. Add the Gold to your Uber wallet."
+    },
+    {
+     "benefit": "$100 Resy Credit",
+     "value": 50,
+     "reset": "Semi-Annual",
+     "desc": "Up to $50 back Jan-Jun and $50 Jul-Dec at U.S. Resy restaurants. Enrollment required. Current H2 window shown."
+    },
+    {
+     "benefit": "$84 Dunkin' Credit",
+     "value": 7,
+     "reset": "Monthly",
+     "desc": "Up to $7/month at U.S. Dunkin' locations (app reloads work). Enrollment required."
+    },
+    {
+     "benefit": "The Hotel Collection $100 Credit",
+     "value": 100,
+     "reset": "Per Stay",
+     "desc": "$100 on-property credit on every Hotel Collection booking of 2+ nights via Amex Travel, plus upgrade when available."
+    },
+    {
+     "benefit": "Hertz Five Star Status",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Complimentary Hertz Five Star elite status (enrollment + Hertz Gold Plus registration required)."
+    }
+   ]
+  },
+  "Bonvoy Brilliant": {
+   "meta": "Amex Marriott Bonvoy Brilliant - $650 AF - Anniv Nov 27",
+   "tab_label": "Brilliant",
+   "annual_fee": 650,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "$300 Dining Credit",
+     "value": 25,
+     "reset": "Monthly",
+     "desc": "Up to $25/month in statement credits at restaurants worldwide. The easiest Brilliant credit - any restaurant codes."
+    },
+    {
+     "benefit": "85K Free Night Award",
+     "value": 680,
+     "reset": "Card Anniversary",
+     "desc": "Annual FNA up to 85,000 points after card renewal; top off with up to 25K points for properties up to 110K/night. Valued around $680 at 0.8 cents/pt - often worth far more."
+    },
+    {
+     "benefit": "$100 Ritz / St. Regis Property Credit",
+     "value": 100,
+     "reset": "Per Stay",
+     "desc": "Up to $100 property credit on 2-night-minimum paid stays at The Ritz-Carlton or St. Regis booked direct with the special Brilliant rate."
+    },
+    {
+     "benefit": "Marriott Platinum Elite Status",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Automatic Platinum Elite: breakfast option, lounge access, 4pm late checkout, upgrades incl. suites, 50% point bonus."
+    },
+    {
+     "benefit": "25 Elite Night Credits",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "25 ENCs posted each calendar year - counts toward Titanium and lifetime status."
+    },
+    {
+     "benefit": "Earned Choice Award ($60K spend)",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "Spend $60K in a calendar year to pick: 5 Suite Night Awards, a second 85K FNA, or $1,000 off a Bonvoy Boutiques mattress."
+    },
+    {
+     "benefit": "Priority Pass Select",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited Priority Pass lounge visits for you + 2 guests (enrollment required; no PP restaurants)."
+    },
+    {
+     "benefit": "Global Entry / TSA PreCheck Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "$120 Global Entry (every 4 yrs) or TSA PreCheck application fee credit. Mark USED after redeeming."
+    }
+   ]
+  },
+  "Hilton Aspire": {
+   "meta": "Amex Hilton Honors Aspire - $550 AF - Anniv Jan 3",
+   "tab_label": "Aspire",
+   "annual_fee": 550,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "$400 Hilton Resort Credit",
+     "value": 200,
+     "reset": "Semi-Annual",
+     "desc": "Up to $200 back Jan-Jun and $200 Jul-Dec on purchases made directly with participating Hilton Resorts (room + incidentals). Current H2 window shown."
+    },
+    {
+     "benefit": "$200 Airline Flight Credit",
+     "value": 50,
+     "reset": "Quarterly",
+     "desc": "Up to $50/quarter on flights booked directly with airlines or via Amex Travel - actual airfare counts, not just incidentals."
+    },
+    {
+     "benefit": "Annual Free Night Reward",
+     "value": 500,
+     "reset": "Card Anniversary",
+     "desc": "Uncapped FNC issued every renewal - valid at nearly any Hilton worldwide (Waldorf Maldives tier included). Conservatively valued at $500; frequently redeemed for $1,000+."
+    },
+    {
+     "benefit": "$219 CLEAR+ Credit",
+     "value": 219,
+     "reset": "Calendar Year",
+     "desc": "Covers a CLEAR+ membership (auto-renewing) paid with the card each calendar year. CLEAR raised pricing to $219 on Jul 1, 2026 and this credit matched."
+    },
+    {
+     "benefit": "$100 Waldorf / Conrad Property Credit",
+     "value": 100,
+     "reset": "Per Stay",
+     "desc": "Up to $100 credit on 2-night-minimum stays at Waldorf Astoria or Conrad booked via HiltonHonorsAspireCard.com with the Aspire rate."
+    },
+    {
+     "benefit": "Hilton Diamond Status",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Automatic top-published-tier Diamond: daily F&B credit / breakfast, exec lounge access, upgrades, 100% point bonus."
+    },
+    {
+     "benefit": "Bonus FNC at $30K / $60K Spend",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "Earn a second Free Night Reward at $30K calendar-year spend and a third at $60K."
+    },
+    {
+     "benefit": "National Emerald Club Executive",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Complimentary National Car Rental Emerald Club Executive status (enrollment required)."
+    }
+   ]
+  },
+  "Venture X": {
+   "meta": "Capital One Venture X - $395 AF - Anniv Mar 7",
+   "tab_label": "Venture X",
+   "annual_fee": 395,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "$300 Capital One Travel Credit",
+     "value": 300,
+     "reset": "Card Anniversary",
+     "desc": "$300 toward any Capital One Travel booking (flights, hotels, cars), usable in parts. Expires at your next account anniversary."
+    },
+    {
+     "benefit": "10,000 Anniversary Miles",
+     "value": 100,
+     "reset": "Card Anniversary",
+     "desc": "10K bonus miles every account anniversary - worth $100 minimum through the portal, more via transfer partners."
+    },
+    {
+     "benefit": "Premier Collection $100 Experience Credit",
+     "value": 100,
+     "reset": "Per Stay",
+     "desc": "Every Premier Collection stay: $100 experience credit, daily breakfast for 2, upgrade + early/late checkout when available. Lifestyle Collection stays get a $50 credit."
+    },
+    {
+     "benefit": "Global Entry / TSA PreCheck Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "Up to $120 application fee credit every 4 years. Mark USED after redeeming."
+    },
+    {
+     "benefit": "Capital One Lounges + Priority Pass",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited primary-cardholder access to Capital One Lounges, Landings, and 1,300+ Priority Pass lounges (enroll). Guests are paid as of Feb 2026 unless you hit $75K annual spend."
+    },
+    {
+     "benefit": "PRIOR Subscription + The Cultivist",
+     "value": 149,
+     "reset": "Per Stay",
+     "desc": "Complimentary PRIOR membership ($149 value) and 50% off The Cultivist Enthusiast museum membership for up to 2 years."
+    }
+   ]
+  },
+  "Sapphire Reserve": {
+   "meta": "Chase Sapphire Reserve - $795 AF - Anniv Sep 18",
+   "tab_label": "CSR",
+   "annual_fee": 795,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "$300 Annual Travel Credit",
+     "value": 300,
+     "reset": "Card Anniversary",
+     "desc": "Automatic statement credits on virtually any travel purchase. Resets each account anniversary year - check the Chase benefits tracker for your exact window."
+    },
+    {
+     "benefit": "$500 The Edit Hotel Credit",
+     "value": 250,
+     "reset": "Calendar Year",
+     "desc": "Two $250 credits per calendar year on prepaid 2-night-minimum stays at The Edit by Chase Travel (no more H1/H2 split as of Jan 2026). Mark USED once both are burned."
+    },
+    {
+     "benefit": "$250 Select Hotels Credit (2026 only)",
+     "value": 250,
+     "reset": "Calendar Year",
+     "desc": "One-time 2026 credit on prepaid 2-night Chase Travel stays with IHG, Omni, Virgin, Montage, Pendry, Minor, Pan Pacific. Stackable with The Edit credit + travel credit. Gone Dec 31, 2026."
+    },
+    {
+     "benefit": "$300 Exclusive Tables Dining Credit",
+     "value": 150,
+     "reset": "Semi-Annual",
+     "desc": "Up to $150 per half-year at Sapphire Reserve Exclusive Tables restaurants - posts automatically after dining. Current H2 window shown."
+    },
+    {
+     "benefit": "$300 StubHub / viagogo Credit",
+     "value": 150,
+     "reset": "Semi-Annual",
+     "desc": "Up to $150 per half-year on StubHub and viagogo tickets. Activation required. Current H2 window shown."
+    },
+    {
+     "benefit": "$120 Lyft In-App Credit",
+     "value": 10,
+     "reset": "Monthly",
+     "desc": "$10 in Lyft in-app credit monthly through Sep 30, 2027."
+    },
+    {
+     "benefit": "$120 Peloton Membership Credit",
+     "value": 10,
+     "reset": "Monthly",
+     "desc": "Up to $10/month toward Peloton memberships (All-Access, App One, App+). Activation required."
+    },
+    {
+     "benefit": "DoorDash Promos + DashPass",
+     "value": 25,
+     "reset": "Monthly",
+     "desc": "Complimentary DashPass plus up to $25/month in DoorDash promos ($5 restaurant + two $10 non-restaurant). Through 2027."
+    },
+    {
+     "benefit": "Apple TV+ & Apple Music Subscriptions",
+     "value": 288,
+     "reset": "Calendar Year",
+     "desc": "Complimentary Apple TV+ and Apple Music (a $288/yr value) when activated by June 22, 2027."
+    },
+    {
+     "benefit": "The Shops at Chase $250 Credit",
+     "value": 250,
+     "reset": "Calendar Year",
+     "desc": "Promotional $250 credit for The Shops at Chase (Dyson, Sony, Tumi, Therabody). Confirm your eligibility window in the Chase benefits hub."
+    },
+    {
+     "benefit": "Global Entry / TSA / NEXUS Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "Up to $120 application fee credit every 4 years. Mark USED after redeeming."
+    },
+    {
+     "benefit": "IHG Platinum Elite Status",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Complimentary IHG One Rewards Platinum Elite status (enrollment required) - upgrades, 60% point bonus."
+    },
+    {
+     "benefit": "The Edit On-Property Perks",
+     "value": 100,
+     "reset": "Per Stay",
+     "desc": "Every Edit stay: $100 property credit, daily breakfast for two, upgrade when available."
+    },
+    {
+     "benefit": "Sapphire Lounges + Priority Pass",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "All Chase Sapphire Lounges (+2 guests) and 1,300+ Priority Pass lounges. DFW and LAX Sapphire Lounges opening 2026."
+    }
+   ]
+  },
+  "Ritz-Carlton": {
+   "meta": "Chase Ritz-Carlton - $450 AF - Anniv Jul 14",
+   "tab_label": "Ritz",
+   "annual_fee": 450,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "85K Free Night Award",
+     "value": 680,
+     "reset": "Card Anniversary",
+     "desc": "Annual FNA up to 85,000 Bonvoy points issued at renewal; top off with up to 25K points (110K/night ceiling). Valued around $680 - routinely $1,000+ at Ritz / St. Regis properties."
+    },
+    {
+     "benefit": "3x Club Level Upgrades",
+     "value": 0,
+     "reset": "Card Anniversary",
+     "desc": "Upgrade up to 3 qualifying paid Ritz-Carlton stays (max 7 nights each) to Club Level per account anniversary year."
+    },
+    {
+     "benefit": "$300 Airline Incidental Credit",
+     "value": 300,
+     "reset": "Calendar Year",
+     "desc": "Up to $300/calendar year for airline incidentals (bags, seats, Wi-Fi, lounge passes; award taxes often approved). Not automatic - secure-message or call J.P. Morgan within 4 billing cycles."
+    },
+    {
+     "benefit": "$100 Ritz / St. Regis Property Credit",
+     "value": 100,
+     "reset": "Per Stay",
+     "desc": "Up to $100 property credit on paid 2-night-minimum stays at The Ritz-Carlton or St. Regis."
+    },
+    {
+     "benefit": "Priority Pass + Sapphire Lounges (Free AUs)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Priority Pass Select for you AND every authorized user (AUs are free), plus Chase Sapphire Lounge access. 2 guests per cardholder from Jan 15, 2026."
+    },
+    {
+     "benefit": "Marriott Gold Elite + 15 Elite Night Credits",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "Automatic Gold Elite status plus 15 Elite Night Credits per calendar year toward higher status."
+    },
+    {
+     "benefit": "Global Entry Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "$120 Global Entry application fee credit every 4 years. Mark USED after redeeming."
+    }
+   ]
+  },
+  "IHG Platinum (Select)": {
+   "meta": "Chase IHG Select Platinum Elite MC (legacy) - $49 AF - Anniv Jun 3",
+   "tab_label": "IHG",
+   "annual_fee": 49,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "Anniversary Free Night (40K)",
+     "value": 300,
+     "reset": "Card Anniversary",
+     "desc": "FNC issued each account anniversary, valid up to 40,000 points at IHG hotels worldwide; book within 12 months of issuance. Note: on this legacy card the certificate CANNOT be topped off with points (a Premier-only feature). Valued around $300."
+    },
+    {
+     "benefit": "10% Points Rebate",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "The crown jewel of this discontinued card: get 10% of redeemed points back, up to 100,000 points returned per year. This perk alone is why people refuse to give this card up."
+    },
+    {
+     "benefit": "IHG Platinum Elite Status",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Automatic Platinum Elite for as long as you hold the card: upgrades when available, 60% point bonus, priority check-in, late checkout."
+    },
+    {
+     "benefit": "4th Reward Night Free",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Redeem points for 4+ consecutive nights and the 4th night is free - applies to IHG cardmembers, uncapped, repeatable."
+    },
+    {
+     "benefit": "$49 Annual Fee - Never Product Change",
+     "value": 0,
+     "reset": "Card Anniversary",
+     "desc": "Reminder entry: this card is discontinued and cannot be reopened. At $49 with an anniversary night + 10% rebate, it is one of the best keeper cards in existence. Do not upgrade, downgrade, or close it."
+    }
+   ]
+  },
+  "Citi Strata Elite": {
+   "meta": "Citi Strata Elite - $595 AF",
+   "tab_label": "Citi Elite",
+   "annual_fee": 595,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "$300 Annual Hotel Benefit",
+     "value": 300,
+     "reset": "Calendar Year",
+     "desc": "Once per calendar year: $300 off a single prepaid hotel stay of 2+ nights (pre-tax) booked through Citi Travel - works at ANY hotel on the portal, not a curated list. Applied at booking."
+    },
+    {
+     "benefit": "$200 Splurge Credit",
+     "value": 200,
+     "reset": "Calendar Year",
+     "desc": "Up to $200/calendar year at your choice of up to 2 brands: American Airlines (book direct on aa.com), Best Buy, Live Nation/Ticketmaster, 1stDibs, Future Personal Training. Activate your merchant picks in your Citi account first; you can change them anytime."
+    },
+    {
+     "benefit": "$200 Blacklane Chauffeur Credit",
+     "value": 100,
+     "reset": "Semi-Annual",
+     "desc": "Up to $100 back Jan-Jun and $100 Jul-Dec on Blacklane premium chauffeur bookings. No registration - pay with the card and the credit posts automatically. Current H2 window shown."
+    },
+    {
+     "benefit": "4 Admirals Club Passes",
+     "value": 300,
+     "reset": "Calendar Year",
+     "desc": "Four 24-hour Admirals Club lounge passes per calendar year (over $300 value), deposited to your AAdvantage wallet. Each admits you + 1 adult guest + up to 3 kids; requires same-day AA/oneworld boarding pass. Unused passes expire Dec 31."
+    },
+    {
+     "benefit": "Priority Pass Select",
+     "value": 469,
+     "reset": "Per Stay",
+     "desc": "Complimentary Priority Pass Select ($469 value) for primary, authorized users, and up to 2 guests - 1,500+ lounges worldwide."
+    },
+    {
+     "benefit": "Global Entry / TSA PreCheck Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "Up to $120 application fee credit every 4 years. Mark USED after redeeming."
+    },
+    {
+     "benefit": "The Reserve by Citi Travel Perks",
+     "value": 100,
+     "reset": "Per Stay",
+     "desc": "On stays at The Reserve collection (4.5-5 star hotels via Citi Travel): about $100 experience credit, daily breakfast for 2, upgrade + early/late checkout when available."
+    }
+   ]
+  },
+  "Sapphire Preferred": {
+   "meta": "Chase - $95 AF",
+   "tab_label": "CSP",
+   "annual_fee": 95,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "$100 Chase Travel Hotel Credit",
+     "value": 100,
+     "reset": "Card Anniversary",
+     "desc": "Up to $100 back each account anniversary year on prepaid hotel stays booked through Chase Travel (doubled from $50 in the June 2026 refresh). No minimum stay - applies automatically."
+    },
+    {
+     "benefit": "Global Entry / TSA / NEXUS Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "Up to $120 application fee credit every 4 years - added June 2026. Mark USED after redeeming."
+    },
+    {
+     "benefit": "Apple TV Subscription (1 year)",
+     "value": 156,
+     "reset": "Calendar Year",
+     "desc": "Complimentary one-year Apple TV subscription when activated by Dec 31, 2026 (a $156 value)."
+    },
+    {
+     "benefit": "DashPass + $10 Monthly Promo",
+     "value": 10,
+     "reset": "Monthly",
+     "desc": "Complimentary DashPass through Dec 31, 2027, plus a $10 monthly promo on non-restaurant DoorDash orders."
+    },
+    {
+     "benefit": "10% Anniversary Points Bonus",
+     "value": 0,
+     "reset": "Card Anniversary",
+     "desc": "Earn bonus points equal to 10% of your total prior-year purchases each account anniversary."
+    },
+    {
+     "benefit": "5x Chase Travel / 3x Dining, Streaming, Groceries, Gas",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "5x on Chase Travel; 3x dining, select streaming, online groceries, gas + EV charging, and vacation rentals (Airbnb/Vrbo); 2x other travel. Note: Hyatt point transfers moved to 4:3 in 2026."
+    }
+   ]
+  },
+  "Freedom Unlimited": {
+   "meta": "Chase - $0 AF",
+   "tab_label": "Freedom Unl",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "1.5% Everything / 3% Dining + Drugstores",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "1.5% back on all purchases, 3% on dining and drugstores, 5% on Chase Travel. Points pool with Sapphire cards for transfer partners."
+    },
+    {
+     "benefit": "DashPass (3 months) + Instacart Perks",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Complimentary DashPass trial and quarterly Instacart credits during current promo periods - check the Chase benefits hub for end dates."
+    }
+   ]
+  },
+  "Freedom Flex": {
+   "meta": "Chase - $0 AF",
+   "tab_label": "Freedom Flex",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5% Rotating Quarterly Categories",
+     "value": 0,
+     "reset": "Quarterly",
+     "desc": "5% back on rotating categories (activate each quarter, $1,500 cap), 3% dining + drugstores, 5% Chase Travel, 1% everything else. Use the quarter toggles to track activation."
+    },
+    {
+     "benefit": "Cellphone Protection",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Up to $800 per claim in cellphone damage/theft protection when you pay your phone bill with the card ($50 deductible)."
+    }
+   ]
+  },
+  "Prime Visa": {
+   "meta": "Chase x Amazon - $0 AF (Prime req.)",
+   "tab_label": "Prime Visa",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5% Amazon, Whole Foods, Chase Travel",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "5% back at Amazon.com, Amazon Fresh, Whole Foods, and Chase Travel with an eligible Prime membership; 2% gas, restaurants, transit."
+    }
+   ]
+  },
+  "United Gateway": {
+   "meta": "Chase x United - $0 AF",
+   "tab_label": "Gateway",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "2x United, Gas, Local Transit",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "2x miles on United purchases, gas stations, and local transit; 25% back on United inflight and Club premium drink purchases."
+    }
+   ]
+  },
+  "United Explorer": {
+   "meta": "Chase x United - $150 AF ($0 yr 1)",
+   "tab_label": "Explorer",
+   "annual_fee": 150,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "2 United Club One-Time Passes",
+     "value": 100,
+     "reset": "Card Anniversary",
+     "desc": "Two United Club one-time passes each account anniversary year."
+    },
+    {
+     "benefit": "$60 Rideshare Credit",
+     "value": 5,
+     "reset": "Monthly",
+     "desc": "$5 monthly in rideshare statement credits (activation required) - part of the 2025 refresh's 'over $500 in partner credits.'"
+    },
+    {
+     "benefit": "$100 Avis / Budget Car Rental Credit",
+     "value": 100,
+     "reset": "Calendar Year",
+     "desc": "Up to $100 back annually on prepaid Avis or Budget rentals booked through cars.united.com."
+    },
+    {
+     "benefit": "10,000-Mile Award Discount ($20K spend)",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "Spend $20K in a calendar year to unlock a 10,000-mile discount on a United award flight."
+    },
+    {
+     "benefit": "Free First Checked Bag + Priority Boarding",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "First checked bag free for you and a companion on United (pay with the card), plus priority boarding and 25% back inflight."
+    },
+    {
+     "benefit": "Global Entry / TSA / NEXUS Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "Up to $120 application fee credit every 4 years. Mark USED after redeeming."
+    }
+   ]
+  },
+  "United Quest": {
+   "meta": "Chase x United - $350 AF",
+   "tab_label": "Quest",
+   "annual_fee": 350,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "$200 United TravelBank Credit",
+     "value": 200,
+     "reset": "Calendar Year",
+     "desc": "$200 deposited to your United TravelBank annually (replaced the old $125 credit in the 2025 refresh)."
+    },
+    {
+     "benefit": "10,000-Mile Award Flight Discount",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "One 10,000-mile award discount annually, plus a second after $20K calendar-year spend."
+    },
+    {
+     "benefit": "1,000 PQP Bonus",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "1,000 Premier qualifying points awarded after Feb 1 each year (account must be open by Dec 31 prior). Earn 1 PQP per $20, up to 18,000/yr."
+    },
+    {
+     "benefit": "Renowned Hotels On-Property Perks",
+     "value": 100,
+     "reset": "Per Stay",
+     "desc": "$100 property credit, daily breakfast for two, Wi-Fi, upgrade and early/late checkout when available via Renowned Hotels & Resorts."
+    },
+    {
+     "benefit": "Free First + Second Checked Bags",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Two free checked bags for you and a companion on United, plus priority boarding and 25% back inflight."
+    },
+    {
+     "benefit": "Global Entry / TSA / NEXUS Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "Up to $120 application fee credit every 4 years."
+    }
+   ]
+  },
+  "United Club Infinite": {
+   "meta": "Chase x United - $695 AF",
+   "tab_label": "United Club",
+   "annual_fee": 695,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "United Club Membership",
+     "value": 750,
+     "reset": "Per Stay",
+     "desc": "Full access to United-branded Club lounges (2026 change: partner lounges now require Premier Gold or $50K annual spend)."
+    },
+    {
+     "benefit": "$200 Renowned Hotels Credit",
+     "value": 200,
+     "reset": "Calendar Year",
+     "desc": "Up to $200 annually toward Renowned Hotels & Resorts stays, plus on-property perks."
+    },
+    {
+     "benefit": "$240 Instacart Credit + Instacart+",
+     "value": 20,
+     "reset": "Monthly",
+     "desc": "Two $10 Instacart credits monthly plus complimentary Instacart+ membership (through the current promo period)."
+    },
+    {
+     "benefit": "Up to 20,000 Miles in Award Discounts",
+     "value": 240,
+     "reset": "Calendar Year",
+     "desc": "Up to 20,000 miles in United award flight discounts annually."
+    },
+    {
+     "benefit": "1,500 PQP Bonus",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "1,500 Premier qualifying points after Feb 1 each year; earn 1 PQP per $15 spent, up to 28,000/yr."
+    },
+    {
+     "benefit": "Free 1st + 2nd Bags, Premier Access, IHG Platinum",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Two free bags for you + companion, Premier Access travel services, 25% back inflight, and complimentary IHG Platinum Elite status."
+    },
+    {
+     "benefit": "Global Entry / TSA / NEXUS Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "Up to $120 application fee credit every 4 years."
+    }
+   ]
+  },
+  "Southwest Plus": {
+   "meta": "Chase x Southwest - $99 AF",
+   "tab_label": "SW Plus",
+   "annual_fee": 99,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "3,000 Anniversary Points",
+     "value": 45,
+     "reset": "Card Anniversary",
+     "desc": "3,000 Rapid Rewards points each cardmember anniversary."
+    },
+    {
+     "benefit": "10,000 Companion Pass Qualifying Points Boost",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "10,000 CP qualifying points credited toward Companion Pass qualification each calendar year."
+    },
+    {
+     "benefit": "$120 Instacart Credit ($10/mo)",
+     "value": 10,
+     "reset": "Monthly",
+     "desc": "$10 monthly Instacart credit plus 3 months of Instacart+ during the current promo period."
+    },
+    {
+     "benefit": "2x Southwest / 2x Grocery + Gas ($5K cap)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "2x on Southwest purchases and on groceries + gas (first $5K/yr combined); standard seat selection within 48 hours of departure."
+    }
+   ]
+  },
+  "Southwest Premier": {
+   "meta": "Chase x Southwest - $149 AF",
+   "tab_label": "SW Premier",
+   "annual_fee": 149,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "6,000 Anniversary Points",
+     "value": 90,
+     "reset": "Card Anniversary",
+     "desc": "6,000 Rapid Rewards points each cardmember anniversary."
+    },
+    {
+     "benefit": "10,000 Companion Pass Qualifying Points Boost",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "10,000 CP qualifying points toward Companion Pass each year."
+    },
+    {
+     "benefit": "$120 Instacart Credit ($10/mo)",
+     "value": 10,
+     "reset": "Monthly",
+     "desc": "$10 monthly Instacart credit plus Instacart+ trial during the current promo period."
+    },
+    {
+     "benefit": "3x Southwest / Preferred Seat 48h / No FTF",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3x on Southwest; 2x grocery + restaurants (first $8K/yr); complimentary Preferred seat within 48 hours of departure when available; no foreign transaction fees."
+    }
+   ]
+  },
+  "Southwest Priority": {
+   "meta": "Chase x Southwest - $229 AF",
+   "tab_label": "SW Priority",
+   "annual_fee": 229,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "$75 Southwest Travel Credit",
+     "value": 75,
+     "reset": "Card Anniversary",
+     "desc": "$75 in statement credits toward Southwest purchases each cardmember anniversary year."
+    },
+    {
+     "benefit": "7,500 Anniversary Points",
+     "value": 112,
+     "reset": "Card Anniversary",
+     "desc": "7,500 Rapid Rewards points each cardmember anniversary."
+    },
+    {
+     "benefit": "4 Upgraded Boardings Per Year",
+     "value": 120,
+     "reset": "Card Anniversary",
+     "desc": "Reimbursement for up to four Upgraded Boardings each anniversary year."
+    },
+    {
+     "benefit": "10,000 Companion Pass Qualifying Points Boost",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "10,000 CP qualifying points toward Companion Pass each year."
+    },
+    {
+     "benefit": "$120 Instacart Credit ($10/mo)",
+     "value": 10,
+     "reset": "Monthly",
+     "desc": "$10 monthly Instacart credit plus Instacart+ trial during the current promo period."
+    },
+    {
+     "benefit": "4x Southwest / Preferred Seat at Booking / 25% Inflight",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "4x on Southwest purchases, Preferred or Standard seat selection at booking when available, and 25% back on inflight purchases."
+    }
+   ]
+  },
+  "Marriott Bold": {
+   "meta": "Chase x Marriott - $0 AF",
+   "tab_label": "Bold",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5 Elite Night Credits + Silver Status",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "5 Elite Night Credits per calendar year and automatic Silver Elite status; 3x Marriott, 2x other travel."
+    }
+   ]
+  },
+  "Marriott Boundless": {
+   "meta": "Chase x Marriott - $95 AF",
+   "tab_label": "Boundless",
+   "annual_fee": 95,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "35K Free Night Award",
+     "value": 250,
+     "reset": "Card Anniversary",
+     "desc": "Free Night Award up to 35,000 points each account anniversary; top off with up to 15,000 points."
+    },
+    {
+     "benefit": "15 Elite Night Credits + Silver Status",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "15 Elite Night Credits per calendar year; Gold status at $35K annual spend."
+    },
+    {
+     "benefit": "6x Marriott / 3x Grocery, Gas, Dining ($6K cap)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "6x at Marriott, 3x on the first $6K/yr combined at grocery, gas, and dining."
+    }
+   ]
+  },
+  "IHG Traveler": {
+   "meta": "Chase x IHG - $0 AF",
+   "tab_label": "IHG Traveler",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "4th Reward Night Free + Silver Status",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Fourth night free on points stays of 4+ nights, Silver Elite status, and up to 17x total at IHG hotels."
+    }
+   ]
+  },
+  "IHG Premier": {
+   "meta": "Chase x IHG - $99 AF",
+   "tab_label": "IHG Premier",
+   "annual_fee": 99,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "Anniversary Free Night (40K, top-off allowed)",
+     "value": 300,
+     "reset": "Card Anniversary",
+     "desc": "Free night up to 40,000 points each anniversary - unlike the legacy Select, this one CAN be topped off with points for pricier hotels."
+    },
+    {
+     "benefit": "$50 United TravelBank Cash",
+     "value": 25,
+     "reset": "Semi-Annual",
+     "desc": "$25 deposited around Jan 1 and $25 around Jul 1 after registering your card with MileagePlus."
+    },
+    {
+     "benefit": "$100 Credit + 10K Points ($20K spend)",
+     "value": 100,
+     "reset": "Calendar Year",
+     "desc": "Spend $20K in a calendar year for a $100 statement credit plus 10,000 bonus points."
+    },
+    {
+     "benefit": "Platinum Elite + 4th Night Free",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Automatic Platinum Elite status, fourth reward night free, and up to 26x total at IHG. Diamond status at $40K calendar spend."
+    },
+    {
+     "benefit": "Global Entry / TSA / NEXUS Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "Up to $120 application fee credit every 4 years."
+    }
+   ]
+  },
+  "World of Hyatt": {
+   "meta": "Chase x Hyatt - $95 AF",
+   "tab_label": "Hyatt",
+   "annual_fee": 95,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "Category 1-4 Free Night",
+     "value": 200,
+     "reset": "Card Anniversary",
+     "desc": "One free night at any Category 1-4 Hyatt each cardmember anniversary. Note: Hyatt moved 112 hotels UP in category for 2026 - check your target hotel is still Cat 4 or below."
+    },
+    {
+     "benefit": "2nd Cat 1-4 Free Night ($15K spend)",
+     "value": 200,
+     "reset": "Calendar Year",
+     "desc": "Earn a second Category 1-4 free night after $15K in calendar-year spend."
+    },
+    {
+     "benefit": "5 Elite Night Credits + Discoverist",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "5 qualifying night credits each year (plus 2 more per $5K spent) and automatic Discoverist status."
+    },
+    {
+     "benefit": "4x Hyatt / 2x Dining, Airlines, Gym, Transit",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "4x at Hyatt properties; 2x dining, airline tickets, fitness clubs, and local transit."
+    }
+   ]
+  },
+  "Aeroplan Card": {
+   "meta": "Chase x Air Canada - $95 AF",
+   "tab_label": "Aeroplan",
+   "annual_fee": 95,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "Free First Checked Bag",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "First checked bag free for you and up to 8 companions on Air Canada itineraries."
+    },
+    {
+     "benefit": "3x Air Canada, Dining, Groceries",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3x points on Air Canada, dining, and grocery stores; 500 bonus points per $2K spent monthly (up to 1,500/mo)."
+    },
+    {
+     "benefit": "Global Entry / TSA / NEXUS Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "Up to $120 application fee credit every 4 years."
+    }
+   ]
+  },
+  "Amex Green": {
+   "meta": "American Express - $150 AF",
+   "tab_label": "Green",
+   "annual_fee": 150,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "$219 CLEAR+ Credit",
+     "value": 219,
+     "reset": "Calendar Year",
+     "desc": "Covers a CLEAR+ membership paid with the Green card each calendar year (matched to CLEAR's Jul 2026 price increase)."
+    },
+    {
+     "benefit": "3x Travel, Transit, Dining",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3x Membership Rewards on travel, transit (rideshare, subway, tolls), and restaurants worldwide."
+    }
+   ]
+  },
+  "Amex EveryDay": {
+   "meta": "American Express - $0 AF",
+   "tab_label": "EveryDay",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "2x U.S. Supermarkets + 20% Swipe Bonus",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "2x at U.S. supermarkets (first $6K/yr) and a 20% points bonus in billing periods with 20+ purchases. Entry point to Membership Rewards transfers."
+    }
+   ]
+  },
+  "Blue Cash Everyday": {
+   "meta": "American Express - $0 AF",
+   "tab_label": "BCE",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "3% Groceries, Gas, Online Retail",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3% back at U.S. supermarkets, U.S. gas stations, and U.S. online retail (each up to $6K/yr, then 1%)."
+    },
+    {
+     "benefit": "Disney Bundle Credit",
+     "value": 7,
+     "reset": "Monthly",
+     "desc": "$7/month back on a $9.99+ Disney Bundle subscription (enrollment required, while offered)."
+    }
+   ]
+  },
+  "Blue Cash Preferred": {
+   "meta": "American Express - $95 AF ($0 yr 1)",
+   "tab_label": "BCP",
+   "annual_fee": 95,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "6% U.S. Supermarkets + Streaming",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "6% at U.S. supermarkets (up to $6K/yr) and 6% on select U.S. streaming; 3% transit and U.S. gas."
+    },
+    {
+     "benefit": "Disney Bundle Credit",
+     "value": 7,
+     "reset": "Monthly",
+     "desc": "$7/month back on a $9.99+ Disney Bundle subscription (enrollment required, while offered)."
+    }
+   ]
+  },
+  "Delta SkyMiles Blue": {
+   "meta": "Amex x Delta - $0 AF",
+   "tab_label": "Delta Blue",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "2x Delta + Restaurants",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "2x miles on Delta purchases and at restaurants worldwide; 20% back on Delta inflight purchases."
+    }
+   ]
+  },
+  "Delta SkyMiles Gold": {
+   "meta": "Amex x Delta - $150 AF ($0 yr 1)",
+   "tab_label": "Delta Gold",
+   "annual_fee": 150,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "$120 Rideshare Credit",
+     "value": 10,
+     "reset": "Monthly",
+     "desc": "$10/month in rideshare statement credits (added June 2026; enrollment required)."
+    },
+    {
+     "benefit": "$200 Delta Flight Credit ($10K spend)",
+     "value": 200,
+     "reset": "Calendar Year",
+     "desc": "Spend $10K in a calendar year to receive a $200 Delta flight credit."
+    },
+    {
+     "benefit": "$100 Delta Stays Credit",
+     "value": 100,
+     "reset": "Calendar Year",
+     "desc": "Up to $100 back annually on prepaid Delta Stays hotel bookings."
+    },
+    {
+     "benefit": "Free 1st + 2nd Checked Bags",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "First checked bag free on Delta flights - and as of June 2026, the second domestic bag is free too. 2x on Delta, restaurants, U.S. supermarkets."
+    }
+   ]
+  },
+  "Delta SkyMiles Platinum": {
+   "meta": "Amex x Delta - $350 AF",
+   "tab_label": "Delta Plat",
+   "annual_fee": 350,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "Companion Certificate",
+     "value": 400,
+     "reset": "Card Anniversary",
+     "desc": "Annual Delta Main round-trip companion certificate (domestic, Caribbean, Central America) issued at each card renewal - pay only taxes/fees of $22-$250."
+    },
+    {
+     "benefit": "$120 Rideshare Credit",
+     "value": 10,
+     "reset": "Monthly",
+     "desc": "$10/month in rideshare statement credits (enrollment required)."
+    },
+    {
+     "benefit": "$120 Resy Dining Credit",
+     "value": 10,
+     "reset": "Monthly",
+     "desc": "$10/month back at U.S. Resy restaurants (enrollment required)."
+    },
+    {
+     "benefit": "$150 Delta Stays Credit",
+     "value": 150,
+     "reset": "Calendar Year",
+     "desc": "Up to $150 back annually on prepaid Delta Stays bookings."
+    },
+    {
+     "benefit": "MQD Headstart + Free Bags",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "$2,500 MQD Headstart toward Medallion status each year, $1 MQD per $20 spent, first + second checked bags free, and fee-free award taxes on the companion cert booking."
+    }
+   ]
+  },
+  "Delta SkyMiles Reserve": {
+   "meta": "Amex x Delta - $650 AF",
+   "tab_label": "Delta Reserve",
+   "annual_fee": 650,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "First-Class Companion Certificate",
+     "value": 700,
+     "reset": "Card Anniversary",
+     "desc": "Annual companion certificate valid in Delta First, Premium Select, Comfort+, or Main (domestic, Caribbean, Central America) at each renewal."
+    },
+    {
+     "benefit": "$240 Resy Dining Credit",
+     "value": 20,
+     "reset": "Monthly",
+     "desc": "$20/month back at U.S. Resy restaurants (enrollment required)."
+    },
+    {
+     "benefit": "$120 Rideshare Credit",
+     "value": 10,
+     "reset": "Monthly",
+     "desc": "$10/month in rideshare statement credits (enrollment required)."
+    },
+    {
+     "benefit": "$200 Delta Stays Credit",
+     "value": 200,
+     "reset": "Calendar Year",
+     "desc": "Up to $200 back annually on prepaid Delta Stays bookings."
+    },
+    {
+     "benefit": "Delta Sky Club + Centurion Access",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "15 Sky Club visits per year (unlimited after $75K spend) plus Amex Centurion Lounge access when flying Delta; free 1st + 2nd bags; $2,500 MQD Headstart."
+    }
+   ]
+  },
+  "Hilton Honors Card": {
+   "meta": "Amex x Hilton - $0 AF",
+   "tab_label": "Hilton",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "Silver Status + 7x Hilton",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Automatic Hilton Silver status (Gold at $20K calendar spend); 7x at Hilton, 5x U.S. restaurants, supermarkets, and gas."
+    }
+   ]
+  },
+  "Hilton Surpass": {
+   "meta": "Amex x Hilton - $150 AF",
+   "tab_label": "Surpass",
+   "annual_fee": 150,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "$200 Hilton Credit ($50/quarter)",
+     "value": 50,
+     "reset": "Quarterly",
+     "desc": "Up to $50 back each quarter on purchases made directly with Hilton properties."
+    },
+    {
+     "benefit": "Gold Status + Free Night at $15K",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "Automatic Hilton Gold (Diamond at $40K calendar spend) and a Free Night Reward after $15K in calendar-year spend."
+    },
+    {
+     "benefit": "12x Hilton / 6x Dining, Supermarkets, Gas",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "12x at Hilton, 6x at U.S. restaurants, supermarkets, and gas stations, 4x U.S. online retail."
+    }
+   ]
+  },
+  "Citi Double Cash": {
+   "meta": "Citi - $0 AF",
+   "tab_label": "Double Cash",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "2% on Everything (1% + 1%)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "1% when you buy plus 1% when you pay, on every purchase. Earns ThankYou points that can pool with premium Citi cards."
+    }
+   ]
+  },
+  "Citi Custom Cash": {
+   "meta": "Citi - $0 AF",
+   "tab_label": "Custom Cash",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5% Top Category (auto, $500/mo)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "5% back automatically in your top eligible spend category each billing cycle (up to $500 spend), including restaurants, groceries, gas, and travel."
+    }
+   ]
+  },
+  "Citi Strata": {
+   "meta": "Citi - $0 AF",
+   "tab_label": "Strata",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "3x Dining, Groceries, Gas, EV / 2x Online",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3x ThankYou points on dining, supermarkets, gas and EV charging; 2x online retail; annual 10% points-back on redemptions up to 100K points."
+    }
+   ]
+  },
+  "Costco Anywhere Visa": {
+   "meta": "Citi x Costco - $0 AF (membership req.)",
+   "tab_label": "Costco",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5% Costco Gas / 4% Travel / 3% Dining",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "5% on gas at Costco (4% elsewhere, $7K/yr cap), 3% restaurants and travel, 2% Costco and Costco.com. Rewards paid as an annual certificate."
+    }
+   ]
+  },
+  "AAdvantage MileUp": {
+   "meta": "Citi x American - $0 AF",
+   "tab_label": "MileUp",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "2x American Airlines + Groceries",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "2x AAdvantage miles on AA purchases and at grocery stores; 25% off AA inflight food and beverage."
+    }
+   ]
+  },
+  "AAdvantage Platinum Select": {
+   "meta": "Citi x American - $99 AF ($0 yr 1)",
+   "tab_label": "AA Plat",
+   "annual_fee": 99,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "$125 AA Flight Discount ($20K spend)",
+     "value": 125,
+     "reset": "Calendar Year",
+     "desc": "Spend $20K in a cardmember year to earn a $125 American Airlines flight discount."
+    },
+    {
+     "benefit": "Free First Checked Bag + Priority Boarding",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "First bag free for you and up to 4 companions on domestic AA itineraries, preferred boarding, and 25% off inflight purchases. Note: Citi is now AA's sole card issuer - legacy Barclays Aviator cards converted to this product in April 2026."
+    },
+    {
+     "benefit": "2x AA, Gas, Restaurants",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "2x AAdvantage miles on American Airlines, gas stations, and restaurants; 1 Loyalty Point per $1."
+    }
+   ]
+  },
+  "AAdvantage Executive": {
+   "meta": "Citi x American - $595 AF",
+   "tab_label": "AA Exec",
+   "annual_fee": 595,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "Admirals Club Membership",
+     "value": 850,
+     "reset": "Per Stay",
+     "desc": "Full Admirals Club membership for the primary cardholder (authorized users get club access when traveling on AA)."
+    },
+    {
+     "benefit": "$120 Grubhub Credit ($10/mo)",
+     "value": 10,
+     "reset": "Monthly",
+     "desc": "$10/month in Grubhub statement credits."
+    },
+    {
+     "benefit": "$120 Lyft Credit ($10/mo after 3 rides)",
+     "value": 10,
+     "reset": "Monthly",
+     "desc": "$10 in Lyft credits each month after taking 3 eligible rides."
+    },
+    {
+     "benefit": "Loyalty Point Bonuses ($40K / $90K spend)",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "10,000 bonus Loyalty Points at $40K and again at $90K in a status qualification year; 4x miles on AA purchases (5x after $150K)."
+    },
+    {
+     "benefit": "Free First Bag + Global Entry Credit",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "First bag free for you and up to 8 companions, priority check-in and screening, plus a Global Entry/TSA credit every 4 years."
+    }
+   ]
+  },
+  "VentureOne": {
+   "meta": "Capital One - $0 AF",
+   "tab_label": "VentureOne",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "1.25x Everything + Transfer Partners",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "1.25x miles on every purchase, 5x on Capital One Travel hotels and cars, with full access to Capital One's transfer partners."
+    }
+   ]
+  },
+  "Venture": {
+   "meta": "Capital One - $95 AF",
+   "tab_label": "Venture",
+   "annual_fee": 95,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "2x Everything",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "2x miles on every purchase, 5x on Capital One Travel hotels and cars, transferable to 15+ partners."
+    },
+    {
+     "benefit": "Global Entry / TSA PreCheck Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "Up to $120 application fee credit every 4 years."
+    },
+    {
+     "benefit": "2 Capital One Lounge Passes",
+     "value": 0,
+     "reset": "Card Anniversary",
+     "desc": "Two Capital One Lounge or Landing passes each account anniversary year (current benefit - confirm in your account)."
+    }
+   ]
+  },
+  "Savor": {
+   "meta": "Capital One - $0 AF",
+   "tab_label": "Savor",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "3% Dining, Entertainment, Groceries, Streaming",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3% back on dining, entertainment, popular streaming, and grocery stores (excl. superstores); 8% on Capital One Entertainment; 5% on Capital One Travel."
+    }
+   ]
+  },
+  "Quicksilver": {
+   "meta": "Capital One - $0 AF",
+   "tab_label": "Quicksilver",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "1.5% on Everything",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited 1.5% cash back on every purchase, 5% on Capital One Travel hotels and rental cars."
+    }
+   ]
+  },
+  "Active Cash": {
+   "meta": "Wells Fargo - $0 AF",
+   "tab_label": "Active Cash",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "2% on Everything",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited 2% cash rewards on purchases, plus cellphone protection up to $600 when you pay your phone bill with the card."
+    }
+   ]
+  },
+  "Autograph": {
+   "meta": "Wells Fargo - $0 AF",
+   "tab_label": "Autograph",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "3x Restaurants, Travel, Gas, Transit, Streaming, Phone",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3x points across six everyday categories with no annual fee, plus cellphone protection."
+    }
+   ]
+  },
+  "Autograph Journey": {
+   "meta": "Wells Fargo - $95 AF",
+   "tab_label": "Journey",
+   "annual_fee": 95,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "$50 Airline Credit",
+     "value": 50,
+     "reset": "Card Anniversary",
+     "desc": "$50 statement credit each cardmember year with a $50+ airline purchase."
+    },
+    {
+     "benefit": "5x Hotels / 4x Airlines / 3x Other Travel + Dining",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "5x on hotels, 4x on airlines, 3x on other travel and restaurants, with point transfers to airline and hotel partners."
+    }
+   ]
+  },
+  "Bilt Blue": {
+   "meta": "Bilt x Cardless - $0 AF",
+   "tab_label": "Bilt Blue",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "Points on Rent + Mortgage",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Earn Bilt points on rent AND (new for 2026) eligible mortgage payments with no transaction fee - the no-fee tier of the Feb 2026 Bilt Card 2.0 lineup issued via Cardless/Column."
+    }
+   ]
+  },
+  "Bilt Obsidian": {
+   "meta": "Bilt x Cardless - $95 AF",
+   "tab_label": "Obsidian",
+   "annual_fee": 95,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "Choose-Your-3x (Dining or Grocery)",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "Pick dining or grocery as your 3x category for the year (grocery capped at $25K/yr)."
+    },
+    {
+     "benefit": "Bilt Travel Hotel Credits",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "Hotel credits for Bilt Travel bookings - amounts per current Bilt terms; verify in your Bilt account."
+    },
+    {
+     "benefit": "Points on Rent + Mortgage",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Earn on rent and eligible mortgage payments fee-free."
+    }
+   ]
+  },
+  "Bilt Palladium": {
+   "meta": "Bilt x Cardless - $495 AF",
+   "tab_label": "Palladium",
+   "annual_fee": 495,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "Annual Bilt Cash",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "Annual Bilt Cash allowance usable on monthly credits (restaurants, hotels, rideshare) or to unlock housing rewards - amount per current Bilt terms."
+    },
+    {
+     "benefit": "Bilt Travel Hotel Credits",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "Premium-tier hotel credits for Bilt Travel bookings."
+    },
+    {
+     "benefit": "Priority Pass + Rent/Mortgage Earning",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Priority Pass lounge access plus top earning rates on rent, mortgage, and everyday spend."
+    }
+   ]
+  },
+  "BofA Customized Cash": {
+   "meta": "Bank of America - $0 AF",
+   "tab_label": "BofA CCR",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "3% Category of Choice",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3% in a category you choose (online shopping, gas/EV, dining, travel, drugstores, home improvement), 2% grocery/wholesale - on the first $2,500/quarter combined. Preferred Rewards boosts up to 75%."
+    }
+   ]
+  },
+  "BofA Unlimited Cash": {
+   "meta": "Bank of America - $0 AF",
+   "tab_label": "Unlim Cash",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "1.5% on Everything",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited 1.5% cash back, boosted up to 2.62% with Preferred Rewards Platinum Honors."
+    }
+   ]
+  },
+  "BofA Travel Rewards": {
+   "meta": "Bank of America - $0 AF",
+   "tab_label": "Travel Rew",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "1.5x on Everything (Travel Redemption)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited 1.5 points per $1 redeemable against any travel purchase; Preferred Rewards boosts up to 2.62x."
+    }
+   ]
+  },
+  "BofA Premium Rewards": {
+   "meta": "Bank of America - $95 AF",
+   "tab_label": "Prem Rew",
+   "annual_fee": 95,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "$100 Airline Incidental Credit",
+     "value": 100,
+     "reset": "Calendar Year",
+     "desc": "Up to $100 annually for airline incidentals (seat fees, bags, lounge passes) - automatic."
+    },
+    {
+     "benefit": "Global Entry / TSA Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "Up to $120 application fee credit every 4 years."
+    },
+    {
+     "benefit": "2x Travel + Dining / 1.5x Everything",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "2 points per $1 on travel and dining, 1.5x elsewhere; Preferred Rewards boosts up to 3.5x/2.62x."
+    }
+   ]
+  },
+  "BofA Premium Rewards Elite": {
+   "meta": "Bank of America - $550 AF",
+   "tab_label": "PRE",
+   "annual_fee": 550,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "$300 Airline Incidental Credit",
+     "value": 300,
+     "reset": "Calendar Year",
+     "desc": "Up to $300 annually for airline incidental fees - automatic."
+    },
+    {
+     "benefit": "$150 Lifestyle Credit",
+     "value": 150,
+     "reset": "Calendar Year",
+     "desc": "Up to $150 annually for lifestyle purchases (streaming, food delivery, rideshare, fitness)."
+    },
+    {
+     "benefit": "Priority Pass + 20% Airfare Discount",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Priority Pass Select memberships (up to 4), 20% off pay-with-points airfare, Global Entry credit, and Preferred Rewards boosts."
+    }
+   ]
+  },
+  "Atmos Rewards Ascent": {
+   "meta": "BofA x Alaska/Hawaiian - $95 AF",
+   "tab_label": "Atmos Ascent",
+   "annual_fee": 95,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "$99 Companion Fare",
+     "value": 400,
+     "reset": "Card Anniversary",
+     "desc": "Companion flies for $99 + taxes (from $23) on Alaska or Hawaiian, issued each account anniversary after $6,000 spend in the prior year (legacy cardholders exempt from the spend requirement)."
+    },
+    {
+     "benefit": "Free First Bag + Priority Boarding (+6 Guests)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "First checked bag free and priority boarding for you and up to six guests on the same reservation when you pay with the card."
+    },
+    {
+     "benefit": "3x Alaska + Hawaiian / 2x Gas, Transit, Streaming",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3x on Alaska and Hawaiian purchases; 2x on gas, EV charging, cable, streaming, and local transit; 10% points bonus with an eligible BofA account."
+    }
+   ]
+  },
+  "Atmos Rewards Summit": {
+   "meta": "BofA x Alaska/Hawaiian - $395 AF",
+   "tab_label": "Atmos Summit",
+   "annual_fee": 395,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "Global Companion Award (25K)",
+     "value": 300,
+     "reset": "Card Anniversary",
+     "desc": "A 25,000-point Global Companion Award each account anniversary - plus a 100,000-point award after $60K spend in an anniversary year."
+    },
+    {
+     "benefit": "Alaska Lounge+ Membership",
+     "value": 650,
+     "reset": "Per Stay",
+     "desc": "Alaska Lounge+ membership plus free bags and priority boarding for you and guests on the same reservation."
+    }
+   ]
+  },
+  "US Bank Smartly": {
+   "meta": "U.S. Bank - $0 AF",
+   "tab_label": "Smartly",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "2%-4% on Everything (balance tiers)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "2% base on all purchases; 2.5% / 3% / 4% with $10K / $50K / $100K+ in eligible U.S. Bank balances (rules tightened for new cardholders in April 2025 - check your tier)."
+    }
+   ]
+  },
+  "US Bank Cash+": {
+   "meta": "U.S. Bank - $0 AF",
+   "tab_label": "Cash+",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5% Two Chosen Categories",
+     "value": 0,
+     "reset": "Quarterly",
+     "desc": "5% back on two categories you choose each quarter (first $2,000 combined), 2% on one everyday category. Re-select every quarter - use the toggles as your reminder."
+    }
+   ]
+  },
+  "Altitude Go": {
+   "meta": "U.S. Bank - $0 AF",
+   "tab_label": "Alt Go",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "4x Dining + $15 Streaming Credit",
+     "value": 15,
+     "reset": "Calendar Year",
+     "desc": "4x on dining, 2x groceries/gas/streaming, and a $15 annual credit for eligible streaming after 11 months."
+    }
+   ]
+  },
+  "Altitude Connect": {
+   "meta": "U.S. Bank - $0 AF",
+   "tab_label": "Alt Connect",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "4x Travel + Gas / $30 Streaming Credit",
+     "value": 30,
+     "reset": "Calendar Year",
+     "desc": "4x on travel and gas/EV stations, 2x groceries, dining, streaming; $30 annual streaming credit; TSA PreCheck/Global Entry credit every 4 years."
+    }
+   ]
+  },
+  "Altitude Reserve": {
+   "meta": "U.S. Bank - $400 AF (legacy, closed to new)",
+   "tab_label": "Alt Reserve",
+   "annual_fee": 400,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "$325 Travel Credit (US Bank Travel Center)",
+     "value": 325,
+     "reset": "Card Anniversary",
+     "desc": "Up to $325 per cardmember year - but as of Dec 15, 2025 it only applies to bookings through the U.S. Bank Travel Center (no longer all travel + dining)."
+    },
+    {
+     "benefit": "8 Priority Pass Visits",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "Eight Priority Pass visits per membership year - still usable at Priority Pass restaurants, a rarity."
+    },
+    {
+     "benefit": "3x Mobile Wallet (capped)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3x on mobile-wallet purchases, now capped at $5,000 per billing cycle (Dec 2025 change); points worth 1.5cpp on travel. Card is closed to new applicants - do not cancel if you value it."
+    }
+   ]
+  },
+  "JetBlue Card": {
+   "meta": "Barclays x JetBlue - $0 AF",
+   "tab_label": "JetBlue",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "3x JetBlue / 2x Dining + Groceries",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3x on JetBlue, 2x at restaurants and grocery stores, 50% off inflight food and drinks."
+    }
+   ]
+  },
+  "JetBlue Plus": {
+   "meta": "Barclays x JetBlue - $99 AF",
+   "tab_label": "JetBlue+",
+   "annual_fee": 99,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "5,000 Anniversary Points",
+     "value": 65,
+     "reset": "Card Anniversary",
+     "desc": "5,000 bonus points every year after your account anniversary."
+    },
+    {
+     "benefit": "$100 JetBlue Vacations Credit",
+     "value": 100,
+     "reset": "Calendar Year",
+     "desc": "$100 statement credit annually on a JetBlue Vacations package of $100+."
+    },
+    {
+     "benefit": "Free First Checked Bag + Mosaic Boost",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "First bag free for you and up to 3 companions, 50% off inflight purchases, 6x on JetBlue, and Mosaic status at $50K calendar spend."
+    }
+   ]
+  },
+  "Wyndham Earner": {
+   "meta": "Barclays x Wyndham - $0 AF",
+   "tab_label": "Wyndham",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "Gold Status + 5x Wyndham/Gas",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Automatic Wyndham Gold status, 5x at Wyndham hotels and gas, 2x groceries and dining."
+    }
+   ]
+  },
+  "Wyndham Earner+": {
+   "meta": "Barclays x Wyndham - $75 AF",
+   "tab_label": "Wyndham+",
+   "annual_fee": 75,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "7,500 Anniversary Points",
+     "value": 75,
+     "reset": "Card Anniversary",
+     "desc": "7,500 bonus points each account anniversary - enough for one free night at many Wyndham properties."
+    },
+    {
+     "benefit": "Platinum Status + 6x Wyndham/Gas",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Automatic Platinum status, 6x at Wyndham hotels and gas stations, 4x groceries and dining, 10% award discount."
+    }
+   ]
+  },
+  "Discover it Cash Back": {
+   "meta": "Discover - $0 AF",
+   "tab_label": "Discover it",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5% Rotating Quarterly Categories",
+     "value": 0,
+     "reset": "Quarterly",
+     "desc": "5% back on rotating categories each quarter (activation required, $1,500 cap), 1% elsewhere. First-year Cashback Match doubles everything you earn."
+    }
+   ]
+  },
+  "Discover it Miles": {
+   "meta": "Discover - $0 AF",
+   "tab_label": "Disc Miles",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "1.5x Miles on Everything",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited 1.5 miles per $1, first-year Mile-for-Mile match, miles redeemable against any travel purchase."
+    }
+   ]
+  },
+  "Apple Card": {
+   "meta": "Goldman Sachs x Apple - $0 AF",
+   "tab_label": "Apple",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "3% Apple + Select Merchants / 2% Apple Pay",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3% Daily Cash at Apple and select partners, 2% on everything via Apple Pay, 1% with the physical card. Daily Cash lands instantly."
+    }
+   ]
+  },
+  "PayPal Cashback": {
+   "meta": "Synchrony x PayPal - $0 AF",
+   "tab_label": "PayPal",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "3% PayPal Checkout / 1.5% Everywhere",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3% cash back when checking out with PayPal, 1.5% on everything else."
+    }
+   ]
+  },
+  "Fidelity Rewards Visa": {
+   "meta": "Elan x Fidelity - $0 AF",
+   "tab_label": "Fidelity",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "2% Into Your Fidelity Account",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited 2% back deposited automatically into an eligible Fidelity account (brokerage, IRA, 529, HSA)."
+    }
+   ]
+  },
+  "Robinhood Gold Card": {
+   "meta": "Robinhood - $0 AF (Gold sub req.)",
+   "tab_label": "Robinhood",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "3% on Everything (with Gold)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3% cash back on all purchases with an active Robinhood Gold subscription ($50/yr), 5% on Robinhood travel portal bookings."
+    }
+   ]
+  },
+  "Navy Federal cashRewards": {
+   "meta": "Navy Federal Credit Union - $0 AF",
+   "tab_label": "NFCU Cash",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "1.5%-2% on Everything",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "1.5% to 2% cash back on every purchase depending on creditworthiness at approval - one of the simplest flat-rate cards among credit unions. Membership required (military, DoD, family)."
+    }
+   ]
+  },
+  "Navy Federal More Rewards Amex": {
+   "meta": "Navy Federal Credit Union - $0 AF",
+   "tab_label": "NFCU More",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "3x Restaurants, Supermarkets, Gas, Transit",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3 points per $1 on restaurants, supermarkets, gas stations, and transit; 1 point per $1 elsewhere. No foreign transaction fees."
+    }
+   ]
+  },
+  "Navy Federal Flagship Rewards": {
+   "meta": "Navy Federal Credit Union - $49 AF",
+   "tab_label": "NFCU Flagship",
+   "annual_fee": 49,
+   "has_anniversary_benefits": true,
+   "benefits": [
+    {
+     "benefit": "Amazon Prime Annual Credit",
+     "value": 139,
+     "reset": "Card Anniversary",
+     "desc": "Statement credit covering an Amazon Prime Annual membership ($139 value) when paid with the card each cardmember year - monthly Prime plans don't qualify."
+    },
+    {
+     "benefit": "3 GB Global Mobile Data Plan",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "One complimentary 3GB GigSky global data plan (valid 15 days after activation) when the card is set as default payment in the GigSky app."
+    },
+    {
+     "benefit": "3x Travel / 2x Everything Else",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3 points per $1 on travel purchases, 2 points per $1 on everything else, no foreign transaction fees."
+    }
+   ]
+  },
+  "PenFed Pathfinder Rewards": {
+   "meta": "PenFed Credit Union - $95 AF (waived w/ Honors Advantage)",
+   "tab_label": "PenFed Path",
+   "annual_fee": 95,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "$100 Domestic Flight Credit",
+     "value": 100,
+     "reset": "Calendar Year",
+     "desc": "Up to $100 per year in statement credits covering fees charged directly by domestic airlines."
+    },
+    {
+     "benefit": "Global Entry / TSA PreCheck Credit",
+     "value": 120,
+     "reset": "Calendar Year",
+     "desc": "Up to $120 Global Entry or $85 TSA PreCheck statement credit every 4 years."
+    },
+    {
+     "benefit": "Priority Pass Select Membership",
+     "value": 99,
+     "reset": "Per Stay",
+     "desc": "Complimentary annual Priority Pass Select membership (a $99 value) with access to 1,200+ VIP airport lounges worldwide, plus a guest."
+    },
+    {
+     "benefit": "Rental Car Insurance + Concierge",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Primary rental car collision/theft coverage when you decline the rental company's policy, plus 24/7 complimentary concierge service."
+    },
+    {
+     "benefit": "4x/3x Travel, 3x/2x Dining",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "4x points on travel (3x for non-Honors-Advantage members) and 3x on dining (2x for everyone else); 1.5x on all other purchases. Membership required (military-affiliated or open a PenFed account)."
+    }
+   ]
+  },
+  "PenFed Platinum Rewards": {
+   "meta": "PenFed Credit Union - $0 AF",
+   "tab_label": "PenFed Plat",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5x Gas / 3x Supermarkets",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "5 points per $1 at gas stations, 3 points per $1 at supermarkets, 1 point per $1 elsewhere - no annual fee. Membership required."
+    }
+   ]
+  },
+  "USAA Preferred Cash Rewards": {
+   "meta": "USAA - $0 AF (military-affiliated membership req.)",
+   "tab_label": "USAA Cash",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "1.5% on Everything",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited 1.5% cash back on every purchase with no caps or rotating categories - cash back never expires."
+    },
+    {
+     "benefit": "Baggage Delay Reimbursement",
+     "value": 100,
+     "reset": "Per Stay",
+     "desc": "Up to $100/day for up to 3 days if checked baggage is delayed on a covered trip."
+    },
+    {
+     "benefit": "Rental Car CDW + Trip Cancellation Coverage",
+     "value": 1500,
+     "reset": "Per Stay",
+     "desc": "Secondary auto rental collision damage waiver, travel accident insurance up to $500,000, and trip cancellation/interruption coverage up to $1,500 per person. Membership restricted to military and their families."
+    }
+   ]
+  },
+  "USAA Cashback Rewards Plus Amex": {
+   "meta": "USAA - $0 AF (military-affiliated membership req.)",
+   "tab_label": "USAA Cash+",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5% Gas + Military Base / 2% Groceries",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "5% cash back on the first $3,000/yr combined at gas stations and military base purchases; 2% on the first $3,000/yr at groceries; 1% on everything else."
+    },
+    {
+     "benefit": "Rental CDW + Concierge + Extended Warranty",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Complimentary concierge service, rental car collision damage waiver, identity theft resolution, and extended warranty coverage."
+    }
+   ]
+  },
+  "Target Circle Card": {
+   "meta": "Target x TD Bank - $0 AF",
+   "tab_label": "Target",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5% Off Every Target Purchase",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "5% off virtually everything at Target and Target.com (Target Mastercard version works everywhere; RedCard/Circle Card versions are Target-only), plus free 2-day shipping on most items and extra time to return or exchange purchases."
+    }
+   ]
+  },
+  "Sam's Club Mastercard": {
+   "meta": "Sam's Club x Synchrony - $0 AF (membership req.)",
+   "tab_label": "Sam's Club",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5% Gas (first $6K) / 3% Dining + Travel / 1% Other",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "5% back on gas at Sam's Club and other stations (first $6,000/yr, 1% after), 3% on dining and travel, 1% on Sam's Club purchases and everything else. Rewards load annually to your membership."
+    }
+   ]
+  },
+  "Best Buy Credit Card": {
+   "meta": "Best Buy x Citi - $0 AF",
+   "tab_label": "Best Buy",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5% Back in Rewards Certificates",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "5% back in Best Buy rewards certificates on Best Buy purchases (more with My Best Buy Plus/Total membership); special financing offers on qualifying purchases."
+    }
+   ]
+  },
+  "Lowe's Advantage Card": {
+   "meta": "Lowe's x Synchrony - $0 AF",
+   "tab_label": "Lowe's",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5% Off Every Day (or special financing)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "5% off eligible purchases every day at Lowe's, or choose a promotional financing offer on qualifying big-ticket purchases instead (can't combine both on the same purchase)."
+    }
+   ]
+  },
+  "Verizon Visa Card": {
+   "meta": "Verizon x Synchrony - $0 AF",
+   "tab_label": "Verizon",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "Verizon Bill Credit + 4x/2x/1x Rewards",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Points redeemable directly toward your Verizon wireless/Fios bill or a new device; 4x points on Verizon purchases, 2x on gas and grocery, 1x elsewhere."
+    }
+   ]
+  },
+  "SoFi Credit Card": {
+   "meta": "SoFi - $0 AF",
+   "tab_label": "SoFi",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "2% on Everything (redeem into SoFi accounts)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited 2% cash back when redeemed to save, invest, or pay down an eligible SoFi loan (1% for plain statement credit); rewards can also convert to crypto through SoFi Invest. On-time payment streaks can reduce your APR."
+    }
+   ]
+  },
+  "Venmo Credit Card": {
+   "meta": "Venmo x Synchrony - $0 AF",
+   "tab_label": "Venmo",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "3% Top Category / 2% Second Category",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3% cash back on your highest spending category each month (transportation, travel, groceries, entertainment, dining, bills, health/beauty, or gas), 2% on your second-highest, 1% on everything else - fully automatic, no activation."
+    }
+   ]
+  },
+  "PNC Cash Rewards Visa": {
+   "meta": "PNC Bank - $0 AF",
+   "tab_label": "PNC Cash",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "4% Gas / 3% Dining / 2% Grocery (capped)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "4% cash back on gas, 3% on dining, 2% on groceries (first $8,000/yr combined, then 1%), 1% on everything else. PNC TotalRewards relationship customers (checking + $25K+ balances) get a 5-35% boost on top."
+    }
+   ]
+  },
+  "PNC Cash Unlimited Visa Signature": {
+   "meta": "PNC Bank - $0 AF",
+   "tab_label": "PNC Unlimited",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "2% on Everything",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited 2% cash back on every purchase, boosted 5-35% for PNC TotalRewards relationship customers."
+    }
+   ]
+  },
+  "TD Cash Credit Card": {
+   "meta": "TD Bank - $0 AF",
+   "tab_label": "TD Cash",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "3% Dining / 2% Groceries / 1% Other",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3% cash back on dining, 2% on groceries, 1% on everything else - no annual fee, available to TD Bank's East Coast footprint."
+    }
+   ]
+  },
+  "Frontier Airlines World Mastercard": {
+   "meta": "Barclays x Frontier - $89 AF",
+   "tab_label": "Frontier",
+   "annual_fee": 89,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "$100 Flight Voucher ($2.5K spend)",
+     "value": 100,
+     "reset": "Calendar Year",
+     "desc": "$100 flight voucher each year you spend $2,500 or more on the card."
+    },
+    {
+     "benefit": "2 Free Checked Bags",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Two free checked bags for the primary cardmember on Frontier-operated flights, plus miles that never expire and no blackout dates on award travel."
+    },
+    {
+     "benefit": "Elite Gold Status (90 days, extendable)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Frontier Miles Elite Gold status for 90 days after first purchase, extendable to a full 12 months by spending $3,000 in that window."
+    }
+   ]
+  },
+  "Marriott Bonvoy Bevy": {
+   "meta": "American Express - $250 AF",
+   "tab_label": "Bevy",
+   "annual_fee": 250,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "15 Elite Night Credits + Gold Status",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "15 Elite Night Credits automatically each calendar year plus complimentary Gold Elite status (25% points bonus on stays)."
+    },
+    {
+     "benefit": "Free Night Award (50K, at $15K spend)",
+     "value": 350,
+     "reset": "Calendar Year",
+     "desc": "Earn a Free Night Award worth up to 50,000 points after $15,000 in eligible purchases in a calendar year."
+    },
+    {
+     "benefit": "1,000 Bonus Points Per Stay",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "1,000 Marriott Bonvoy bonus points on every paid eligible stay."
+    },
+    {
+     "benefit": "6x Marriott / 4x Restaurants + U.S. Supermarkets",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "6x at Marriott, 4x at restaurants worldwide and U.S. supermarkets (first $15K/yr combined), 2x on everything else."
+    }
+   ]
+  },
+  "Choice Privileges Mastercard": {
+   "meta": "Wyndham/Choice x Barclays - $0 AF",
+   "tab_label": "Choice",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "Gold Status + 5x Choice",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Automatic Choice Privileges Gold Elite status, 5x points at Choice hotels, 2x on gas and grocery, with an annual points bonus for cardmember-year spending milestones."
+    }
+   ]
+  },
+  "Citi Rewards+": {
+   "meta": "Citi - $0 AF",
+   "tab_label": "Rewards+",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "Round Up to Nearest 10 Points",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Every purchase rounds up to the nearest 10 ThankYou points - unique among no-fee cards; 2x at supermarkets and gas stations (first $6,000/yr), 1x elsewhere."
+    },
+    {
+     "benefit": "10% Points Back (100K/yr cap)",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "10% of redeemed points are credited back, on up to 100,000 points redeemed per calendar year - effectively a rebate on redemptions."
+    }
+   ]
+  },
+  "Citi Strata Premier": {
+   "meta": "Citi - $95 AF",
+   "tab_label": "Strata Premier",
+   "annual_fee": 95,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "$100 Annual Hotel Benefit",
+     "value": 100,
+     "reset": "Calendar Year",
+     "desc": "$100 off a single hotel stay of $500+ (pre-tax) booked through Citi Travel once per calendar year - applied automatically at booking, no enrollment."
+    },
+    {
+     "benefit": "3x Restaurants, Groceries, Gas/EV, Travel / 10x Hotels+Cars via Citi Travel",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3x ThankYou points on restaurants, supermarkets, gas/EV charging, air travel, and hotels; 10x on hotel and car rentals booked through Citi Travel. No hotel elite status or lounge access (those live on the pricier Strata Elite)."
+    }
+   ]
+  },
+  "Marriott Bonvoy Bountiful": {
+   "meta": "Chase x Marriott - $250 AF",
+   "tab_label": "Bountiful",
+   "annual_fee": 250,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "15 Elite Night Credits + Gold Status",
+     "value": 0,
+     "reset": "Calendar Year",
+     "desc": "15 Elite Night Credits per calendar year plus automatic Gold Elite status - the Chase twin of the Amex Bevy."
+    },
+    {
+     "benefit": "Free Night Award (50K, at $15K spend)",
+     "value": 350,
+     "reset": "Calendar Year",
+     "desc": "Free Night Award worth up to 50,000 points after $15,000 in calendar-year spend."
+    },
+    {
+     "benefit": "1,000 Bonus Points Per Stay",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "1,000 bonus points on every paid eligible Marriott stay."
+    },
+    {
+     "benefit": "6x Marriott / 4x Grocery + Dining",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "6x at Marriott, 4x on groceries and dining (first $15K/yr combined), 2x on everything else."
+    }
+   ]
+  },
+  "Amex Cash Magnet": {
+   "meta": "American Express - $0 AF (closed to new applicants)",
+   "tab_label": "Cash Magnet",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "1.5% on Everything",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited 1.5% cash back on all purchases. Legacy card - closed to new applicants but widely held; keep it if you have it."
+    }
+   ]
+  },
+  "Amex EveryDay Preferred": {
+   "meta": "American Express - $95 AF (closed to new applicants)",
+   "tab_label": "EDP",
+   "annual_fee": 95,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "3x U.S. Supermarkets + 50% Swipe Bonus",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3x at U.S. supermarkets (first $6K/yr), 2x at U.S. gas stations, and a 50% points bonus in billing periods with 30+ purchases. Legacy card closed to new applicants - a beloved keeper for Membership Rewards earners."
+    }
+   ]
+  },
+  "Citi Prestige": {
+   "meta": "Citi - $495 AF (closed to new applicants)",
+   "tab_label": "Prestige",
+   "annual_fee": 495,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "$250 Travel Credit",
+     "value": 250,
+     "reset": "Calendar Year",
+     "desc": "Up to $250 in statement credits on travel purchases each calendar year - applies automatically to airfare, hotels, and more."
+    },
+    {
+     "benefit": "4th Night Free (2x per year)",
+     "value": 400,
+     "reset": "Calendar Year",
+     "desc": "Fourth night free on two hotel stays per calendar year booked through Citi's travel service - can be worth hundreds per use."
+    },
+    {
+     "benefit": "Priority Pass Select + Global Entry Credit",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Priority Pass Select lounge membership plus a Global Entry/TSA application fee credit every 4-5 years. Legacy card closed to new applicants since 2021 - existing holders keep all benefits."
+    },
+    {
+     "benefit": "5x Air + Dining / 3x Hotels + Cruises",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "5x ThankYou points on air travel and restaurants, 3x on hotels and cruise lines."
+    }
+   ]
+  },
+  "Freedom Rise": {
+   "meta": "Chase - $0 AF",
+   "tab_label": "Freedom Rise",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "1.5% on Everything (starter card)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited 1.5% cash back on all purchases - Chase's starter card for building credit, with better approval odds if you hold a Chase checking account."
+    }
+   ]
+  },
+  "British Airways Visa": {
+   "meta": "Chase x British Airways - $95 AF",
+   "tab_label": "BA Visa",
+   "annual_fee": 95,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "Travel Together Ticket ($30K spend)",
+     "value": 800,
+     "reset": "Calendar Year",
+     "desc": "Earn a Travel Together companion ticket valid on British Airways award flights after $30,000 in calendar-year purchases - pay only taxes/fees for the companion."
+    },
+    {
+     "benefit": "10% Off Select BA Flights",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "10% discount on select British Airways flights originating in the U.S. when booked through the cardmember link."
+    },
+    {
+     "benefit": "3x British Airways / 2x Hotels",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3 Avios per $1 on British Airways purchases, 2 Avios on hotel accommodations, 1 Avios elsewhere."
+    }
+   ]
+  },
+  "Disney Visa": {
+   "meta": "Chase x Disney - $0 AF",
+   "tab_label": "Disney",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "Disney Park + Shopping Perks",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "10% off select dining and merchandise at Disney parks and shopDisney, private cardmember character meet-and-greet photo spots at the parks, and 0% promo financing on Disney vacation packages; earns 1% in Disney Rewards Dollars."
+    }
+   ]
+  },
+  "Disney Premier Visa": {
+   "meta": "Chase x Disney - $49 AF",
+   "tab_label": "Disney Prem",
+   "annual_fee": 49,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5% Disney Streaming / 2% Everyday Categories",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "5% back in Disney Rewards Dollars on DisneyPlus, Hulu, and ESPN purchases made directly with Disney; 2% on gas, groceries, restaurants, and most Disney locations; 1% elsewhere - plus the same park discounts and character photo perks as the no-fee card."
+    }
+   ]
+  },
+  "DoorDash Rewards Mastercard": {
+   "meta": "Chase x DoorDash - $0 AF",
+   "tab_label": "DoorDash",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "4% DoorDash / 3% Dining + Complimentary DashPass",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "4% back on DoorDash and Caviar orders, 3% on dining directly from restaurants, 2% on grocery (in-store and online), plus a complimentary DashPass membership while you're a cardmember (activation required)."
+    }
+   ]
+  },
+  "Instacart Mastercard": {
+   "meta": "Chase x Instacart - $0 AF",
+   "tab_label": "Instacart",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5% Instacart + Chase Travel / 2% Everyday",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "5% back on Instacart app purchases and Chase Travel bookings, 2% at restaurants, gas stations, and on select streaming, plus a free year of Instacart+ for new cardmembers."
+    }
+   ]
+  },
+  "Allegiant Allways Rewards Visa": {
+   "meta": "Bank of America x Allegiant - $59 AF",
+   "tab_label": "Allegiant",
+   "annual_fee": 59,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "Priority Boarding + Free Inflight Beverage",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Priority boarding and one complimentary inflight beverage on every Allegiant flight for the cardholder."
+    },
+    {
+     "benefit": "3x Allegiant / 2x Dining",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3x points on Allegiant purchases (flights, hotels, cars booked with Allegiant), 2x on dining, 1x elsewhere."
+    }
+   ]
+  },
+  "US Bank Shopper Cash Rewards": {
+   "meta": "U.S. Bank - $95 AF ($0 first year)",
+   "tab_label": "Shopper",
+   "annual_fee": 95,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "6% at Two Chosen Retailers",
+     "value": 0,
+     "reset": "Quarterly",
+     "desc": "6% cash back at your two chosen retailers (from a list including Amazon, Walmart, Target, Costco and more) on the first $1,500 in combined purchases each quarter - re-pick your retailers anytime; use the quarter toggles to track the cap."
+    },
+    {
+     "benefit": "3% One Everyday Category",
+     "value": 0,
+     "reset": "Quarterly",
+     "desc": "3% back in one everyday category of your choice (wholesale clubs, gas/EV, or bills/utilities) on the first $1,500 per quarter."
+    }
+   ]
+  },
+  "Wells Fargo Attune": {
+   "meta": "Wells Fargo - $0 AF",
+   "tab_label": "Attune",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "4x Self-Care + Planet-Friendly Categories",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "4x points on select 'feel-good' spending: gyms and fitness, spas, sports and recreation, EV charging, public transit, thrift stores, and more - plus cellphone protection."
+    }
+   ]
+  },
+  "Bread Cashback Amex": {
+   "meta": "Bread Financial - $0 AF",
+   "tab_label": "Bread",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "2% on Everything",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "Unlimited 2% cash back on every purchase with no annual fee - a simple flat-rate competitor on the American Express network."
+    }
+   ]
+  },
+  "Gemini Credit Card": {
+   "meta": "Gemini - $0 AF",
+   "tab_label": "Gemini",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "3% Dining / 2% Grocery - Paid in Crypto",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "3% back on dining, 2% on groceries, 1% on everything else - rewards deposited instantly in your choice of bitcoin, ether, or 60+ other cryptocurrencies."
+    }
+   ]
+  },
+  "Discover it Chrome": {
+   "meta": "Discover - $0 AF",
+   "tab_label": "Chrome",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "2% Gas + Restaurants (quarterly cap)",
+     "value": 0,
+     "reset": "Quarterly",
+     "desc": "2% cash back at gas stations and restaurants on up to $1,000 in combined purchases each quarter, 1% elsewhere - plus first-year Cashback Match doubling everything you earn."
+    }
+   ]
+  },
+  "Amazon Store Card": {
+   "meta": "Amazon x Synchrony - $0 AF (Prime req. for 5%)",
+   "tab_label": "Amazon Store",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5% at Amazon (Prime members)",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "5% back on Amazon.com purchases with an eligible Prime membership, or choose special financing on larger purchases instead. Amazon-only card (not usable elsewhere)."
+    }
+   ]
+  },
+  "REI Co-op Mastercard": {
+   "meta": "Capital One x REI - $0 AF",
+   "tab_label": "REI",
+   "annual_fee": 0,
+   "has_anniversary_benefits": false,
+   "benefits": [
+    {
+     "benefit": "5% at REI / 1.5% Everywhere",
+     "value": 0,
+     "reset": "Per Stay",
+     "desc": "5% back on purchases at REI and REI.com (paid as part of your annual Co-op Member Reward), 1.5% on everything else."
+    }
+   ]
+  }
+ }
+}

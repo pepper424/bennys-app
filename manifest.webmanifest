@@ -1,0 +1,20 @@
+{
+  "name": "Bennys - Card Benefit Tracker",
+  "short_name": "Bennys",
+  "description": "Never let a credit die. Track every credit card benefit, credit, and free night you are owed.",
+  "id": "/",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0C0F16",
+  "theme_color": "#0C0F16",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-maskable-192.png", "sizes": "192x192",
+      "type": "image/png", "purpose": "maskable" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512",
+      "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -1,8 +1,9 @@
 /* stackNtrack service worker - caches the app shell for fast, installable,
    offline-tolerant startup. Data calls (Supabase) are never cached. */
-const VERSION = "stackntrack-v2.4.0";
+const VERSION = "stackntrack-v2.4.1";
 const SHELL = [
   "./", "index.html", "styles.css", "app.js", "logic.js", "config.js",
+  "sw-register.js",
   "manifest.webmanifest", "icon-192.png", "icon-512.png",
   "icon-maskable-192.png", "icon-maskable-512.png"
 ];

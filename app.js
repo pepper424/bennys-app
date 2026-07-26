@@ -35,7 +35,7 @@
   };
 
   var CARD_ORDER = [];
-  var BUILD = "2.4.0";
+  var BUILD = "2.4.1";
 
   /* ================= helpers ================= */
   function esc(s) { return L.esc(s); }

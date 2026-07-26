@@ -35,7 +35,7 @@
   };
 
   var CARD_ORDER = [];
-  var BUILD = "2.4.1";
+  var BUILD = "2.5.1";
 
   /* ================= helpers ================= */
   function esc(s) { return L.esc(s); }
@@ -1049,6 +1049,46 @@
       sb = window.supabase.createClient(norm.url, norm.key);
     }
 
+    /* Boot diagnostics. A silent hang is the worst failure mode - it
+       tells the user nothing and tells us nothing. Every stage is named,
+       a watchdog fires if we never finish, and nothing is left
+       unhandled. */
+    var BOOT_STAGE = "starting";
+    var bootFinished = false;
+
+    function bootFail(headline, detail) {
+      bootFinished = true;
+      var el = document.getElementById("app");
+      if (!el) return;
+      el.innerHTML = heroHTML() +
+        '<div class="section" style="border-color:rgba(224,86,79,.5)">' +
+        '<div class="sub" style="color:#ff9d96"><b>' + esc(headline) +
+        '</b></div>' +
+        '<div class="hint">Stage: ' + esc(BOOT_STAGE) +
+        (detail ? ' &middot; ' + esc(String(detail).slice(0, 140)) : '') +
+        '</div></div>' +
+        '<button data-a="retry-boot">Try again</button>';
+      var btn = document.querySelector('[data-a="retry-boot"]');
+      if (btn) {
+        btn.addEventListener("click", function () { location.reload(); });
+      }
+    }
+
+    setTimeout(function () {
+      if (!bootFinished) {
+        bootFail("stackNtrack is taking longer than expected to start.",
+                 "no response");
+      }
+    }, 15000);
+
+    function withTimeout(p, ms, label) {
+      return Promise.race([p, new Promise(function (_, reject) {
+        setTimeout(function () {
+          reject(new Error("timed out: " + label));
+        }, ms);
+      })]);
+    }
+
     val = function (id) {
       var el = document.getElementById(id);
       return el ? el.value : "0";
@@ -1295,6 +1335,13 @@
       });
     };
 
+    if (configured && !sb) {
+      bootFail("Could not load the sign-in library.",
+               "supabase.js did not load - check it uploaded next to " +
+               "index.html");
+      return;
+    }
+
     if (!configured) {
       document.getElementById("app").innerHTML = heroHTML() +
         '<div class="section" style="border-color:rgba(224,86,79,.5)">' +
@@ -1335,18 +1382,13 @@
         });
     }
 
+    BOOT_STAGE = "loading card catalog";
     loadCatalog(0).then(function (cat) {
+      if (!cat || !cat.cards) throw new Error("catalog malformed");
       S.catalog = cat;
       CARD_ORDER = Object.keys(cat.cards);
-    }).catch(function () {
-      document.getElementById("app").innerHTML = heroHTML() +
-        '<div class="err">Could not load the card catalog. Check ' +
-        'that benefits.json was uploaded next to index.html.</div>' +
-        '<button data-a="retry-boot">Try again</button>';
-      document.querySelector('[data-a="retry-boot"]')
-        .addEventListener("click", function () { location.reload(); });
-    }).then(function () {
-      if (!S.catalog) return;   // the catch above already rendered
+      BOOT_STAGE = "checking your session";
+
       /* password-recovery deep link */
       if (location.hash.indexOf("type=recovery") >= 0) {
         var np = prompt("Enter a new password (8+ characters):");
@@ -1356,31 +1398,39 @@
           });
         }
       }
-      return sb.auth.getSession().then(function (r) {
-        var sess = r && r.data && r.data.session;
-        S._proceed = function () {
-          if (sess && sess.user) {
-            A.onSignedIn({ id: sess.user.id, email: sess.user.email });
-          } else {
-            S.screen = "auth"; paint();
-          }
-        };
-        if (shouldShowInstallGate()) { S.screen = "install"; paint(); }
-        else { S._proceed(); }
-        sb.auth.onAuthStateChange(function (ev, session) {
-          if (ev === "SIGNED_IN" && session && !S.user) {
-            A.onSignedIn({ id: session.user.id,
-                           email: session.user.email });
-          }
-        });
-      }).catch(function () {
-        document.getElementById("app").innerHTML = heroHTML() +
-          '<div class="err">Signed in, but could not reach the ' +
-          'account service. Check your connection and reload.</div>' +
-          '<button data-a="retry-boot">Try again</button>';
-        document.querySelector('[data-a="retry-boot"]')
-          .addEventListener("click", function () { location.reload(); });
+
+      /* If the session check stalls or fails, fall through to the login
+         screen rather than hanging. A reachable app beats a spinner. */
+      return withTimeout(sb.auth.getSession(), 10000, "session check")
+        .catch(function () { return { data: { session: null } }; });
+    }).then(function (r) {
+      if (!S.catalog) return;
+      var sess = r && r.data && r.data.session;
+      S._proceed = function () {
+        if (sess && sess.user) {
+          A.onSignedIn({ id: sess.user.id, email: sess.user.email });
+        } else {
+          S.screen = "auth"; paint();
+        }
+      };
+      BOOT_STAGE = "rendering";
+      bootFinished = true;
+      if (shouldShowInstallGate()) { S.screen = "install"; paint(); }
+      else { S._proceed(); }
+      sb.auth.onAuthStateChange(function (ev, session) {
+        if (ev === "SIGNED_IN" && session && !S.user) {
+          A.onSignedIn({ id: session.user.id, email: session.user.email });
+        }
       });
+    }).catch(function (err) {
+      /* Final safety net - nothing gets to fail silently. */
+      if (BOOT_STAGE === "loading card catalog") {
+        bootFail("Could not load the card catalog.",
+                 "check that benefits.json sits next to index.html");
+      } else {
+        bootFail("stackNtrack could not finish starting up.",
+                 err && err.message);
+      }
     });
   }
 

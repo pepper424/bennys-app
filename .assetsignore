@@ -1,0 +1,9 @@
+.git
+.github
+.assetsignore
+wrangler.jsonc
+auditor.py
+audit_prompt.md
+audit.yml
+AUDIT_REPORT.md
+SETUP-INSTRUCTIONS.md

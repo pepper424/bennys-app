@@ -342,3 +342,55 @@ hr.thin { border: none; border-top: 1px solid var(--hairline);
 
 .pill.period { color: var(--amber); font-weight: 700;
   border-color: rgba(245,165,36,.5); background: rgba(245,165,36,.08); }
+
+/* ---------- notes ---------- */
+.note, .pinned { display: flex; align-items: flex-start; gap: .45rem;
+  margin-top: .55rem; padding: .5rem .6rem; border-radius: var(--r-md);
+  background: rgba(78,143,245,.07);
+  border: 1px solid rgba(78,143,245,.22);
+  font-size: .78rem; line-height: 1.4; color: var(--ink);
+  cursor: pointer; transition: border-color .15s, background .15s; }
+.note:hover, .pinned:hover { background: rgba(78,143,245,.11);
+  border-color: rgba(78,143,245,.42); }
+.note-pin { flex: 0 0 auto; opacity: .75; font-size: .8rem;
+  line-height: 1.45; }
+.note-text { flex: 1 1 auto; min-width: 0; word-break: break-word; }
+.note-edit { flex: 0 0 auto; opacity: .5; font-size: .75rem; }
+.pinned { margin-top: .7rem; background: rgba(18,199,178,.08);
+  border-color: rgba(18,199,178,.28); }
+.pinned:hover { background: rgba(18,199,178,.13);
+  border-color: rgba(18,199,178,.5); }
+.benefit-card.used .note { opacity: .6; }
+
+.addnote { width: auto; min-height: 34px; margin: .7rem 0 0;
+  padding: .3rem .7rem; font-size: .73rem; font-weight: 600;
+  background: transparent; color: var(--ink-faint);
+  border: 1px dashed var(--hairline); box-shadow: none;
+  border-radius: var(--r-pill); }
+.addnote:hover { color: var(--teal); border-color: rgba(18,199,178,.5);
+  background: rgba(18,199,178,.06); transform: none; filter: none; }
+
+.bc-note { flex: 0 0 auto; margin: 0 0 0 auto; width: 34px; height: 34px;
+  min-height: 34px; padding: 0; border-radius: 50%;
+  background: transparent; border: 1px solid var(--hairline);
+  color: var(--ink-faint); font-size: 1rem; font-weight: 600;
+  line-height: 1; box-shadow: none; }
+.bc-note:hover { background: rgba(78,143,245,.14); color: var(--blue);
+  border-color: rgba(78,143,245,.5); transform: none; filter: none; }
+.bc-foot .bc-x { margin-left: .4rem; }
+
+/* ---------- note editor ---------- */
+.notebox { width: 100%; background: var(--card); color: var(--ink);
+  border: 1px solid var(--hairline); border-radius: var(--r-md);
+  padding: .7rem .85rem; font-size: 16px; font-family: var(--ui);
+  line-height: 1.45; outline: none; resize: none; margin-top: .5rem;
+  transition: border-color .15s, box-shadow .15s; }
+.notebox:focus { border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(18,199,178,.18); }
+.notebox::placeholder { color: var(--ink-faint); }
+.notecount { text-align: right; font-size: .68rem; color: var(--ink-faint);
+  margin: .25rem .1rem .55rem; font-variant-numeric: tabular-nums; }
+
+/* ---------- card hero tagline ---------- */
+.h-tag { font-family: var(--display); font-weight: 500; font-size: .84rem;
+  color: var(--teal); margin-top: .15rem; letter-spacing: .01em; }

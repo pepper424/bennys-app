@@ -9,6 +9,16 @@
 })(typeof self !== "undefined" ? self : this, function () {
   "use strict";
 
+  var NOTE_MAX = 100;                 // characters, per note
+
+  function cleanNote(t) {
+    return String(t == null ? "" : t)
+      .replace(/[\r\n\t]+/g, " ")     // keep notes to a single tidy line
+      .replace(/\s{2,}/g, " ")
+      .trim()
+      .slice(0, NOTE_MAX);
+  }
+
   var EXPIRE_SOON_DAYS = 30;          // monthly credits
   var EXPIRE_SOON_DAYS_LONG = 60;     // quarterly, semi-annual, annual
 
@@ -162,6 +172,7 @@
           card: card, benefit: b.benefit, value: b.value,
           reset: b.reset, desc: b.desc, key: key,
           currency: catalog.cards[card].currency || "USD",
+          note: (profile.notes || {})[key] || "",
           expires: expiryFor(b.reset, annISO, t)
         };
         if (RECURRING[b.reset]) {
@@ -308,6 +319,7 @@
   }
 
   return {
+    NOTE_MAX: NOTE_MAX, cleanNote: cleanNote,
     EXPIRE_SOON_DAYS: EXPIRE_SOON_DAYS,
     EXPIRE_SOON_DAYS_LONG: EXPIRE_SOON_DAYS_LONG,
     warnWindow: warnWindow, periodLabel: periodLabel,

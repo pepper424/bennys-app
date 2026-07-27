@@ -1,6 +1,6 @@
 /* stackNtrack service worker - caches the app shell for fast, installable,
    offline-tolerant startup. Data calls (Supabase) are never cached. */
-const VERSION = "stackntrack-v2.5.1";
+const VERSION = "stackntrack-v2.6.0";
 const SHELL = [
   "./", "index.html", "styles.css", "app.js", "logic.js", "config.js",
   "sw-register.js", "benefits.json", "supabase.js",
@@ -60,5 +60,37 @@ self.addEventListener("fetch", (e) => {
   }
   e.respondWith(
     caches.match(e.request).then((hit) => hit || fetch(e.request))
+  );
+});
+
+/* ---------------- Web Push ---------------- */
+self.addEventListener("push", (e) => {
+  let d = {};
+  try { d = e.data ? e.data.json() : {}; } catch (err) { d = {}; }
+  const title = d.title || "stackNtrack";
+  const opts = {
+    body: d.body || "You have credits expiring soon.",
+    icon: "icon-192.png",
+    badge: "icon-192.png",
+    tag: d.tag || "stackntrack-expiring",
+    renotify: true,
+    data: { url: d.url || "./" },
+    actions: [{ action: "open", title: "Open stackNtrack" }]
+  };
+  e.waitUntil(self.registration.showNotification(title, opts));
+});
+
+self.addEventListener("notificationclick", (e) => {
+  e.notification.close();
+  const target = (e.notification.data && e.notification.data.url) || "./";
+  e.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true })
+      .then((list) => {
+        // focus an already-open window rather than spawning another
+        for (const c of list) {
+          if ("focus" in c) return c.focus();
+        }
+        if (self.clients.openWindow) return self.clients.openWindow(target);
+      })
   );
 });

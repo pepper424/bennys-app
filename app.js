@@ -31,11 +31,13 @@
     deferredInstall: null,
     platform: { ios: false, android: false, standalone: false },
     installDismissed: false,
+    pushState: "unsupported",   // unsupported|off|on|blocked
+    pushAsked: false,
     env: null                // injected {supabase, fetchJSON, now()}
   };
 
   var CARD_ORDER = [];
-  var BUILD = "2.5.1";
+  var BUILD = "2.6.0";
 
   /* ================= helpers ================= */
   function esc(s) { return L.esc(s); }
@@ -131,12 +133,29 @@
       });
     },
 
+    maybeOfferPush: function () {
+      if (S.pushAsked || S.screen !== "dash") return;
+      if (!pushSupported() || S.pushState !== "off") return;
+      if (typeof document === "undefined") return;
+      var root = document.getElementById("modal-root");
+      if (!root || root.innerHTML) return;      // don't stack modals
+      setTimeout(function () {
+        if (S.screen === "dash" && !S.pushAsked &&
+            !document.getElementById("modal-root").innerHTML) {
+          document.getElementById("modal-root").innerHTML = pushModalHTML();
+        }
+      }, 1200);
+    },
+
     onSignedIn: function (user) {
       S.user = user;
       S.env.loadDashboard(user.id).then(function (data) {
         S.profile = data || null;
         if (S.profile && S.profile.cards && S.profile.cards.length) {
           rebuild(); S.screen = "dash"; S.tab = "alerts";
+          refreshPushState().then(function () {
+            paint(); A.maybeOfferPush();
+          });
         } else {
           S.profile = S.profile || {
             cards: [], anniversaries: {}, state: {},
@@ -164,6 +183,7 @@
       S.screen = "dash"; S.tab = "alerts";
       persist(true);
       paint();
+      refreshPushState().then(function () { A.maybeOfferPush(); });
     },
 
     flipSingle: function (key, used) {
@@ -221,6 +241,75 @@
       toast("Benefit restored"); paint();
     },
 
+    enablePush: function () {
+      if (!pushSupported()) { closeModal(); return; }
+      S.pushAsked = true;
+      try { localStorage.setItem("snt_push_asked", "1"); } catch (e) {}
+      window.Notification.requestPermission().then(function (perm) {
+        if (perm !== "granted") {
+          S.pushState = perm === "denied" ? "blocked" : "off";
+          closeModal(); paint();
+          if (perm === "denied") {
+            toast("Notifications blocked - you can turn them on in " +
+                  "your browser settings", true);
+          }
+          return;
+        }
+        return window.navigator.serviceWorker.ready.then(function (reg) {
+          return reg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlB64ToUint8Array(vapidKey())
+          });
+        }).then(function (sub) {
+          return S.env.savePushSub(S.user.id, sub.toJSON());
+        }).then(function () {
+          S.pushState = "on";
+          closeModal(); paint();
+          toast("Reminders on - we'll nudge you before credits expire");
+        });
+      }).catch(function () {
+        S.pushState = "off"; closeModal(); paint();
+        toast("Could not turn on reminders", true);
+      });
+    },
+
+    dismissPush: function () {
+      S.pushAsked = true;
+      try { localStorage.setItem("snt_push_asked", "1"); } catch (e) {}
+      closeModal(); paint();
+    },
+
+    disablePush: function () {
+      window.navigator.serviceWorker.ready.then(function (reg) {
+        return reg.pushManager.getSubscription();
+      }).then(function (sub) {
+        return sub ? sub.unsubscribe() : null;
+      }).then(function () {
+        return S.env.deletePushSub(S.user.id);
+      }).then(function () {
+        S.pushState = "off"; toast("Reminders off"); paint();
+      }).catch(function () { toast("Could not turn reminders off", true); });
+    },
+
+    saveNote: function (key, text) {
+      var t = L.cleanNote(text);
+      S.profile.notes = S.profile.notes || {};
+      if (t) S.profile.notes[key] = t;
+      else delete S.profile.notes[key];
+      rebuild(); persist(true);
+      closeModal(); toast(t ? "Note saved" : "Note removed"); paint();
+    },
+
+    saveCardNote: function (card, text) {
+      var t = L.cleanNote(text);
+      S.profile.cardNotes = S.profile.cardNotes || {};
+      if (t) S.profile.cardNotes[card] = t;
+      else delete S.profile.cardNotes[card];
+      persist(true);
+      closeModal(); toast(t ? "Pinned note saved" : "Pinned note removed");
+      paint();
+    },
+
     removeCards: function (cards) {
       S.profile.cards = S.profile.cards.filter(function (c) {
         return cards.indexOf(c) < 0;
@@ -229,6 +318,14 @@
       S.profile.hidden = (S.profile.hidden || []).filter(function (k) {
         return cards.indexOf(k.split("||")[0]) < 0;
       });
+      S.profile.notes = S.profile.notes || {};
+      Object.keys(S.profile.notes).forEach(function (k) {
+        if (cards.indexOf(k.split("||")[0]) >= 0) {
+          delete S.profile.notes[k];
+        }
+      });
+      S.profile.cardNotes = S.profile.cardNotes || {};
+      cards.forEach(function (c) { delete S.profile.cardNotes[c]; });
       rebuild(); persist(true);
       if (S.tab.indexOf("card:") === 0 &&
           cards.indexOf(S.tab.slice(5)) >= 0) S.tab = "alerts";
@@ -293,6 +390,43 @@
     return msg || "Unknown error.";
   }
 
+  /* ---------------- push notifications ---------------- */
+  function vapidKey() {
+    var k = (window.BENNYS_CONFIG || {}).VAPID_PUBLIC_KEY || "";
+    return String(k).trim();
+  }
+
+  function pushSupported() {
+    return typeof window !== "undefined" &&
+      "serviceWorker" in (window.navigator || {}) &&
+      typeof window.PushManager !== "undefined" &&
+      typeof window.Notification !== "undefined" &&
+      !!vapidKey();
+  }
+
+  /* VAPID keys are base64url; PushManager wants raw bytes. */
+  function urlB64ToUint8Array(base64String) {
+    var padding = "=".repeat((4 - base64String.length % 4) % 4);
+    var base64 = (base64String + padding)
+      .replace(/-/g, "+").replace(/_/g, "/");
+    var raw = window.atob(base64);
+    var out = new Uint8Array(raw.length);
+    for (var i = 0; i < raw.length; ++i) out[i] = raw.charCodeAt(i);
+    return out;
+  }
+
+  function refreshPushState() {
+    if (!pushSupported()) { S.pushState = "unsupported"; return Promise.resolve(); }
+    if (window.Notification.permission === "denied") {
+      S.pushState = "blocked"; return Promise.resolve();
+    }
+    return window.navigator.serviceWorker.ready.then(function (reg) {
+      return reg.pushManager.getSubscription();
+    }).then(function (sub) {
+      S.pushState = sub ? "on" : "off";
+    }).catch(function () { S.pushState = "off"; });
+  }
+
   function friendlyAuthError(err) {
     var m = (err && (err.message || err)) + "";
     if (/already registered|already exists/i.test(m))
@@ -315,7 +449,8 @@
       '<div class="hero-thesis">Never let a credit die.</div>' +
       '<div class="hero-sub">Pick your cards and get a live dashboard ' +
       'of every credit, free night, and deadline you are owed. ' +
-      'No bank logins - ever.</div></div>';
+      'Tune it to how you actually live. No bank logins - ever.' +
+      '</div></div>';
   }
 
   function authView() {
@@ -466,8 +601,11 @@
         '</div>' +
         '<div class="brand-tag">' + esc(S.user.email) + '</div></div>' +
         '</div>' +
-        '<div class="hint">Last step - add the cards you carry and ' +
-        'your dashboard is ready.</div>';
+        '<div class="hero-thesis" style="font-size:.95rem;' +
+        'margin:.35rem 0 .1rem">Your wallet, your way.</div>' +
+        '<div class="hint">Last step - add the cards you carry. ' +
+        'Afterwards you can hide credits you will never use and pin ' +
+        'notes to the ones you will.</div>';
     } else {
       h = heroHTML();
     }
@@ -491,6 +629,20 @@
     return '<div class="vwrap">' +
       '<div class="vbar"><i style="width:' + pct + '%"></i></div>' +
       '<div class="vlab">' + label + '</div></div>';
+  }
+
+  function cardNoteHTML(card) {
+    var note = (S.profile.cardNotes || {})[card] || "";
+    if (note) {
+      return '<div class="pinned" data-a="note-open" data-kind="card" ' +
+        'data-id="' + esc(card) + '" role="button" tabindex="0">' +
+        '<span class="note-pin">&#128204;</span>' +
+        '<span class="note-text">' + esc(note) + '</span>' +
+        '<span class="note-edit">&#9998;</span></div>';
+    }
+    return '<button class="addnote" data-a="note-open" ' +
+      'data-kind="card" data-id="' + esc(card) + '">' +
+      '&#65291; Add a pinned note</button>';
   }
 
   function benefitHTML(b, compact) {
@@ -529,8 +681,19 @@
       '<div class="benefit-meta">' + pills.join("") + '</div>' +
       '<div class="benefit-desc">' + esc(b.desc) + '</div>' +
       valueLineHTML(b) +
+      (b.note
+        ? '<div class="note" data-a="note-open" data-kind="benefit" ' +
+          'data-id="' + esc(b.key) + '" role="button" tabindex="0">' +
+          '<span class="note-pin">&#9998;</span>' +
+          '<span class="note-text">' + esc(b.note) + '</span></div>'
+        : '') +
       '<div class="bc-foot">' +
       '<div class="bc-toggle">' + toggleHTML(b, compact) + '</div>' +
+      '<button class="bc-note" data-a="note-open" data-kind="benefit" ' +
+      'data-id="' + esc(b.key) + '" title="' +
+      (b.note ? 'Edit note' : 'Add note') + '" aria-label="' +
+      (b.note ? 'Edit note' : 'Add note') + '">' +
+      (b.note ? '&#9998;' : '&#65291;') + '</button>' +
       '<button class="bc-x" data-a="hide-open" data-k="' + esc(b.key) +
       '" title="Remove this benefit" aria-label="Remove this benefit">' +
       '&times;</button>' +
@@ -712,6 +875,7 @@
           '</b> still on the table &middot; ' +
           esc(L.fmtValue(gc.used, gCur) || gz) + ' of ' +
           esc(L.fmtValue(gc.total, gCur)) + ' captured this year') : '') +
+        cardNoteHTML(card) +
         '</div>';
       if (!group.length) {
         h += '<div class="empty-note">No benefits on this card match ' +
@@ -726,9 +890,12 @@
 
   function manageView() {
     var h = '<div class="card-hero"><div class="h-name">Manage your ' +
-      'cards</div><div class="h-meta">Got a new card? Add it here and ' +
+      'cards</div>' +
+      '<div class="h-tag">Your wallet, your way.</div>' +
+      '<div class="h-meta">Got a new card? Add it here and ' +
       'your dashboard updates instantly. You can also fix anniversary ' +
-      'dates or remove cards you have closed.</div></div>';
+      'dates, remove cards you have closed, or hide credits you will ' +
+      'never use.</div></div>';
 
     var addable = CARD_ORDER.filter(function (c) {
       return S.profile.cards.indexOf(c) < 0;
@@ -786,6 +953,23 @@
             esc(k) + '">Restore</button></div>';
         }).join("") + '</details>';
     }
+    if (pushSupported()) {
+      var pLabel = S.pushState === "on"
+        ? "Expiry reminders are on"
+        : (S.pushState === "blocked"
+            ? "Reminders are blocked in your browser settings"
+            : "Get reminded before a credit expires");
+      h += '<hr class="thin">' +
+        '<div class="sub"><b>' + esc(pLabel) + '</b></div>' +
+        (S.pushState === "blocked"
+          ? '<div class="hint">Your browser is blocking notifications ' +
+            'for this site. Turn them back on in Chrome: &#8942; menu ' +
+            '&rarr; Settings &rarr; Site settings &rarr; Notifications.' +
+            '</div>'
+          : '<button class="ghost" data-a="push-toggle">' +
+            (S.pushState === "on" ? "Turn off reminders"
+                                  : "Turn on reminders") + '</button>');
+    }
     h += '<hr class="thin">' +
       '<div class="sub">Signed in as <b>' + esc(S.user.email) +
       '</b></div>' +
@@ -815,6 +999,57 @@
       '<button class="danger" data-a="hide-yes" data-k="' + esc(key) +
       '">Yes, remove this benefit</button>' +
       '<button class="ghost" data-a="hide-no">Cancel</button>' +
+      '</div></div></div>';
+  }
+
+  function noteModalHTML(kind, id) {
+    var isCard = kind === "card";
+    var existing = isCard
+      ? ((S.profile.cardNotes || {})[id] || "")
+      : ((S.profile.notes || {})[id] || "");
+    var b = isCard ? null : S.benefits.find(function (x) {
+      return x.key === id;
+    });
+    var title = isCard ? "Pinned note" : "Note";
+    var subject = isCard ? cardLabel(id) : (b ? b.benefit : "this credit");
+    var hint = isCard
+      ? "Sits at the top of this card - use it for anything that applies " +
+        "to the whole card, like a retention offer or your renewal plan."
+      : "Just for you - a special offer, a plan for how to spend it, " +
+        "a confirmation number.";
+    return '<div class="modal-back" data-a="modal-back">' +
+      '<div class="modal"><h3>' + esc(title) + '</h3>' +
+      '<div class="sub" style="font-size:.95rem;color:var(--ink);' +
+      'font-weight:600">' + esc(subject) + '</div>' +
+      '<div class="hint">' + hint + '</div>' +
+      '<textarea id="note-text" class="notebox" rows="3" maxlength="' +
+      L.NOTE_MAX + '" placeholder="Add a note..."' +
+      '>' + esc(existing) + '</textarea>' +
+      '<div class="notecount"><span id="note-count">' +
+      existing.length + '</span> / ' + L.NOTE_MAX + '</div>' +
+      '<div class="row2">' +
+      '<button data-a="note-save" data-kind="' + esc(kind) +
+      '" data-id="' + esc(id) + '">Save note</button>' +
+      '<button class="ghost" data-a="note-cancel">Cancel</button>' +
+      '</div>' +
+      (existing ? '<button class="link" data-a="note-clear" ' +
+        'data-kind="' + esc(kind) + '" data-id="' + esc(id) +
+        '">Delete this note</button>' : '') +
+      '</div></div>';
+  }
+
+  function pushModalHTML() {
+    return '<div class="modal-back" data-a="modal-back">' +
+      '<div class="modal"><h3>Never miss an expiring credit</h3>' +
+      '<div class="sub">Get a heads-up before a credit runs out - ' +
+      'a monthly credit three days before month end, bigger benefits ' +
+      'further ahead.</div>' +
+      '<div class="hint">One nudge at a time, only for credits you ' +
+      'have not used yet. You can turn this off whenever you like in ' +
+      '&#65291;&#8202;/&#8202;&#8722; Cards.</div>' +
+      '<div class="row2">' +
+      '<button data-a="push-enable">Turn on reminders</button>' +
+      '<button class="ghost" data-a="push-later">Not now</button>' +
       '</div></div></div>';
   }
 
@@ -1034,6 +1269,9 @@
       S.installDismissed =
         localStorage.getItem("bennys_install_dismissed") === "1";
     } catch (e) { S.installDismissed = false; }
+    try {
+      S.pushAsked = localStorage.getItem("snt_push_asked") === "1";
+    } catch (e) { S.pushAsked = false; }
     // Preview override: adding ?install=1 to the URL always shows the
     // install screen, even if you have already installed or skipped.
     try {
@@ -1178,6 +1416,16 @@
       deleteDashboard: function (uid) {
         return sb.from("dashboards").delete().eq("user_id", uid)
           .then(function (r) { if (r.error) throw r.error; });
+      },
+      savePushSub: function (uid, sub) {
+        return sb.from("push_subs").upsert({
+          user_id: uid, subscription: sub,
+          updated_at: new Date().toISOString()
+        }).then(function (r) { if (r.error) throw r.error; });
+      },
+      deletePushSub: function (uid) {
+        return sb.from("push_subs").delete().eq("user_id", uid)
+          .then(function (r) { if (r.error) throw r.error; });
       }
     };
 
@@ -1263,6 +1511,39 @@
         ).map(function (x) { return x.getAttribute("data-v"); });
         if (rm.length) A.removeCards(rm);
       }
+      else if (a === "push-enable") A.enablePush();
+      else if (a === "push-later") A.dismissPush();
+      else if (a === "push-toggle") {
+        if (S.pushState === "on") A.disablePush();
+        else A.enablePush();
+      }
+      else if (a === "note-open") {
+        document.getElementById("modal-root").innerHTML =
+          noteModalHTML(el.getAttribute("data-kind"),
+                        el.getAttribute("data-id"));
+        var ta = document.getElementById("note-text");
+        if (ta) {
+          ta.focus();
+          try { ta.setSelectionRange(ta.value.length, ta.value.length); }
+          catch (e2) {}
+        }
+      }
+      else if (a === "note-save") {
+        var txt = val("note-text");
+        if (el.getAttribute("data-kind") === "card") {
+          A.saveCardNote(el.getAttribute("data-id"), txt);
+        } else {
+          A.saveNote(el.getAttribute("data-id"), txt);
+        }
+      }
+      else if (a === "note-clear") {
+        if (el.getAttribute("data-kind") === "card") {
+          A.saveCardNote(el.getAttribute("data-id"), "");
+        } else {
+          A.saveNote(el.getAttribute("data-id"), "");
+        }
+      }
+      else if (a === "note-cancel") closeModal();
       else if (a === "hide-open") {
         document.getElementById("modal-root").innerHTML =
           hideModalHTML(el.getAttribute("data-k"));
@@ -1314,6 +1595,10 @@
       if (id === "pick-q") { S.pickQuery = e.target.value; paint(); }
       else if (id === "mng-q") { S.mngQuery = e.target.value; paint(); }
       else if (id === "dash-q") { S.search = e.target.value; paint(); }
+      else if (id === "note-text") {
+        var c = document.getElementById("note-count");
+        if (c) c.textContent = e.target.value.length;
+      }
     });
 
     /* startup */

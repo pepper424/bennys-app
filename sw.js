@@ -1,6 +1,6 @@
 /* stackNtrack service worker - caches the app shell for fast, installable,
    offline-tolerant startup. Data calls (Supabase) are never cached. */
-const VERSION = "stackntrack-v2.7.1";
+const VERSION = "stackntrack-v2.8.0";
 const SHELL = [
   "./", "index.html", "styles.css", "app.js", "logic.js", "config.js",
   "sw-register.js", "benefits.json", "supabase.js",
@@ -44,6 +44,19 @@ self.addEventListener("fetch", (e) => {
         return r;
       }).catch(() => caches.match("index.html").then(
         (hit) => hit || caches.match("./")))
+    );
+    return;
+  }
+  if (url.pathname.endsWith("config.js")) {
+    // Settings change independently of code, so always try the network
+    // first - otherwise a freshly-edited config sits invisible behind
+    // a cached copy.
+    e.respondWith(
+      fetch(e.request, { cache: "no-store" }).then((r) => {
+        const copy = r.clone();
+        caches.open(VERSION).then((c) => c.put(e.request, copy));
+        return r;
+      }).catch(() => caches.match(e.request))
     );
     return;
   }

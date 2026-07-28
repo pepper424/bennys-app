@@ -37,7 +37,7 @@
   };
 
   var CARD_ORDER = [];
-  var BUILD = "2.7.1";
+  var BUILD = "2.8.0";
 
   /* ================= helpers ================= */
   function esc(s) { return L.esc(s); }
@@ -1070,6 +1070,15 @@
       '<div class="sub">Signed in as <b>' + esc(S.user.email) +
       '</b></div></div>';
 
+    if (!pushSupported()) {
+      var why = !vapidKey()
+        ? "Reminders are not switched on for this app yet. If you are " +
+          "the owner: add VAPID_PUBLIC_KEY to config.js."
+        : "This browser does not support notifications. On iPhone, " +
+          "add stackNtrack to your Home Screen first.";
+      h += '<div class="set-sec"><div class="set-lab">Reminders</div>' +
+        '<div class="sub">' + esc(why) + '</div></div>';
+    }
     if (pushSupported()) {
       var on = S.pushState === "on";
       var blocked = S.pushState === "blocked";

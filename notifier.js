@@ -18,21 +18,78 @@ const path = require("path");
 const webpush = require("web-push");
 const L = require("./logic.js");
 
-const SUPABASE_URL = (process.env.SUPABASE_URL || "").replace(/\/+$/, "");
-const SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY || "";
-const VAPID_PUBLIC = process.env.VAPID_PUBLIC_KEY || "";
-const VAPID_PRIVATE = process.env.VAPID_PRIVATE_KEY || "";
-const CONTACT = process.env.VAPID_CONTACT || "mailto:hello@stackntrack.net";
-const APP_URL = process.env.APP_URL || "https://stackntrack.net";
+/* Everything gets trimmed: pasting secrets on a phone very easily
+   picks up a trailing space or newline, and web-push rejects keys that
+   are not exactly URL-safe base64. */
+const clean = (v) => String(v || "").replace(/\s+/g, "");
+
+const SUPABASE_URL = clean(process.env.SUPABASE_URL).replace(/\/+$/, "");
+const SERVICE_KEY = clean(process.env.SUPABASE_SERVICE_KEY);
+const VAPID_PUBLIC = clean(process.env.VAPID_PUBLIC_KEY);
+const VAPID_PRIVATE = clean(process.env.VAPID_PRIVATE_KEY);
+const APP_URL = clean(process.env.APP_URL) || "https://stackntrack.net";
 const DRY_RUN = process.env.DRY_RUN === "1";
+
+/* The push spec wants a contactable URL. A bare email address is the
+   single most common mistake here, so accept it and fix it up. */
+function normalizeContact(raw) {
+  const v = clean(raw);
+  if (!v) return "mailto:noreply@stackntrack.net";
+  if (/^(mailto:|https?:\/\/)/i.test(v)) return v;
+  if (v.indexOf("@") > 0) return "mailto:" + v;
+  return "mailto:noreply@stackntrack.net";
+}
+const CONTACT = normalizeContact(process.env.VAPID_CONTACT);
 
 /* Nudge windows, in days remaining. Monthly credits get a late, urgent
    reminder; bigger benefits get more runway because they need planning. */
 const WINDOWS = { Monthly: [3], other: [30, 7] };
 
-function need(name, v) {
-  if (!v) { console.error("Missing required env var: " + name); process.exit(1); }
-  return v;
+/* Print a readable configuration report before doing anything, so a
+   failed run explains itself in the log instead of just exiting 1. */
+function preflight() {
+  const rows = [
+    ["SUPABASE_URL", SUPABASE_URL],
+    ["SUPABASE_SERVICE_KEY", SERVICE_KEY],
+    ["VAPID_PUBLIC_KEY", VAPID_PUBLIC],
+    ["VAPID_PRIVATE_KEY", VAPID_PRIVATE]
+  ];
+  console.log("Configuration check");
+  console.log("-------------------");
+  rows.forEach(([name, val]) => {
+    console.log("  " + (val ? "found  " : "MISSING") + "  " + name);
+  });
+  console.log("  found    VAPID_CONTACT -> " + CONTACT);
+  console.log("  mode     " + (DRY_RUN ? "DRY RUN (nothing is sent)"
+                                       : "LIVE (notifications will send)"));
+  console.log("");
+
+  const missing = rows.filter(([, v]) => !v).map(([n]) => n);
+  if (missing.length) {
+    console.error("Stopping: these repository secrets are missing or " +
+      "empty -> " + missing.join(", "));
+    console.error("Add them under Settings -> Secrets and variables -> " +
+      "Actions. Names are case-sensitive.");
+    process.exit(1);
+  }
+
+  if (!/^https:\/\/[a-z0-9-]+\.supabase\./i.test(SUPABASE_URL)) {
+    console.error("Stopping: SUPABASE_URL should look like " +
+      "https://yourproject.supabase.co - got: " + SUPABASE_URL);
+    process.exit(1);
+  }
+
+  try {
+    webpush.setVapidDetails(CONTACT, VAPID_PUBLIC, VAPID_PRIVATE);
+  } catch (e) {
+    console.error("Stopping: the VAPID settings were rejected -> " +
+      e.message);
+    console.error("Public key should be 87 characters, private 43, " +
+      "both with no spaces. Yours: public " + VAPID_PUBLIC.length +
+      ", private " + VAPID_PRIVATE.length + ".");
+    process.exit(1);
+  }
+  console.log("VAPID keys accepted.");
 }
 
 async function sbGet(table, query) {
@@ -45,7 +102,17 @@ async function sbGet(table, query) {
     }
   });
   if (!res.ok) {
-    throw new Error(`Supabase ${table} ${res.status}: ${await res.text()}`);
+    const body = await res.text();
+    if (res.status === 401 || res.status === 403) {
+      throw new Error(`Supabase rejected the key (${res.status}). The ` +
+        `SUPABASE_SERVICE_KEY secret must be the service_role key, not ` +
+        `the anon key.`);
+    }
+    if (res.status === 404) {
+      throw new Error(`Table "${table}" was not found (404). Run the ` +
+        `setup SQL in the same Supabase project as SUPABASE_URL.`);
+    }
+    throw new Error(`Supabase ${table} ${res.status}: ${body}`);
   }
   return res.json();
 }
@@ -96,11 +163,7 @@ function buildMessage(due) {
 }
 
 async function main() {
-  need("SUPABASE_URL", SUPABASE_URL);
-  need("SUPABASE_SERVICE_KEY", SERVICE_KEY);
-  need("VAPID_PUBLIC_KEY", VAPID_PUBLIC);
-  need("VAPID_PRIVATE_KEY", VAPID_PRIVATE);
-  webpush.setVapidDetails(CONTACT, VAPID_PUBLIC, VAPID_PRIVATE);
+  preflight();
 
   const catalog = JSON.parse(
     fs.readFileSync(path.join(__dirname, "benefits.json"), "utf8"));

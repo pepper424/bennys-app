@@ -1,0 +1,80 @@
+name: Daily expiry reminders
+
+on:
+  schedule:
+    # 14:00 UTC daily (~9-10am US Eastern)
+    - cron: "0 14 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Log what would be sent, send nothing"
+        type: boolean
+        default: true
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Runs before anything else so the log always shows the basics,
+      # even when a later step dies immediately.
+      - name: Diagnostics
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          VAPID_PUBLIC_KEY: ${{ secrets.VAPID_PUBLIC_KEY }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          VAPID_CONTACT: ${{ secrets.VAPID_CONTACT }}
+        run: |
+          echo "Node: $(node --version)"
+          echo ""
+          echo "Files the notifier needs, in the repository root:"
+          for f in notifier.js logic.js benefits.json; do
+            if [ -f "$f" ]; then echo "  found    $f"
+            else echo "  MISSING  $f"; fi
+          done
+          echo ""
+          echo "Secrets (values are never printed, only their length):"
+          for s in SUPABASE_URL SUPABASE_SERVICE_KEY VAPID_PUBLIC_KEY \
+                   VAPID_PRIVATE_KEY VAPID_CONTACT; do
+            v="${!s}"
+            if [ -n "$v" ]; then
+              echo "  found    $s  (length ${#v})"
+            else
+              echo "  MISSING  $s"
+            fi
+          done
+          echo ""
+          echo "Expected lengths:"
+          echo "  SUPABASE_URL       about 40  (https://xxxxx.supabase.co)"
+          echo "  VAPID_PUBLIC_KEY   87"
+          echo "  VAPID_PRIVATE_KEY  43"
+          echo ""
+          echo "If SUPABASE_URL is much longer than 40, it has extra path"
+          echo "on the end - that is what causes a PGRST125 error."
+          echo ""
+          echo "Does SUPABASE_URL end in .supabase.co with nothing after?"
+          case "$SUPABASE_URL" in
+            https://*.supabase.co) echo "  yes - correct shape" ;;
+            *) echo "  NO - this is the problem. Re-enter the secret as" \
+                    "https://yourproject.supabase.co" ;;
+          esac
+
+      - name: Install web-push
+        run: npm install web-push --no-fund --no-audit
+
+      - name: Send reminders
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          VAPID_PUBLIC_KEY: ${{ secrets.VAPID_PUBLIC_KEY }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          VAPID_CONTACT: ${{ secrets.VAPID_CONTACT }}
+          APP_URL: https://stackntrack.net
+          DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
+        run: node notifier.js

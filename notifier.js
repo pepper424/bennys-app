@@ -23,7 +23,28 @@ const L = require("./logic.js");
    are not exactly URL-safe base64. */
 const clean = (v) => String(v || "").replace(/\s+/g, "");
 
-const SUPABASE_URL = clean(process.env.SUPABASE_URL).replace(/\/+$/, "");
+/* Accept whatever shape the URL was pasted in and reduce it to the
+   bare project origin. The app does the same thing client-side; the
+   two most common mistakes are pasting the dashboard address or
+   leaving "/rest/v1" on the end, and both produce a PGRST125
+   "Invalid path" error that is hard to read. */
+function normalizeSupabaseUrl(raw) {
+  let v = clean(raw);
+  if (!v) return "";
+  if (!/^https?:\/\//i.test(v)) v = "https://" + v;
+  try {
+    const u = new URL(v);
+    const dash = u.pathname.match(/\/project\/([a-z0-9]+)/i);
+    if (/(^|\.)supabase\.com$/i.test(u.host) && dash) {
+      return "https://" + dash[1] + ".supabase.co";   // dashboard -> API
+    }
+    return u.origin;                                   // drops any path
+  } catch (e) {
+    return "";
+  }
+}
+
+const SUPABASE_URL = normalizeSupabaseUrl(process.env.SUPABASE_URL);
 const SERVICE_KEY = clean(process.env.SUPABASE_SERVICE_KEY);
 const VAPID_PUBLIC = clean(process.env.VAPID_PUBLIC_KEY);
 const VAPID_PRIVATE = clean(process.env.VAPID_PRIVATE_KEY);
@@ -60,6 +81,10 @@ function preflight() {
     console.log("  " + (val ? "found  " : "MISSING") + "  " + name);
   });
   console.log("  found    VAPID_CONTACT -> " + CONTACT);
+  console.log("  using    SUPABASE_URL  -> " + (SUPABASE_URL || "(unusable)"));
+  if (SUPABASE_URL && clean(process.env.SUPABASE_URL) !== SUPABASE_URL) {
+    console.log("           (corrected from what was pasted)");
+  }
   console.log("  mode     " + (DRY_RUN ? "DRY RUN (nothing is sent)"
                                        : "LIVE (notifications will send)"));
   console.log("");

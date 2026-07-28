@@ -253,6 +253,23 @@
     return d !== null && d >= 0 && d <= warnWindow(b.reset);
   }
 
+  /* A user-chosen order for one card's credits. Keys the user has
+     never seen (a newly added benefit, or one restored from hidden)
+     are not in their saved list - those fall to the bottom in the
+     normal default order rather than vanishing or jumping to the top. */
+  function applyCustomOrder(list, orderKeys, now) {
+    if (!orderKeys || !orderKeys.length) return sortGroup(list, now);
+    var rank = {};
+    orderKeys.forEach(function (k, i) { rank[k] = i; });
+    var known = [], unknown = [];
+    list.forEach(function (b) {
+      if (rank[b.key] === undefined) unknown.push(b);
+      else known.push(b);
+    });
+    known.sort(function (a, b) { return rank[a.key] - rank[b.key]; });
+    return known.concat(sortGroup(unknown, now));
+  }
+
   function sortGroup(list, now) {
     return list.slice().sort(function (a, b) {
       var ta = tier(a), tb = tier(b);
@@ -334,7 +351,8 @@
     stateKey: stateKey, buildBenefits: buildBenefits,
     snapshotState: snapshotState,
     daysRemaining: daysRemaining, isExpiringSoon: isExpiringSoon,
-    sortGroup: sortGroup, fmtValue: fmtValue, fmtDate: fmtDate,
+    sortGroup: sortGroup, applyCustomOrder: applyCustomOrder,
+    fmtValue: fmtValue, fmtDate: fmtDate,
     fmtTotals: fmtTotals, symbolFor: symbolFor,
     periodsPerYear: periodsPerYear, annualValue: annualValue,
     usedValue: usedValue, remainingValue: remainingValue,

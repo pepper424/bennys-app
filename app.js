@@ -37,7 +37,7 @@
   };
 
   var CARD_ORDER = [];
-  var BUILD = "2.6.0";
+  var BUILD = "2.7.0";
 
   /* ================= helpers ================= */
   function esc(s) { return L.esc(s); }
@@ -291,6 +291,19 @@
       }).catch(function () { toast("Could not turn reminders off", true); });
     },
 
+    saveOrder: function (card, keys) {
+      if (!card || !keys || !keys.length) return;
+      S.profile.order = S.profile.order || {};
+      S.profile.order[card] = keys;
+      persist(true);
+    },
+
+    resetOrder: function () {
+      S.profile.order = {};
+      persist(true);
+      closeModal(); toast("Default order restored"); paint();
+    },
+
     saveNote: function (key, text) {
       var t = L.cleanNote(text);
       S.profile.notes = S.profile.notes || {};
@@ -326,6 +339,8 @@
       });
       S.profile.cardNotes = S.profile.cardNotes || {};
       cards.forEach(function (c) { delete S.profile.cardNotes[c]; });
+      S.profile.order = S.profile.order || {};
+      cards.forEach(function (c) { delete S.profile.order[c]; });
       rebuild(); persist(true);
       if (S.tab.indexOf("card:") === 0 &&
           cards.indexOf(S.tab.slice(5)) >= 0) S.tab = "alerts";
@@ -649,7 +664,7 @@
     var urgent = L.isExpiringSoon(b, now());
     var used = !b.available;
     var cls = "benefit-card" + (urgent ? " urgent" : "") +
-              (used ? " used" : "");
+              (used ? " used" : "") + (compact ? "" : " draggable");
     var warn = urgent ?
       '<span class="expires-soon">&#9679; EXPIRING</span> ' : "";
     var val = L.fmtValue(b.value, b.currency);
@@ -673,7 +688,10 @@
           ' days left - ' + ds + '</span>');
       }
     }
-    return '<div class="' + cls + '">' +
+    return '<div class="' + cls + '" data-key="' + esc(b.key) + '">' +
+      (compact ? '' :
+        '<div class="bc-grip" data-a="grip" title="Drag to reorder" ' +
+        'aria-label="Drag to reorder">&#8942;&#8942;</div>') +
       '<div class="bc-top"><div class="card-name">' + esc(b.card) +
       '</div>' + (val ? '<div class="bc-value">' + esc(val) +
       '</div>' : "") + '</div>' +
@@ -788,7 +806,10 @@
       '<span class="savedot' +
       (S.saving === "saving" ? " saving" :
        S.saving === "error" ? " bad" : "") + '"></span>' +
-      '</div></div></div>' +
+      '</div></div>' +
+      '<button class="gear" data-a="settings-open" title="Settings" ' +
+      'aria-label="Settings">&#9881;</button>' +
+      '</div>' +
       '<div class="hint">Flip a switch when you have used a credit - ' +
       'it saves instantly.</div>';
 
@@ -847,7 +868,9 @@
           'nothing else due in ' + L.EXPIRE_SOON_DAYS_LONG +
           '. Enjoy it.</div>';
       }
+      h += '<div class="benefit-list alerts-list">';
       urg.forEach(function (b) { h += benefitHTML(b, true); });
+      h += '</div>';
     } else if (S.tab === "manage") {
       h += manageView();
     } else if (S.tab.indexOf("card:") === 0) {
@@ -881,9 +904,10 @@
         h += '<div class="empty-note">No benefits on this card match ' +
           'your search.</div>';
       }
-      L.sortGroup(group, t).forEach(function (b) {
-        h += benefitHTML(b);
-      });
+      h += '<div class="benefit-list" data-card="' + esc(card) + '">';
+      L.applyCustomOrder(group, (S.profile.order || {})[card], t)
+        .forEach(function (b) { h += benefitHTML(b); });
+      h += '</div>';
     }
     return h;
   }
@@ -953,32 +977,9 @@
             esc(k) + '">Restore</button></div>';
         }).join("") + '</details>';
     }
-    if (pushSupported()) {
-      var pLabel = S.pushState === "on"
-        ? "Expiry reminders are on"
-        : (S.pushState === "blocked"
-            ? "Reminders are blocked in your browser settings"
-            : "Get reminded before a credit expires");
-      h += '<hr class="thin">' +
-        '<div class="sub"><b>' + esc(pLabel) + '</b></div>' +
-        (S.pushState === "blocked"
-          ? '<div class="hint">Your browser is blocking notifications ' +
-            'for this site. Turn them back on in Chrome: &#8942; menu ' +
-            '&rarr; Settings &rarr; Site settings &rarr; Notifications.' +
-            '</div>'
-          : '<button class="ghost" data-a="push-toggle">' +
-            (S.pushState === "on" ? "Turn off reminders"
-                                  : "Turn on reminders") + '</button>');
-    }
     h += '<hr class="thin">' +
-      '<div class="sub">Signed in as <b>' + esc(S.user.email) +
-      '</b></div>' +
-      '<div class="sub">Catalog version: ' +
-      esc(S.catalog.catalog_version || "?") +
-      ' - benefits re-audited monthly.</div>' +
-      '<button class="ghost" data-a="logout">Log out</button>' +
-      '<button class="ghost" data-a="reset-open">Reset dashboard' +
-      '</button>';
+      '<div class="hint">Account, reminders, help and reset now live ' +
+      'under the &#9881; gear at the top of the screen.</div>';
     return h;
   }
 
@@ -1051,6 +1052,120 @@
       '<button data-a="push-enable">Turn on reminders</button>' +
       '<button class="ghost" data-a="push-later">Not now</button>' +
       '</div></div></div>';
+  }
+
+  function settingsModalHTML() {
+    var h = '<div class="modal-back" data-a="modal-back">' +
+      '<div class="modal sheet">' +
+      '<div class="sheet-head"><h3>Settings</h3>' +
+      '<button class="sheet-x" data-a="settings-close" ' +
+      'aria-label="Close">&times;</button></div>' +
+      '<div class="sheet-body">';
+
+    h += '<div class="set-sec"><div class="set-lab">Account</div>' +
+      '<div class="sub">Signed in as <b>' + esc(S.user.email) +
+      '</b></div></div>';
+
+    if (pushSupported()) {
+      var on = S.pushState === "on";
+      var blocked = S.pushState === "blocked";
+      h += '<div class="set-sec"><div class="set-lab">Reminders</div>' +
+        '<div class="sub">' + (blocked
+          ? 'Notifications are blocked for this site in your browser.'
+          : (on ? 'You will get a nudge before a credit expires.'
+                : 'Get a nudge before a credit expires.')) + '</div>' +
+        (blocked
+          ? '<div class="hint">Chrome: &#8942; menu &rarr; Settings ' +
+            '&rarr; Site settings &rarr; Notifications.</div>'
+          : '<button class="ghost" data-a="push-toggle">' +
+            (on ? "Turn off reminders" : "Turn on reminders") +
+            '</button>') +
+        '</div>';
+    }
+
+    var ordered = Object.keys(S.profile.order || {}).length;
+    h += '<div class="set-sec"><div class="set-lab">Layout</div>' +
+      '<div class="sub">' + (ordered
+        ? 'You have reordered credits on ' + ordered + ' card' +
+          (ordered === 1 ? '' : 's') + '.'
+        : 'Drag the grip handle on any credit to reorder it.') +
+      '</div>' +
+      (ordered ? '<button class="ghost" data-a="order-reset">' +
+        'Restore the default order</button>' : '') + '</div>';
+
+    h += '<div class="set-sec"><div class="set-lab">How stackNtrack ' +
+      'works</div>' + helpHTML() + '</div>';
+
+    h += '<div class="set-sec"><div class="set-lab">About</div>' +
+      '<div class="sub">Card catalog ' +
+      esc(S.catalog.catalog_version || "?") + ' &middot; ' +
+      Object.keys(S.catalog.cards).length + ' cards</div>' +
+      '<div class="sub">App version ' + BUILD + '</div>' +
+      '<div class="hint">Benefits are re-checked against issuer ' +
+      'sources every week.</div></div>';
+
+    h += '<div class="set-sec"><div class="set-lab">Account ' +
+      'actions</div>' +
+      '<button class="ghost" data-a="logout">Log out</button>' +
+      '<button class="ghost" data-a="reset-open">Reset dashboard' +
+      '</button>' +
+      '<div class="hint">Resetting clears your cards, notes, and ' +
+      'toggle history. Your login stays.</div></div>';
+
+    return h + '</div></div></div>';
+  }
+
+  function helpQ(q, a) {
+    return '<details class="qa"><summary>' + q + '</summary>' +
+      '<div class="qa-a">' + a + '</div></details>';
+  }
+
+  function helpHTML() {
+    return '<div class="hint" style="margin-bottom:.5rem">The short ' +
+      'version: pick your cards, and stackNtrack tracks every credit ' +
+      'they owe you and when it dies.</div>' +
+      helpQ("Marking a credit used",
+        "Flip the switch on a credit when you have spent it. Monthly " +
+        "credits show a switch for each month, quarterly ones for each " +
+        "quarter - so you can catch up on a month you forgot. It saves " +
+        "the moment you tap.") +
+      helpQ("What the meter means",
+        "A $10-a-month credit is worth $120 over a year. The bar fills " +
+        "as you capture it, and the card header shows what is still on " +
+        "the table. Per-stay benefits have no fixed yearly value, so " +
+        "they stay out of the totals.") +
+      helpQ("Adding a note",
+        "Tap the &#65291; on any credit to jot up to 100 characters - " +
+        "a targeted offer, a plan for spending it, a confirmation " +
+        "number. For something that applies to a whole card, use " +
+        "<b>Add a pinned note</b> at the top of that card. Tap any " +
+        "note to edit or delete it.") +
+      helpQ("Reordering credits",
+        "On a card's tab, press and drag the grip handle " +
+        "(&#8942;&#8942;) on the left of any credit to move it up or " +
+        "down. Your order is saved and sticks. The alerts tab always " +
+        "sorts by what is expiring soonest.") +
+      helpQ("Hiding credits you will never use",
+        "Tap the &times; on a credit to remove it from your dashboard " +
+        "- handy when several cards give you the same perk, like " +
+        "Global Entry. Nothing is lost: restore it any time from " +
+        "<b>Removed benefits</b> in &#65291;&#8202;/&#8202;&#8722; " +
+        "Cards.") +
+      helpQ("The &#9888;&#65039; alerts tab",
+        "Everything close to expiring, in one place. Monthly credits " +
+        "appear 30 days out, everything else 60 days out. Each one " +
+        "shows only the period actually at risk, so you are not " +
+        "hunting through a grid.") +
+      helpQ("Anniversary dates",
+        "Some benefits reset on your account anniversary rather than " +
+        "in January. Add those dates in &#65291;&#8202;/&#8202;&#8722; " +
+        "Cards and stackNtrack works out the exact deadline. Leave " +
+        "them blank and it estimates.") +
+      helpQ("Your data and privacy",
+        "stackNtrack never asks for bank logins and never sees your " +
+        "accounts or transactions. It stores only which cards you " +
+        "hold, what you have marked used, and your notes - locked to " +
+        "your account so nobody else can read it.");
   }
 
   function resetModalHTML() {
@@ -1348,6 +1463,7 @@
     };
 
     paint = function () {
+      if (drag) return;              // never re-render mid-drag
       var focusEl = document.activeElement;
       var focusId = focusEl && focusEl.id;
       var selStart = focusEl && focusEl.selectionStart;
@@ -1443,6 +1559,79 @@
       else paint();
     });
 
+    /* ---------------- drag to reorder ----------------
+       Pointer events rather than HTML5 drag-and-drop, because the
+       latter is unreliable on touch screens. Dragging is confined to a
+       grip handle so it can never fight with scrolling or with the
+       toggles inside a card. */
+    var drag = null;
+
+    function commitDrag() {
+      if (!drag) return;
+      var el = drag.el, list = drag.list, moved = drag.moved;
+      el.classList.remove("dragging");
+      el.style.transform = "";
+      if (list) list.classList.remove("dragging-active");
+      drag = null;
+      if (!moved || !list) return;
+      var card = list.getAttribute("data-card");
+      var keys = Array.prototype.slice
+        .call(list.querySelectorAll(".benefit-card"))
+        .map(function (n) { return n.getAttribute("data-key"); })
+        .filter(Boolean);
+      A.saveOrder(card, keys);
+      toast("Order saved");
+    }
+
+    document.addEventListener("pointerdown", function (e) {
+      var t = e.target;
+      var grip = t && t.closest ? t.closest(".bc-grip") : null;
+      if (!grip) return;
+      var el = grip.closest(".benefit-card");
+      var list = el && el.closest(".benefit-list[data-card]");
+      if (!el || !list) return;          // alerts list is not reorderable
+      e.preventDefault();
+      drag = { el: el, list: list, startY: e.clientY, moved: false,
+               pointerId: e.pointerId };
+      el.classList.add("dragging");
+      list.classList.add("dragging-active");
+      try { grip.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+
+    document.addEventListener("pointermove", function (e) {
+      if (!drag) return;
+      e.preventDefault();
+      var dy = e.clientY - drag.startY;
+      if (Math.abs(dy) > 4) drag.moved = true;
+      drag.el.style.transform = "translateY(" + dy + "px)";
+
+      var rect = drag.el.getBoundingClientRect();
+      var mid = rect.top + rect.height / 2;
+      var sibs = Array.prototype.slice
+        .call(drag.list.querySelectorAll(".benefit-card"));
+      for (var i = 0; i < sibs.length; i++) {
+        var o = sibs[i];
+        if (o === drag.el) continue;
+        var r = o.getBoundingClientRect();
+        var omid = r.top + r.height / 2;
+        var before = !!(drag.el.compareDocumentPosition(o) &
+                        Node.DOCUMENT_POSITION_PRECEDING);
+        if (dy < 0 && before && mid < omid) {
+          drag.list.insertBefore(drag.el, o);
+          drag.startY = e.clientY; drag.el.style.transform = "";
+          break;
+        }
+        if (dy > 0 && !before && mid > omid) {
+          drag.list.insertBefore(drag.el, o.nextSibling);
+          drag.startY = e.clientY; drag.el.style.transform = "";
+          break;
+        }
+      }
+    });
+
+    document.addEventListener("pointerup", commitDrag);
+    document.addEventListener("pointercancel", commitDrag);
+
     /* global event delegation */
     document.addEventListener("click", function (e) {
       var el = e.target.closest("[data-a]");
@@ -1511,6 +1700,12 @@
         ).map(function (x) { return x.getAttribute("data-v"); });
         if (rm.length) A.removeCards(rm);
       }
+      else if (a === "settings-open") {
+        document.getElementById("modal-root").innerHTML =
+          settingsModalHTML();
+      }
+      else if (a === "settings-close") closeModal();
+      else if (a === "order-reset") A.resetOrder();
       else if (a === "push-enable") A.enablePush();
       else if (a === "push-later") A.dismissPush();
       else if (a === "push-toggle") {
@@ -1728,7 +1923,10 @@
              benefitHTML: benefitHTML, toggleHTML: toggleHTML,
              resetModalHTML: resetModalHTML, pickerHTML: pickerHTML,
              errorView: errorView, installView: installView,
-             hideModalHTML: hideModalHTML },
+             hideModalHTML: hideModalHTML,
+             settingsModalHTML: settingsModalHTML,
+             noteModalHTML: noteModalHTML,
+             pushModalHTML: pushModalHTML, helpHTML: helpHTML },
     shouldShowInstallGate: shouldShowInstallGate,
     describeDbError: describeDbError,
     _internals: { rebuild: rebuild, readAnnivRows: readAnnivRows,

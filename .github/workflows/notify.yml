@@ -1,0 +1,36 @@
+name: Daily expiry reminders
+
+on:
+  schedule:
+    # 14:00 UTC daily (~9-10am US Eastern) - a sane hour to be nudged
+    - cron: "0 14 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Log what would be sent, send nothing"
+        type: boolean
+        default: true
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install web-push
+        run: npm install web-push --no-fund --no-audit
+
+      - name: Send reminders
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          VAPID_PUBLIC_KEY: ${{ secrets.VAPID_PUBLIC_KEY }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          VAPID_CONTACT: ${{ secrets.VAPID_CONTACT }}
+          APP_URL: https://stackntrack.net
+          DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
+        run: node notifier.js

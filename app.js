@@ -37,7 +37,7 @@
   };
 
   var CARD_ORDER = [];
-  var BUILD = "2.7.0";
+  var BUILD = "2.7.1";
 
   /* ================= helpers ================= */
   function esc(s) { return L.esc(s); }
@@ -265,7 +265,7 @@
         }).then(function () {
           S.pushState = "on";
           closeModal(); paint();
-          toast("Reminders on - we'll nudge you before credits expire");
+          toast("Reminders enabled");
         });
       }).catch(function () {
         S.pushState = "off"; closeModal(); paint();
@@ -464,7 +464,8 @@
       '<div class="hero-thesis">Never let a credit die.</div>' +
       '<div class="hero-sub">Pick your cards and get a live dashboard ' +
       'of every credit, free night, and deadline you are owed. ' +
-      'Tune it to how you actually live. No bank logins - ever.' +
+      'Customize it around the cards and benefits that matter to ' +
+      'you. No bank logins - ever.' +
       '</div></div>';
   }
 
@@ -617,10 +618,11 @@
         '<div class="brand-tag">' + esc(S.user.email) + '</div></div>' +
         '</div>' +
         '<div class="hero-thesis" style="font-size:.95rem;' +
-        'margin:.35rem 0 .1rem">Your wallet, your way.</div>' +
+        'margin:.35rem 0 .1rem">Customize your dashboard to fit ' +
+        'your needs.</div>' +
         '<div class="hint">Last step - add the cards you carry. ' +
-        'Afterwards you can hide credits you will never use and pin ' +
-        'notes to the ones you will.</div>';
+        'You can then hide any credits you do not use and add notes ' +
+        'to the ones you do.</div>';
     } else {
       h = heroHTML();
     }
@@ -726,13 +728,13 @@
     var zero = L.symbolFor(cur) + "0";
     if (L.RECURRING[b.reset]) {
       return progressHTML(used, total, cur,
-        '<b>' + esc(L.fmtValue(left, cur) || zero) + '</b> left of ' +
+        '<b>' + esc(L.fmtValue(left, cur) || zero) + '</b> remaining of ' +
         esc(L.fmtValue(total, cur)) + ' this year' +
         (used ? ' &middot; ' + esc(L.fmtValue(used, cur)) + ' used' : ''));
     }
     return '<div class="vlab solo">' + (used
-      ? esc(L.fmtValue(used, cur)) + ' captured'
-      : '<b>' + esc(L.fmtValue(total, cur)) + '</b> still available') +
+      ? esc(L.fmtValue(used, cur)) + ' used'
+      : '<b>' + esc(L.fmtValue(total, cur)) + '</b> available') +
       '</div>';
   }
 
@@ -810,8 +812,8 @@
       '<button class="gear" data-a="settings-open" title="Settings" ' +
       'aria-label="Settings">&#9881;</button>' +
       '</div>' +
-      '<div class="hint">Flip a switch when you have used a credit - ' +
-      'it saves instantly.</div>';
+      '<div class="hint">Mark a credit as used once you have redeemed ' +
+      'it. Changes save automatically.</div>';
 
     if (S.installable()) {
       h += '<button class="ghost" data-a="install">&#8681; Install ' +
@@ -832,7 +834,7 @@
     if (dom && dom.total) {
       h += progressHTML(dom.used, dom.total, sum.dominant,
         '<b>' + esc(L.fmtTotals(usedByCur) ||
-          L.symbolFor(sum.dominant) + "0") + '</b> captured this year of ' +
+          L.symbolFor(sum.dominant) + "0") + '</b> used this year of ' +
         esc(L.fmtValue(dom.total, sum.dominant)) +
         (Object.keys(sum.byCur).length > 1 ? ' (main currency)' : ''));
     }
@@ -863,10 +865,10 @@
     if (S.tab === "alerts") {
       var urg = L.sortGroup(urgentAll.filter(matchesSearch), t);
       if (!urg.length) {
-        h += '<div class="empty-note">Nothing is close to expiring - ' +
-          'no monthly credit due in ' + L.EXPIRE_SOON_DAYS + ' days and ' +
-          'nothing else due in ' + L.EXPIRE_SOON_DAYS_LONG +
-          '. Enjoy it.</div>';
+        h += '<div class="empty-note">Nothing requires attention right now. ' +
+          'No monthly credit expires within ' + L.EXPIRE_SOON_DAYS +
+          ' days, and nothing else within ' + L.EXPIRE_SOON_DAYS_LONG +
+          ' days.</div>';
       }
       h += '<div class="benefit-list alerts-list">';
       urg.forEach(function (b) { h += benefitHTML(b, true); });
@@ -895,9 +897,9 @@
         gUrg.length + ' expiring soon</div>' +
         (gc.total ? progressHTML(gc.used, gc.total, gCur,
           '<b>' + esc(L.fmtValue(gc.left, gCur) || gz) +
-          '</b> still on the table &middot; ' +
+          '</b> remaining &middot; ' +
           esc(L.fmtValue(gc.used, gCur) || gz) + ' of ' +
-          esc(L.fmtValue(gc.total, gCur)) + ' captured this year') : '') +
+          esc(L.fmtValue(gc.total, gCur)) + ' used this year') : '') +
         cardNoteHTML(card) +
         '</div>';
       if (!group.length) {
@@ -915,11 +917,11 @@
   function manageView() {
     var h = '<div class="card-hero"><div class="h-name">Manage your ' +
       'cards</div>' +
-      '<div class="h-tag">Your wallet, your way.</div>' +
-      '<div class="h-meta">Got a new card? Add it here and ' +
-      'your dashboard updates instantly. You can also fix anniversary ' +
-      'dates, remove cards you have closed, or hide credits you will ' +
-      'never use.</div></div>';
+      '<div class="h-tag">Customize your dashboard to fit your ' +
+      'needs.</div>' +
+      '<div class="h-meta">Add a new card and your dashboard updates ' +
+      'immediately. You can also update anniversary dates, remove ' +
+      'closed cards, or hide credits you do not use.</div></div>';
 
     var addable = CARD_ORDER.filter(function (c) {
       return S.profile.cards.indexOf(c) < 0;
@@ -992,10 +994,11 @@
       '<div class="sub" style="font-size:.95rem;color:var(--ink);' +
       'font-weight:600">' + esc(name) + '</div>' +
       '<div class="hint">' + esc(card) + ' &mdash; this hides the ' +
-      'benefit from your dashboard, alerts, and totals. Handy for ' +
-      'perks you get on several cards (Global Entry, Priority Pass) ' +
-      'or credits you never use. You can restore it anytime from the ' +
-      '&#65291;&#8202;/&#8202;&#8722; Cards tab.</div>' +
+      'benefit from your dashboard, alerts, and totals. Useful for ' +
+      'benefits offered by several cards, such as Global Entry or ' +
+      'Priority Pass, or credits you do not use. You can restore it ' +
+      'at any time from the &#65291;&#8202;/&#8202;&#8722; Cards ' +
+      'tab.</div>' +
       '<div class="row2">' +
       '<button class="danger" data-a="hide-yes" data-k="' + esc(key) +
       '">Yes, remove this benefit</button>' +
@@ -1014,10 +1017,11 @@
     var title = isCard ? "Pinned note" : "Note";
     var subject = isCard ? cardLabel(id) : (b ? b.benefit : "this credit");
     var hint = isCard
-      ? "Sits at the top of this card - use it for anything that applies " +
-        "to the whole card, like a retention offer or your renewal plan."
-      : "Just for you - a special offer, a plan for how to spend it, " +
-        "a confirmation number.";
+      ? "Displayed at the top of this card. Use it for anything that " +
+        "applies to the card as a whole, such as a retention offer or " +
+        "a renewal decision."
+      : "Private to your account. Useful for targeted offers, redemption " +
+        "plans, or confirmation numbers.";
     return '<div class="modal-back" data-a="modal-back">' +
       '<div class="modal"><h3>' + esc(title) + '</h3>' +
       '<div class="sub" style="font-size:.95rem;color:var(--ink);' +
@@ -1042,12 +1046,12 @@
   function pushModalHTML() {
     return '<div class="modal-back" data-a="modal-back">' +
       '<div class="modal"><h3>Never miss an expiring credit</h3>' +
-      '<div class="sub">Get a heads-up before a credit runs out - ' +
+      '<div class="sub">Receive a reminder before a credit expires - ' +
       'a monthly credit three days before month end, bigger benefits ' +
       'further ahead.</div>' +
-      '<div class="hint">One nudge at a time, only for credits you ' +
-      'have not used yet. You can turn this off whenever you like in ' +
-      '&#65291;&#8202;/&#8202;&#8722; Cards.</div>' +
+      '<div class="hint">One reminder at a time, and only for credits ' +
+      'you have not yet marked as used. You can turn reminders off ' +
+      'at any time in Settings.</div>' +
       '<div class="row2">' +
       '<button data-a="push-enable">Turn on reminders</button>' +
       '<button class="ghost" data-a="push-later">Not now</button>' +
@@ -1072,8 +1076,8 @@
       h += '<div class="set-sec"><div class="set-lab">Reminders</div>' +
         '<div class="sub">' + (blocked
           ? 'Notifications are blocked for this site in your browser.'
-          : (on ? 'You will get a nudge before a credit expires.'
-                : 'Get a nudge before a credit expires.')) + '</div>' +
+          : (on ? 'You will be reminded before a credit expires.'
+                : 'Receive a reminder before a credit expires.')) + '</div>' +
         (blocked
           ? '<div class="hint">Chrome: &#8942; menu &rarr; Settings ' +
             '&rarr; Site settings &rarr; Notifications.</div>'
@@ -1088,7 +1092,7 @@
       '<div class="sub">' + (ordered
         ? 'You have reordered credits on ' + ordered + ' card' +
           (ordered === 1 ? '' : 's') + '.'
-        : 'Drag the grip handle on any credit to reorder it.') +
+        : 'Drag the handle on any credit to change its position.') +
       '</div>' +
       (ordered ? '<button class="ghost" data-a="order-reset">' +
         'Restore the default order</button>' : '') + '</div>';
@@ -1101,8 +1105,8 @@
       esc(S.catalog.catalog_version || "?") + ' &middot; ' +
       Object.keys(S.catalog.cards).length + ' cards</div>' +
       '<div class="sub">App version ' + BUILD + '</div>' +
-      '<div class="hint">Benefits are re-checked against issuer ' +
-      'sources every week.</div></div>';
+      '<div class="hint">Benefit data is reviewed against issuer ' +
+      'sources on a regular schedule.</div></div>';
 
     h += '<div class="set-sec"><div class="set-lab">Account ' +
       'actions</div>' +
@@ -1110,7 +1114,7 @@
       '<button class="ghost" data-a="reset-open">Reset dashboard' +
       '</button>' +
       '<div class="hint">Resetting clears your cards, notes, and ' +
-      'toggle history. Your login stays.</div></div>';
+      'usage history. Your account remains active.</div></div>';
 
     return h + '</div></div></div>';
   }
@@ -1121,51 +1125,52 @@
   }
 
   function helpHTML() {
-    return '<div class="hint" style="margin-bottom:.5rem">The short ' +
-      'version: pick your cards, and stackNtrack tracks every credit ' +
-      'they owe you and when it dies.</div>' +
+    return '<div class="hint" style="margin-bottom:.5rem">Select the cards ' +
+      'you hold, and stackNtrack tracks every credit they carry along ' +
+      'with its expiration date.</div>' +
       helpQ("Marking a credit used",
-        "Flip the switch on a credit when you have spent it. Monthly " +
-        "credits show a switch for each month, quarterly ones for each " +
-        "quarter - so you can catch up on a month you forgot. It saves " +
-        "the moment you tap.") +
+        "Toggle a credit once you have redeemed it. Monthly credits " +
+        "provide a switch for each month and quarterly credits one per " +
+        "quarter, so you can record past periods you missed. Changes " +
+        "save automatically.") +
       helpQ("What the meter means",
-        "A $10-a-month credit is worth $120 over a year. The bar fills " +
-        "as you capture it, and the card header shows what is still on " +
-        "the table. Per-stay benefits have no fixed yearly value, so " +
-        "they stay out of the totals.") +
+        "A $10 monthly credit is worth $120 annually. The bar fills as " +
+        "you redeem it, and the card header shows the remaining value. " +
+        "Per-stay benefits have no fixed annual value and are " +
+        "excluded from totals.") +
       helpQ("Adding a note",
-        "Tap the &#65291; on any credit to jot up to 100 characters - " +
-        "a targeted offer, a plan for spending it, a confirmation " +
-        "number. For something that applies to a whole card, use " +
-        "<b>Add a pinned note</b> at the top of that card. Tap any " +
+        "Select the &#65291; on any credit to add up to 100 characters " +
+        "- a targeted offer, a redemption plan, or a confirmation " +
+        "number. For information that applies to an entire card, use " +
+        "<b>Add a pinned note</b> at the top of that card. Select any " +
         "note to edit or delete it.") +
       helpQ("Reordering credits",
-        "On a card's tab, press and drag the grip handle " +
-        "(&#8942;&#8942;) on the left of any credit to move it up or " +
-        "down. Your order is saved and sticks. The alerts tab always " +
-        "sorts by what is expiring soonest.") +
+        "On a card's tab, press and drag the handle (&#8942;&#8942;) to " +
+        "the left of any credit to reposition it. Your arrangement is " +
+        "saved automatically. The alerts tab always sorts by " +
+        "expiration date.") +
       helpQ("Hiding credits you will never use",
-        "Tap the &times; on a credit to remove it from your dashboard " +
-        "- handy when several cards give you the same perk, like " +
-        "Global Entry. Nothing is lost: restore it any time from " +
-        "<b>Removed benefits</b> in &#65291;&#8202;/&#8202;&#8722; " +
-        "Cards.") +
+        "Select the &times; on a credit to remove it from your " +
+        "dashboard - useful when several cards provide the same " +
+        "benefit, such as Global Entry. Nothing is deleted: restore " +
+        "it at any time from <b>Removed benefits</b> in " +
+        "&#65291;&#8202;/&#8202;&#8722; Cards.") +
       helpQ("The &#9888;&#65039; alerts tab",
-        "Everything close to expiring, in one place. Monthly credits " +
-        "appear 30 days out, everything else 60 days out. Each one " +
-        "shows only the period actually at risk, so you are not " +
-        "hunting through a grid.") +
+        "Everything approaching expiration, in one place. Monthly " +
+        "credits appear 30 days in advance, all others 60 days in " +
+        "advance. Each shows only the period at risk rather than the " +
+        "full year.") +
       helpQ("Anniversary dates",
-        "Some benefits reset on your account anniversary rather than " +
-        "in January. Add those dates in &#65291;&#8202;/&#8202;&#8722; " +
-        "Cards and stackNtrack works out the exact deadline. Leave " +
-        "them blank and it estimates.") +
+        "Some benefits reset on your account anniversary rather than at " +
+        "the start of the calendar year. Enter those dates in " +
+        "&#65291;&#8202;/&#8202;&#8722; Cards and stackNtrack " +
+        "calculates the exact deadline. If left blank, dates are " +
+        "estimated.") +
       helpQ("Your data and privacy",
-        "stackNtrack never asks for bank logins and never sees your " +
-        "accounts or transactions. It stores only which cards you " +
-        "hold, what you have marked used, and your notes - locked to " +
-        "your account so nobody else can read it.");
+        "stackNtrack does not request bank credentials and has no " +
+        "access to your accounts or transactions. It stores only the " +
+        "cards you select, the credits you mark as used, and your " +
+        "notes - secured to your account and visible to no one else.");
   }
 
   function resetModalHTML() {

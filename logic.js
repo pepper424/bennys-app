@@ -127,6 +127,97 @@
     return null;
   }
 
+  /* ---- generated card art ----
+     Deliberately NOT issuer logos: those are trademarked and shipping
+     them in a published app is a real legal exposure. Instead each card
+     gets an original monogram tile in colours associated with its
+     issuer or travel partner, which gives the same fast recognition
+     when scanning a long list. */
+  var ART = [
+    // travel partners first - on a co-brand the partner is what people
+    // recognise ("Hyatt" reads faster than "Chase")
+    [/hyatt/i,                    "HY", "#5B2C6F", "#8E44AD"],
+    [/marriott|bonvoy|ritz/i,     "MR", "#1C3F94", "#2E5FD0"],
+    [/hilton/i,                   "HH", "#0B3C7A", "#1666C8"],
+    [/\bihg\b|holiday inn/i,      "IHG", "#8B1D3F", "#C4315F"],
+    [/wyndham/i,                  "WY", "#1B5E7E", "#2E8BB0"],
+    [/choice privileges/i,        "CP", "#1F5C8B", "#3383C2"],
+    [/delta/i,                    "DL", "#8A1830", "#C42B4C"],
+    [/united/i,                   "UA", "#0B2C5E", "#1A5DAF"],
+    [/southwest/i,                "SW", "#1F3A69", "#D4442A"],
+    [/aadvantage|american airlines/i, "AA", "#0C2D57", "#B01B2E"],
+    [/jetblue/i,                  "B6", "#0A2E6E", "#1B6FD1"],
+    [/atmos|alaska/i,             "AS", "#0B3B5C", "#1E7A9E"],
+    [/frontier/i,                 "F9", "#0B5F3E", "#17A06A"],
+    [/allegiant/i,                "G4", "#123A6B", "#2E7BC4"],
+    [/british airways/i,          "BA", "#0B2A5B", "#9E2236"],
+    [/aeroplan|air canada/i,       "AC", "#8E1B2E", "#C4394C"],
+    [/disney/i,                   "DS", "#1B3A8C", "#3A63CC"],
+    [/costco/i,                   "CO", "#0B4C9B", "#D42A32"],
+    [/amazon|prime visa/i,        "AZ", "#232F3E", "#F0912D"],
+    [/target/i,                   "TG", "#8E1116", "#CC1F26"],
+    [/best buy/i,                 "BB", "#0A3E8C", "#F2C200"],
+    [/walmart|sam's club/i,       "WM", "#0B4F9E", "#1E88E5"],
+    [/home depot/i,               "HD", "#9E4A10", "#E07B1E"],
+    [/lowe's/i,                   "LO", "#0B3B8C", "#2E63C4"],
+    [/apple/i,                    "AP", "#3A3A3C", "#6E6E73"],
+    [/uber|rideshare/i,           "UB", "#1B1B1B", "#4A4A4A"],
+    [/coinbase|gemini|bitcoin/i,  "CB", "#0A2A6B", "#1652F0"],
+    [/robinhood/i,                "RH", "#0B5C2E", "#18B44A"],
+    [/venmo|paypal/i,             "PP", "#0B3A7A", "#2077C4"],
+    [/bilt/i,                     "BL", "#1A1A1A", "#4D4D4D"],
+    // credit unions come before the networks: a union card issued on
+    // the Amex network should still read as the union
+    [/navy federal/i,             "NF", "#0B2E5C", "#1B5FA8"],
+    [/penfed/i,                   "PF", "#0B3A6B", "#2E7ABF"],
+    [/usaa/i,                     "US", "#0B3560", "#1D6FA8"],
+    [/credit union|\bfcu\b|alliant|\bbecu\b|\bdcu\b|schoolsfirst|\bsecu\b|golden 1|suncoast|rbfcu|america first|mountain america|bethpage|first tech|vystar|patelco|wright-patt|security service|delta community/i,
+                                  "CU", "#0B5C4E", "#17A08A"],
+
+    // then issuers and networks
+    [/american express|amex/i,    "AX", "#0B4EA2", "#3B87D6"],
+    [/chase/i,                    "CH", "#0B4A8F", "#1668C4"],
+    [/citi/i,                     "CI", "#0B3E86", "#1B6EC2"],
+    [/capital one/i,              "C1", "#8E1B2E", "#D0323F"],
+    [/discover/i,                 "DI", "#A85416", "#E8811F"],
+    [/wells fargo/i,              "WF", "#8E1B24", "#C4232E"],
+    [/bank of america|bofa/i,     "BA", "#8E1B2E", "#1B3A8C"],
+    [/u\.s\. bank|us bank/i,      "US", "#0B3A6B", "#1E63A8"],
+    [/barclays/i,                 "BC", "#0B6EA8", "#2196D6"],
+    [/synchrony/i,                "SY", "#5B2C6F", "#8E4CB0"],
+    [/comenity|bread/i,           "CM", "#3A4A6B", "#6E82A8"],
+    [/truist/i,                   "TR", "#4A2C6B", "#7B4CA8"],
+    [/pnc/i,                      "PN", "#8E5A10", "#D18B1E"],
+    [/\btd\b/i,                   "TD", "#0B5C2E", "#18A04A"],
+    [/regions/i,                  "RG", "#0B5C3E", "#18A06E"],
+    [/citizens/i,                 "CZ", "#0B4A6B", "#1E7BA8"],
+    [/fifth third/i,              "53", "#0B3A7A", "#2E6EC4"],
+    [/huntington/i,               "HU", "#0B5C3A", "#18A068"],
+    // credit builders that are NOT from a major issuer. Checked after
+    // the issuers above, so "Discover it Secured" still reads Discover.
+    [/chime|mission lane|opensky|credit one|indigo|milestone|upgrade|\bself\b/i,
+                                  "CR", "#3A4A6B", "#5E7AA8"],
+    [/sofi/i,                     "SF", "#0B3A6B", "#1E88C4"],
+    [/fidelity/i,                 "FI", "#0B5C3A", "#18A068"],
+  ];
+
+  /* Returns {mono, c1, c2} for a card. Falls back to the card's own
+     initials on a neutral slate so nothing ever renders blank. */
+  function cardArt(name, meta) {
+    var hay = (name || "") + " " + (meta || "");
+    for (var i = 0; i < ART.length; i++) {
+      if (ART[i][0].test(hay)) {
+        return { mono: ART[i][1], c1: ART[i][2], c2: ART[i][3] };
+      }
+    }
+    var words = String(name || "?").replace(/[^A-Za-z ]/g, "").split(/\s+/)
+      .filter(Boolean);
+    var mono = words.length > 1
+      ? (words[0][0] + words[1][0]).toUpperCase()
+      : (words[0] || "?").slice(0, 2).toUpperCase();
+    return { mono: mono, c1: "#37415C", c2: "#5A6788" };
+  }
+
   /* ---- tiers (travel-priority ordering) ---- */
   function tier(b) {
     var s = (b.benefit + " " + b.desc).toLowerCase();
@@ -351,6 +442,7 @@
     stateKey: stateKey, buildBenefits: buildBenefits,
     snapshotState: snapshotState,
     daysRemaining: daysRemaining, isExpiringSoon: isExpiringSoon,
+    cardArt: cardArt,
     sortGroup: sortGroup, applyCustomOrder: applyCustomOrder,
     fmtValue: fmtValue, fmtDate: fmtDate,
     fmtTotals: fmtTotals, symbolFor: symbolFor,

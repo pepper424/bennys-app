@@ -37,7 +37,7 @@
   };
 
   var CARD_ORDER = [];
-  var BUILD = "2.8.1";
+  var BUILD = "2.9.0";
 
   /* ================= helpers ================= */
   function esc(s) { return L.esc(s); }
@@ -46,6 +46,14 @@
   function cardCurrency(c) {
     var e = S.catalog && S.catalog.cards[c];
     return (e && e.currency) ? e.currency : "USD";
+  }
+
+  function cardArtHTML(c, size) {
+    var e = S.catalog && S.catalog.cards[c];
+    var a = L.cardArt(cardLabel(c), e ? e.meta : "");
+    return '<span class="cart ' + (size || "sm") + '" aria-hidden="true" ' +
+      'style="background:linear-gradient(145deg,' + a.c1 + ',' + a.c2 +
+      ')">' + esc(a.mono) + '</span>';
   }
 
   function cardLabel(c) {
@@ -549,9 +557,10 @@
     } else {
       h += items.map(function (c) {
         return '<div class="picker-item" data-a="' + idPrefix +
-          '-tag" data-v="' + esc(c) + '">' + esc(cardLabel(c)) +
+          '-tag" data-v="' + esc(c) + '">' + cardArtHTML(c, "sm") +
+          '<span class="pi-name">' + esc(cardLabel(c)) +
           ' <span class="fee">' + L.symbolFor(cardCurrency(c)) +
-          S.catalog.cards[c].annual_fee + '/yr</span></div>';
+          S.catalog.cards[c].annual_fee + '/yr</span></span></div>';
       }).join("");
     }
     h += '</div>';
@@ -855,6 +864,7 @@
       h += '<button class="chip' +
         (S.tab === "card:" + c ? " active" : "") +
         '" data-a="tab" data-v="card:' + esc(c) + '">' +
+        cardArtHTML(c, "xs") +
         esc(S.catalog.cards[c].tab_label) + '</button>';
     });
     h += '<button class="chip' +
@@ -889,9 +899,10 @@
       var gSum = L.summarize(group);
       var gc = gSum.byCur[gCur] || { total: 0, used: 0, left: 0 };
       var gz = L.symbolFor(gCur) + "0";
-      h += '<div class="card-hero"><div class="h-name">' +
-        esc(cardLabel(card)) +
-        '</div><div class="h-meta">' +
+      h += '<div class="card-hero">' +
+        '<div class="h-top">' + cardArtHTML(card, "lg") +
+        '<div class="h-name">' + esc(cardLabel(card)) + '</div></div>' +
+        '<div class="h-meta">' +
         esc(S.catalog.cards[card].meta) + '</div>' +
         '<div class="h-stats">' + gAvail.length + ' available &middot; ' +
         gUrg.length + ' expiring soon</div>' +

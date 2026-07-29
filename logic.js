@@ -201,13 +201,104 @@
     [/fidelity/i,                 "FI", "#0B5C3A", "#18A068"],
   ];
 
+  /* Card-level palettes. These approximate the actual finish of the
+     physical card - silver for Platinum, gold for Gold, black for the
+     metal cards - because the colour is what people recognise at a
+     glance. Colour is not a logo, so this stays well clear of
+     reproducing anyone's trademark. */
+  var CARD_ART = {
+    "Amex Platinum":              ["AX",  "#E8EAEC", "#A9B0B8"],
+    "Amex Schwab Platinum":       ["AX",  "#E8EAEC", "#A9B0B8"],
+    "Amex Morgan Stanley Platinum":["AX", "#E8EAEC", "#A9B0B8"],
+    "Amex Gold":                  ["AX",  "#E5C77E", "#B8923E"],
+    "Amex Green":                 ["AX",  "#2E7D5B", "#1B4D38"],
+    "Amex EveryDay":              ["AX",  "#3E7BC4", "#25528C"],
+    "Amex EveryDay Preferred":    ["AX",  "#3E7BC4", "#25528C"],
+    "Blue Cash Preferred":        ["AX",  "#2E6FC4", "#1A4585"],
+    "Blue Cash Everyday":         ["AX",  "#5B9BE0", "#2E6FB8"],
+    "Amex Cash Magnet":           ["AX",  "#4A7FBF", "#2B5488"],
+    "Bonvoy Brilliant":           ["MR",  "#3A3A3F", "#141416"],
+    "Marriott Bonvoy Bevy":       ["MR",  "#2C4B8E", "#16264A"],
+    "Marriott Bonvoy Bountiful":  ["MR",  "#2C4B8E", "#16264A"],
+    "Marriott Bold":              ["MR",  "#3E6BC4", "#22407F"],
+    "Marriott Boundless":         ["MR",  "#2C4B8E", "#16264A"],
+    "Ritz-Carlton":               ["RC",  "#2A2A2E", "#0E0E10"],
+    "Hilton Aspire":              ["HH",  "#2A2A2E", "#0E0E10"],
+    "Hilton Surpass":             ["HH",  "#1B4E96", "#0C2A54"],
+    "Hilton Honors Card":         ["HH",  "#2E7BC4", "#17457E"],
+    "World of Hyatt":             ["HY",  "#5E3A8E", "#331C52"],
+    "Sapphire Reserve":           ["CSR", "#1B3A6B", "#0B1D3D"],
+    "Sapphire Preferred":         ["CSP", "#2E5FB0", "#173464"],
+    "Freedom Unlimited":          ["CFU", "#1B6EC2", "#0D3E75"],
+    "Freedom Flex":               ["CFF", "#1B6EC2", "#0D3E75"],
+    "Freedom Rise":               ["CFR", "#3E8BD6", "#1B5A96"],
+    "Venture X":                  ["C1",  "#33363B", "#121316"],
+    "Venture":                    ["C1",  "#B02A38", "#6E1520"],
+    "VentureOne":                 ["C1",  "#C4444F", "#822A34"],
+    "Savor":                      ["C1",  "#C4562A", "#7E3216"],
+    "Quicksilver":                ["C1",  "#B8BEC6", "#7C848E"],
+    "Citi Double Cash":           ["CI",  "#1B4E96", "#0B2A54"],
+    "Citi Custom Cash":           ["CI",  "#2E7BC4", "#154577"],
+    "Citi Strata Elite":          ["CI",  "#2A2E36", "#101218"],
+    "Citi Strata Premier":        ["CI",  "#1B4E96", "#0B2A54"],
+    "Citi Strata":                ["CI",  "#2E6FB8", "#153F70"],
+    "Costco Anywhere Visa":       ["CO",  "#1B4E96", "#B02A32"],
+    "Discover it Cash Back":      ["DI",  "#E8811F", "#A85210"],
+    "Discover it Miles":          ["DI",  "#E8811F", "#A85210"],
+    "Discover it Chrome":         ["DI",  "#B8BEC6", "#7C848E"],
+    "Discover it Secured":        ["DI",  "#E8A04F", "#B06A1E"],
+    "Apple Card":                 ["AP",  "#F2F2F4", "#C7C9CE"],
+    "Bilt Blue":                  ["BL",  "#2E5FB0", "#16305E"],
+    "Bilt Obsidian":              ["BL",  "#2A2A2E", "#0C0C0E"],
+    "Bilt Palladium":             ["BL",  "#C9CDD3", "#8A9099"],
+    "Delta SkyMiles Blue":        ["DL",  "#2E6FC4", "#164280"],
+    "Delta SkyMiles Gold":        ["DL",  "#D9C08A", "#A8874A"],
+    "Delta SkyMiles Platinum":    ["DL",  "#1B3A6B", "#0B1D3D"],
+    "Delta SkyMiles Reserve":     ["DL",  "#2A2A2E", "#0E0E10"],
+    "United Gateway":             ["UA",  "#3E7BC4", "#1B4A85"],
+    "United Explorer":            ["UA",  "#1B4E96", "#0B2A54"],
+    "United Quest":               ["UA",  "#1B3A6B", "#0B1D3D"],
+    "United Club Infinite":       ["UA",  "#2A2E36", "#101218"],
+    "IHG Premier":                ["IHG", "#8B1D3F", "#4E0F22"],
+    "IHG Traveler":               ["IHG", "#C4315F", "#7E1B38"],
+    "IHG Platinum (Select)":      ["IHG", "#B8BEC6", "#7C848E"],
+    "Altitude Reserve":           ["US",  "#2A3340", "#111820"],
+    "Robinhood Gold Card":        ["RH",  "#D9C08A", "#A8874A"],
+    "Prime Visa":                 ["AZ",  "#232F3E", "#0E141C"],
+    "AAdvantage Executive":       ["AA",  "#2A2E36", "#101218"],
+    "Atmos Rewards Summit":       ["AS",  "#0B3B5C", "#05202F"]
+  };
+
+  /* Dark text on light tiles, light text on dark ones - computed rather
+     than hand-specified so a palette tweak can never make a monogram
+     unreadable. */
+  function inkFor(c1, c2) {
+    function lum(hex) {
+      var r = parseInt(hex.slice(1, 3), 16) / 255;
+      var g = parseInt(hex.slice(3, 5), 16) / 255;
+      var b = parseInt(hex.slice(5, 7), 16) / 255;
+      var f = function (v) {
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+      };
+      return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+    }
+    return ((lum(c1) + lum(c2)) / 2) > 0.42 ? "#1A1D24" : "#FFFFFF";
+  }
+
   /* Returns {mono, c1, c2} for a card. Falls back to the card's own
      initials on a neutral slate so nothing ever renders blank. */
-  function cardArt(name, meta) {
+  function cardArt(name, meta, key) {
+    // an exact card match wins over the issuer/partner palette
+    var exact = CARD_ART[key] || CARD_ART[name];
+    if (exact) {
+      return { mono: exact[0], c1: exact[1], c2: exact[2],
+               ink: inkFor(exact[1], exact[2]) };
+    }
     var hay = (name || "") + " " + (meta || "");
     for (var i = 0; i < ART.length; i++) {
       if (ART[i][0].test(hay)) {
-        return { mono: ART[i][1], c1: ART[i][2], c2: ART[i][3] };
+        return { mono: ART[i][1], c1: ART[i][2], c2: ART[i][3],
+                 ink: inkFor(ART[i][2], ART[i][3]) };
       }
     }
     var words = String(name || "?").replace(/[^A-Za-z ]/g, "").split(/\s+/)
@@ -215,7 +306,8 @@
     var mono = words.length > 1
       ? (words[0][0] + words[1][0]).toUpperCase()
       : (words[0] || "?").slice(0, 2).toUpperCase();
-    return { mono: mono, c1: "#37415C", c2: "#5A6788" };
+    return { mono: mono, c1: "#37415C", c2: "#5A6788",
+             ink: "#FFFFFF" };
   }
 
   /* ---- tiers (travel-priority ordering) ---- */
@@ -442,7 +534,7 @@
     stateKey: stateKey, buildBenefits: buildBenefits,
     snapshotState: snapshotState,
     daysRemaining: daysRemaining, isExpiringSoon: isExpiringSoon,
-    cardArt: cardArt,
+    cardArt: cardArt, inkFor: inkFor,
     sortGroup: sortGroup, applyCustomOrder: applyCustomOrder,
     fmtValue: fmtValue, fmtDate: fmtDate,
     fmtTotals: fmtTotals, symbolFor: symbolFor,

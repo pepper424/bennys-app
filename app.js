@@ -37,7 +37,7 @@
   };
 
   var CARD_ORDER = [];
-  var BUILD = "2.9.0";
+  var BUILD = "2.9.1";
 
   /* ================= helpers ================= */
   function esc(s) { return L.esc(s); }
@@ -50,10 +50,10 @@
 
   function cardArtHTML(c, size) {
     var e = S.catalog && S.catalog.cards[c];
-    var a = L.cardArt(cardLabel(c), e ? e.meta : "");
+    var a = L.cardArt(cardLabel(c), e ? e.meta : "", c);
     return '<span class="cart ' + (size || "sm") + '" aria-hidden="true" ' +
       'style="background:linear-gradient(145deg,' + a.c1 + ',' + a.c2 +
-      ')">' + esc(a.mono) + '</span>';
+      ');color:' + a.ink + '">' + esc(a.mono) + '</span>';
   }
 
   function cardLabel(c) {

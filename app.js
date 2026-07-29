@@ -37,7 +37,7 @@
   };
 
   var CARD_ORDER = [];
-  var BUILD = "2.8.0";
+  var BUILD = "2.8.1";
 
   /* ================= helpers ================= */
   function esc(s) { return L.esc(s); }
@@ -1852,10 +1852,13 @@
       return;
     }
 
-    if (norm.fixes.length) {
-      setTimeout(function () {
-        toast("Config auto-corrected: " + norm.fixes[0]);
-      }, 900);
+    /* The config normalizer still repairs a malformed URL or key - it
+       just does it silently now. Surfacing it as a toast on every load
+       was noise for people using the app, since there is nothing for
+       them to act on. It goes to the console for debugging instead. */
+    if (norm.fixes.length && window.console && console.info) {
+      console.info("stackNtrack config auto-corrected: " +
+                   norm.fixes.join(" "));
     }
 
     /* One retry with a short delay: on a freshly-launched installed

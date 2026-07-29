@@ -37,7 +37,7 @@
   };
 
   var CARD_ORDER = [];
-  var BUILD = "2.9.1";
+  var BUILD = "3.0.0";
 
   /* ================= helpers ================= */
   function esc(s) { return L.esc(s); }
@@ -676,56 +676,65 @@
     var used = !b.available;
     var cls = "benefit-card" + (urgent ? " urgent" : "") +
               (used ? " used" : "") + (compact ? "" : " draggable");
-    var warn = urgent ?
-      '<span class="expires-soon">&#9679; EXPIRING</span> ' : "";
     var val = L.fmtValue(b.value, b.currency);
-    var plabel = compact ? L.periodLabel(b, now()) : null;
-    var pills = plabel
-      ? ['<span class="pill period">' + esc(plabel) + '</span>']
-      : ['<span class="pill">' + esc(b.reset) + '</span>'];
+
+    /* Deadline is stated ONCE, with weight. The old design said the
+       same thing three times - accent bar, "EXPIRING" pill, days-left
+       pill - which is what made a filtered list read as noise. */
+    var deadline = "";
     if (!b.expires) {
-      pills.push('<span class="pill">No fixed expiration</span>');
+      deadline = '<span class="chip quiet">No fixed expiry</span>';
     } else {
       var d = L.daysRemaining(b, now());
       var ds = L.fmtDate(b.expires);
       if (d < 0) {
-        pills.push('<span class="pill days-expired">Expired ' + ds +
-                   '</span>');
+        deadline = '<span class="chip expired">Expired ' + esc(ds) +
+          '</span>';
       } else if (urgent) {
-        pills.push('<span class="pill days-warn">' + d + " day" +
-          (d === 1 ? "" : "s") + " left - " + ds + '</span>');
+        deadline = '<span class="chip urgent-chip">' +
+          (d === 0 ? "Today" : d === 1 ? "1 day left"
+                                       : d + " days left") +
+          '</span><span class="chip quiet">' + esc(ds) + '</span>';
       } else {
-        pills.push('<span class="pill days-ok">' + d +
-          ' days left - ' + ds + '</span>');
+        deadline = '<span class="chip">' + d + ' days left</span>' +
+          '<span class="chip quiet">' + esc(ds) + '</span>';
       }
     }
+    var period = compact ? L.periodLabel(b, now()) : null;
+    var cadence = '<span class="chip quiet">' +
+      esc(period || b.reset) + '</span>';
+
     return '<div class="' + cls + '" data-key="' + esc(b.key) + '">' +
       (compact ? '' :
         '<div class="bc-grip" data-a="grip" title="Drag to reorder" ' +
         'aria-label="Drag to reorder">&#8942;&#8942;</div>') +
-      '<div class="bc-top"><div class="card-name">' + esc(b.card) +
-      '</div>' + (val ? '<div class="bc-value">' + esc(val) +
-      '</div>' : "") + '</div>' +
-      '<div class="benefit-name">' + warn + esc(b.benefit) + '</div>' +
-      '<div class="benefit-meta">' + pills.join("") + '</div>' +
-      '<div class="benefit-desc">' + esc(b.desc) + '</div>' +
-      valueLineHTML(b) +
-      (b.note
-        ? '<div class="note" data-a="note-open" data-kind="benefit" ' +
-          'data-id="' + esc(b.key) + '" role="button" tabindex="0">' +
-          '<span class="note-pin">&#9998;</span>' +
-          '<span class="note-text">' + esc(b.note) + '</span></div>'
-        : '') +
-      '<div class="bc-foot">' +
-      '<div class="bc-toggle">' + toggleHTML(b, compact) + '</div>' +
-      '<button class="bc-note" data-a="note-open" data-kind="benefit" ' +
-      'data-id="' + esc(b.key) + '" title="' +
-      (b.note ? 'Edit note' : 'Add note') + '" aria-label="' +
-      (b.note ? 'Edit note' : 'Add note') + '">' +
-      (b.note ? '&#9998;' : '&#65291;') + '</button>' +
-      '<button class="bc-x" data-a="hide-open" data-k="' + esc(b.key) +
-      '" title="Remove this benefit" aria-label="Remove this benefit">' +
-      '&times;</button>' +
+      '<div class="bc-body">' +
+        '<div class="bc-issuer">' + cardArtHTML(b.card, "xs") +
+          esc(cardLabel(b.card)) + '</div>' +
+        '<div class="bc-head">' +
+          '<div class="bc-name">' + esc(b.benefit) + '</div>' +
+          (val ? '<div class="bc-value">' + esc(val) + '</div>' : "") +
+        '</div>' +
+        '<div class="bc-chips">' + deadline + cadence + '</div>' +
+        '<div class="bc-desc">' + esc(b.desc) + '</div>' +
+        valueLineHTML(b) +
+        (b.note
+          ? '<div class="note" data-a="note-open" data-kind="benefit" ' +
+            'data-id="' + esc(b.key) + '" role="button" tabindex="0">' +
+            '<span class="note-pin">&#9998;</span>' +
+            '<span class="note-text">' + esc(b.note) + '</span></div>'
+          : '') +
+        '<div class="bc-foot">' +
+          '<div class="bc-toggle">' + toggleHTML(b, compact) + '</div>' +
+          '<button class="bc-icon" data-a="note-open" ' +
+          'data-kind="benefit" data-id="' + esc(b.key) + '" title="' +
+          (b.note ? 'Edit note' : 'Add note') + '" aria-label="' +
+          (b.note ? 'Edit note' : 'Add note') + '">' +
+          (b.note ? '&#9998;' : '&#65291;') + '</button>' +
+          '<button class="bc-icon danger" data-a="hide-open" data-k="' +
+          esc(b.key) + '" title="Remove this benefit" ' +
+          'aria-label="Remove this benefit">&times;</button>' +
+        '</div>' +
       '</div></div>';
   }
 
@@ -753,12 +762,13 @@
       // Alerts view: only the period that is actually expiring.
       var cur0 = L.currentPeriod(b.reset, t);
       var used0 = (b.used_periods || []).indexOf(cur0) >= 0;
-      return '<div class="tgrow"><label class="switch">' +
+      return '<label class="markbtn' + (used0 ? " on" : "") + '">' +
         '<input type="checkbox" data-a="period" data-k="' + esc(b.key) +
         '" data-p="' + cur0 + '"' + (used0 ? " checked" : "") + '>' +
-        '<span class="track"></span></label>' +
-        '<span class="tglabel">Used ' +
-        esc(L.periodLabel(b, now())) + '</span></div>';
+        '<span class="markdot"></span>' +
+        '<span class="marktext">' + (used0 ? "Used " : "Mark ") +
+        esc(L.periodLabel(b, now())) + (used0 ? "" : " used") +
+        '</span></label>';
     }
     if (L.RECURRING[b.reset]) {
       var labels = L.PERIOD_LABELS[b.reset];
@@ -779,11 +789,12 @@
       });
       return h + "</div>";
     }
-    return '<div class="tgrow"><label class="switch">' +
+    return '<label class="markbtn' + (b.available ? "" : " on") + '">' +
       '<input type="checkbox" data-a="single" data-k="' + esc(b.key) +
       '"' + (b.available ? "" : " checked") + '>' +
-      '<span class="track"></span></label>' +
-      '<span class="tglabel">Used</span></div>';
+      '<span class="markdot"></span>' +
+      '<span class="marktext">' +
+      (b.available ? "Mark used" : "Used") + '</span></label>';
   }
 
   function matchesSearch(b) {
@@ -829,24 +840,29 @@
         'stackNtrack on this phone</button>';
     }
 
-    h += '<div class="stat-row">' +
-      '<div class="stat-box"><div class="stat-num green">' +
-      avail.length + '</div><div class="stat-lab">Available</div></div>' +
-      '<div class="stat-box"><div class="stat-num gold">' +
-      urgentAll.length + '</div><div class="stat-lab">Expiring soon' +
-      '</div></div>' +
-      '<div class="stat-box"><div class="stat-num">' +
-      (openVal || "0") +
-      '</div><div class="stat-lab">Value left</div></div></div>';
-
     var dom = sum.byCur[sum.dominant];
-    if (dom && dom.total) {
-      h += progressHTML(dom.used, dom.total, sum.dominant,
-        '<b>' + esc(L.fmtTotals(usedByCur) ||
-          L.symbolFor(sum.dominant) + "0") + '</b> used this year of ' +
-        esc(L.fmtValue(dom.total, sum.dominant)) +
-        (Object.keys(sum.byCur).length > 1 ? ' (main currency)' : ''));
-    }
+    h += '<div class="statbar">' +
+      '<div class="statgrid">' +
+        '<div class="stat"><div class="stat-num green">' +
+          avail.length + '</div>' +
+          '<div class="stat-lab">Available</div></div>' +
+        '<div class="stat"><div class="stat-num' +
+          (urgentAll.length ? ' amber' : '') + '">' +
+          urgentAll.length + '</div>' +
+          '<div class="stat-lab">Expiring</div></div>' +
+        '<div class="stat"><div class="stat-num">' + (openVal || "0") +
+          '</div><div class="stat-lab">Value left</div></div>' +
+      '</div>' +
+      (dom && dom.total
+        ? '<div class="statprog">' +
+          progressHTML(dom.used, dom.total, sum.dominant,
+            '<b>' + esc(L.fmtTotals(usedByCur) ||
+              L.symbolFor(sum.dominant) + "0") + '</b> used this year ' +
+            'of ' + esc(L.fmtValue(dom.total, sum.dominant)) +
+            (Object.keys(sum.byCur).length > 1 ? ' (main currency)' : '')) +
+          '</div>'
+        : '') +
+      '</div>';
 
     h += '<div class="searchbar"><input type="text" id="dash-q" ' +
       'placeholder="Search benefits..." value="' + esc(S.search) +
@@ -858,8 +874,9 @@
     h += '<div class="strip">';
     h += '<button class="chip' +
       (S.tab === "alerts" ? " active" : "") +
-      '" data-a="tab" data-v="alerts">&#9888;&#65039; ' +
-      urgentAll.length + '</button>';
+      (urgentAll.length ? " warn" : "") +
+      '" data-a="tab" data-v="alerts">&#9888;&#65039;' +
+      '<span class="chipbadge">' + urgentAll.length + '</span></button>';
     userCards.forEach(function (c) {
       h += '<button class="chip' +
         (S.tab === "card:" + c ? " active" : "") +

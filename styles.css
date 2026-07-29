@@ -480,3 +480,215 @@ hr.thin { border: none; border-top: 1px solid var(--hairline);
 .chip { display: inline-flex; align-items: center; }
 .h-top { display: flex; align-items: center; gap: .6rem; }
 .h-top .h-name { flex: 1 1 auto; min-width: 0; }
+
+/* ============================================================
+   v3.0 refinement pass
+   Spacing rhythm: 4 / 8 / 12 / 16 / 20 / 24
+   Principle: tighten INSIDE cards, loosen BETWEEN them. The old
+   build did the opposite, which made a filtered list read as one
+   undifferentiated slab.
+   ============================================================ */
+:root {
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 24px;
+  --ease: cubic-bezier(.2,.8,.3,1);
+}
+
+/* ---------- header ---------- */
+.brand { gap: var(--s3); margin: var(--s1) 0 var(--s4); }
+.brand-icon { width: 40px; height: 40px; border-radius: 10px; }
+.brand-tag { font-size: .74rem; margin-top: var(--s1);
+  letter-spacing: .01em; }
+.gear { width: 40px; height: 40px; min-height: 40px;
+  background: transparent; border: 1px solid var(--hairline);
+  transition: color .15s var(--ease), border-color .15s var(--ease),
+              background .15s var(--ease); }
+.gear:active { transform: scale(.94); }
+#app > .hint:first-of-type { margin: 0 0 var(--s4); }
+
+/* ---------- summary: one surface, not three boxes ---------- */
+.statbar { background: linear-gradient(180deg, #141B29, #111724);
+  border: 1px solid var(--hairline); border-radius: var(--r-lg);
+  overflow: hidden; margin: 0 0 var(--s5);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.045),
+              0 2px 10px rgba(0,0,0,.30); }
+.statgrid { display: grid; grid-template-columns: repeat(3, 1fr); }
+.stat { padding: var(--s4) var(--s2) var(--s3);
+  text-align: center; position: relative; }
+.stat + .stat::before { content: ""; position: absolute; left: 0;
+  top: 22%; bottom: 22%; width: 1px; background: var(--hairline); }
+.stat-num { font-family: var(--display); font-weight: 700;
+  font-size: 1.35rem; line-height: 1.1; letter-spacing: -.02em; }
+.stat-num.green { color: #4FD08A; }
+.stat-num.amber { color: var(--amber); }
+.stat-lab { font-size: .62rem; color: var(--ink-faint);
+  text-transform: uppercase; letter-spacing: .11em; font-weight: 700;
+  margin-top: var(--s1); }
+.statprog { padding: 0 var(--s4) var(--s3);
+  border-top: 1px solid var(--hairline); padding-top: var(--s3); }
+.statprog .vwrap { margin: 0; }
+
+/* ---------- filter chips ---------- */
+.strip { gap: var(--s2); padding: 0 2px var(--s4); }
+.chip { min-height: 44px; padding: 0 var(--s3); border-radius: 11px;
+  border-top-width: 2px; font-size: .82rem;
+  transition: color .15s var(--ease), background .15s var(--ease),
+              border-color .15s var(--ease); }
+.chip.active { background: rgba(18,199,178,.10);
+  border-color: rgba(18,199,178,.30);
+  border-top-color: var(--teal); color: var(--teal); }
+.chip.warn { border-top-color: rgba(245,165,36,.55); }
+.chip.warn.active { background: rgba(245,165,36,.12);
+  border-color: rgba(245,165,36,.38); border-top-color: var(--amber);
+  color: var(--amber); }
+.chipbadge { display: inline-flex; align-items: center;
+  justify-content: center; min-width: 20px; height: 20px;
+  margin-left: var(--s2); padding: 0 5px; border-radius: 999px;
+  background: rgba(245,165,36,.18); color: var(--amber);
+  font-size: .7rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.chip.active .chipbadge { background: rgba(245,165,36,.26); }
+
+/* ---------- benefit card ---------- */
+.benefit-list { display: flex; flex-direction: column; gap: var(--s5); }
+.benefit-card { margin: 0; padding: 0; overflow: hidden;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #161D2B 0%, #131926 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04),
+              0 2px 8px rgba(0,0,0,.28);
+  transition: transform .12s var(--ease), border-color .15s var(--ease),
+              opacity .22s var(--ease); }
+.benefit-card.draggable { padding-left: 0; }
+.bc-body { padding: var(--s4); }
+.benefit-card.urgent { border-left: none; position: relative;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04),
+              0 4px 16px rgba(245,165,36,.10),
+              0 2px 8px rgba(0,0,0,.28); }
+.benefit-card.urgent::before { content: ""; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 4px;
+  background: linear-gradient(180deg, var(--amber),
+              rgba(245,165,36,.35)); }
+.benefit-card.urgent .bc-body { padding-left: calc(var(--s4) + 4px); }
+.benefit-card.used { opacity: .55; filter: none; }
+.benefit-card.used .bc-value { color: var(--ink-faint);
+  text-decoration: line-through; text-shadow: none; }
+@media (hover:hover) {
+  .benefit-card:hover { transform: translateY(-1px); }
+}
+.benefit-card:active { transform: scale(.995); }
+
+.bc-issuer { display: flex; align-items: center; font-size: .64rem;
+  font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-faint); margin-bottom: var(--s3); }
+.bc-head { display: flex; align-items: baseline; gap: var(--s3);
+  margin-bottom: var(--s2); }
+.bc-name { flex: 1 1 auto; min-width: 0; font-size: 1rem;
+  font-weight: 700; line-height: 1.3; letter-spacing: -.005em; }
+.bc-value { flex: 0 0 auto; font-family: var(--display);
+  font-weight: 700; font-size: 1.6rem; line-height: 1;
+  color: var(--teal); letter-spacing: -.02em; white-space: nowrap;
+  text-shadow: 0 1px 0 rgba(255,255,255,.10),
+               0 -1px 0 rgba(0,0,0,.5); }
+
+.bc-chips { display: flex; flex-wrap: wrap; gap: var(--s2);
+  margin-bottom: var(--s3); }
+.chip.quiet, .bc-chips .chip { min-height: 0; }
+.bc-chips .chip { padding: 3px 9px; border-radius: 999px;
+  font-size: .7rem; font-weight: 600; background: #1B2333;
+  border: 1px solid var(--hairline); color: var(--ink-dim);
+  border-top-width: 1px; }
+.bc-chips .chip.quiet { background: transparent; color: var(--ink-faint); }
+.bc-chips .chip.urgent-chip { background: rgba(245,165,36,.14);
+  border-color: rgba(245,165,36,.42); color: var(--amber);
+  font-weight: 800; letter-spacing: .01em; }
+.bc-chips .chip.expired { background: rgba(224,86,79,.14);
+  border-color: rgba(224,86,79,.4); color: var(--signal);
+  font-weight: 800; }
+
+.bc-desc { font-size: .78rem; line-height: 1.5; color: var(--ink-faint);
+  margin-bottom: var(--s3); display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden; }
+
+.bc-body .vwrap { margin: 0 0 var(--s3); }
+.bc-body .vlab { font-size: .73rem; }
+
+/* ---------- action row ---------- */
+.bc-foot { margin-top: 0; padding-top: var(--s3);
+  border-top: 1px solid var(--hairline); gap: var(--s2); }
+.bc-icon { flex: 0 0 auto; width: 36px; height: 36px; min-height: 36px;
+  margin: 0; padding: 0; border-radius: 50%; background: transparent;
+  border: 1px solid var(--hairline); color: var(--ink-faint);
+  font-size: 1rem; font-weight: 600; line-height: 1; box-shadow: none;
+  transition: color .15s var(--ease), background .15s var(--ease),
+              border-color .15s var(--ease); }
+.bc-icon:hover { color: var(--blue); background: rgba(78,143,245,.12);
+  border-color: rgba(78,143,245,.45); transform: none; filter: none; }
+.bc-icon:active { transform: scale(.92); }
+.bc-icon.danger:hover { color: var(--signal);
+  background: rgba(224,86,79,.12); border-color: rgba(224,86,79,.45); }
+.bc-foot .bc-icon:nth-of-type(1) { margin-left: auto; }
+
+/* ---------- the mark-used control ---------- */
+.markbtn { display: inline-flex; align-items: center; gap: var(--s2);
+  padding: 9px var(--s3) 9px 10px; border-radius: 999px;
+  background: #1B2333; border: 1px solid var(--hairline);
+  cursor: pointer; user-select: none; -webkit-user-select: none;
+  transition: background .18s var(--ease), border-color .18s var(--ease),
+              color .18s var(--ease); }
+.markbtn input { position: absolute; opacity: 0; width: 0; height: 0; }
+.markdot { width: 17px; height: 17px; border-radius: 50%;
+  border: 1.5px solid var(--ink-faint); flex: 0 0 auto;
+  position: relative;
+  transition: border-color .18s var(--ease),
+              background .18s var(--ease); }
+.markdot::after { content: ""; position: absolute; left: 4.5px;
+  top: 1.5px; width: 4px; height: 8px; border: solid #04211D;
+  border-width: 0 2px 2px 0; transform: rotate(45deg) scale(.4);
+  opacity: 0; transition: opacity .18s var(--ease),
+                          transform .18s var(--ease); }
+.marktext { font-size: .8rem; font-weight: 700; color: var(--ink-dim);
+  letter-spacing: -.005em; }
+.markbtn:active { transform: scale(.97); }
+.markbtn.on { background: rgba(18,199,178,.13);
+  border-color: rgba(18,199,178,.42); }
+.markbtn.on .markdot { background: var(--teal); border-color: var(--teal); }
+.markbtn.on .markdot::after { opacity: 1; transform: rotate(45deg) scale(1); }
+.markbtn.on .marktext { color: var(--teal); }
+@media (hover:hover) {
+  .markbtn:hover { border-color: rgba(18,199,178,.35); }
+  .markbtn:hover .marktext { color: var(--ink); }
+}
+
+/* period grid on card tabs keeps the small switches, tightened */
+.bc-toggle .pergrid { gap: var(--s2) var(--s3); margin: 0; }
+.bc-toggle { flex: 1 1 auto; min-width: 0; }
+
+/* ---------- progress ---------- */
+.vbar { height: 5px; background: #1B2333; }
+.vbar > i { transition: width .4s var(--ease); }
+.vlab { margin-top: var(--s2); }
+
+/* ---------- card hero ---------- */
+.card-hero { padding: var(--s4); margin: 0 0 var(--s5);
+  border-radius: 16px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.045),
+              0 2px 10px rgba(0,0,0,.30); }
+.h-top { gap: var(--s3); }
+.h-name { font-size: 1.14rem; letter-spacing: -.015em; }
+.h-meta { margin-top: var(--s1); font-size: .73rem; }
+.h-stats { margin-top: var(--s3); font-size: .76rem; }
+
+/* ---------- search ---------- */
+.searchbar { margin: 0 0 var(--s3); }
+.searchbar input { padding: .68rem .9rem; }
+
+/* ---------- calmer urgency pulse ---------- */
+@keyframes pulsewarn {
+  0%,100% { opacity: 1; }
+  50% { opacity: .62; }
+}
+.expires-soon { animation: pulsewarn 3s ease-in-out infinite; }
+.pcell.flash { animation: none; background: rgba(245,165,36,.07);
+  border: 1px solid rgba(245,165,36,.22); }
+
+.empty-note { padding: var(--s5) var(--s4); text-align: center;
+  background: var(--card); border: 1px solid var(--hairline);
+  border-radius: 16px; margin-top: 0; }

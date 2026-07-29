@@ -37,7 +37,7 @@
   };
 
   var CARD_ORDER = [];
-  var BUILD = "3.1.0";
+  var BUILD = "3.2.1";
 
   /* ================= helpers ================= */
   function esc(s) { return L.esc(s); }
@@ -52,6 +52,7 @@
     var e = S.catalog && S.catalog.cards[c];
     var a = L.cardArt(cardLabel(c), e ? e.meta : "", c);
     return '<span class="cart ' + (size || "sm") + '" aria-hidden="true" ' +
+      'data-ink="' + (a.ink === "#1A1D24" ? "dark" : "light") + '" ' +
       'style="background:linear-gradient(145deg,' + a.c1 + ',' + a.c2 +
       ');color:' + a.ink + '">' + esc(a.mono) + '</span>';
   }
@@ -731,7 +732,7 @@
           (b.note ? 'Edit note' : 'Add note') + '" aria-label="' +
           (b.note ? 'Edit note' : 'Add note') + '">' +
           (b.note ? '&#9998;' : '&#65291;') + '</button>' +
-          '<button class="bc-icon danger" data-a="hide-open" data-k="' +
+          '<button class="bc-icon" data-a="hide-open" data-k="' +
           esc(b.key) + '" title="Remove this benefit" ' +
           'aria-label="Remove this benefit">&times;</button>' +
         '</div>' +
@@ -1145,7 +1146,9 @@
       Object.keys(S.catalog.cards).length + ' cards</div>' +
       '<div class="sub">App version ' + BUILD + '</div>' +
       '<div class="hint">Benefit data is reviewed against issuer ' +
-      'sources on a regular schedule.</div></div>';
+      'sources on a regular schedule.</div>' +
+      '<a class="setlink" href="privacy.html" target="_blank" ' +
+      'rel="noopener">Privacy policy</a></div>';
 
     h += '<div class="set-sec"><div class="set-lab">Account ' +
       'actions</div>' +

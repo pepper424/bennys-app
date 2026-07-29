@@ -791,3 +791,53 @@ hr.thin { border: none; border-top: 1px solid var(--hairline);
 
 /* ---------- the mark button, slightly larger tap area ---------- */
 .markbtn { min-height: 40px; padding: 0 var(--s4) 0 12px; }
+
+/* ============================================================
+   v3.2
+   - the remove control is neutral, full stop
+   - tiles read as miniature cards: chip, band, then monogram
+   ============================================================ */
+
+/* ---------- remove button: never red unless pressed ---------- */
+.bc-icon, .bc-icon:hover, .bc-icon:focus, .bc-icon.danger {
+  color: var(--ink-faint); background: transparent;
+  border-color: var(--hairline); }
+.bc-icon:active { background: rgba(255,255,255,.06); color: var(--ink-dim);
+  border-color: var(--hairline); }
+@media (hover: hover) and (pointer: fine) {
+  .bc-icon:hover { color: var(--ink-dim);
+    background: rgba(255,255,255,.05);
+    border-color: rgba(255,255,255,.14); }
+}
+
+/* ---------- tiles as miniature cards ---------- */
+.cart { position: relative; justify-content: flex-end;
+  align-items: flex-end; padding: 0 3px 1px 0; }
+/* the chip - the single detail that makes a rectangle read as a card */
+.cart::before { content: ""; position: absolute; left: 15%; top: 24%;
+  width: 22%; height: 26%; border-radius: 1.5px;
+  background: linear-gradient(140deg, rgba(255,255,255,.92),
+              rgba(255,255,255,.55));
+  box-shadow: 0 0 0 .5px rgba(0,0,0,.18); z-index: 1; }
+/* a soft band across the lower third, as most cards carry */
+.cart::after { background:
+  linear-gradient(118deg, rgba(255,255,255,.26) 0%,
+    rgba(255,255,255,.04) 38%, rgba(255,255,255,0) 52%,
+    rgba(0,0,0,.16) 100%),
+  linear-gradient(0deg, rgba(0,0,0,.14) 0 26%, rgba(0,0,0,0) 26%); }
+.cart { font-size: .5rem !important; letter-spacing: .02em; }
+.cart.xs { width: 26px; height: 17px; font-size: .42rem !important; }
+.cart.sm { width: 34px; height: 22px; font-size: .5rem !important; }
+.cart.lg { width: 52px; height: 33px; font-size: .66rem !important;
+  border-radius: 8px; padding: 0 5px 2px 0; }
+.cart.lg::before { border-radius: 2.5px; }
+
+/* dark tiles need a lighter chip, light tiles a darker one */
+.cart[data-ink="dark"]::before {
+  background: linear-gradient(140deg, rgba(0,0,0,.42), rgba(0,0,0,.18)); }
+
+/* ---------- settings link ---------- */
+.setlink { display: inline-block; margin-top: var(--s2);
+  font-size: .82rem; font-weight: 600; color: var(--blue);
+  text-decoration: none; }
+.setlink:hover { text-decoration: underline; }

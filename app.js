@@ -37,7 +37,7 @@
   };
 
   var CARD_ORDER = [];
-  var BUILD = "3.0.0";
+  var BUILD = "3.1.0";
 
   /* ================= helpers ================= */
   function esc(s) { return L.esc(s); }
@@ -751,7 +751,8 @@
         (used ? ' &middot; ' + esc(L.fmtValue(used, cur)) + ' used' : ''));
     }
     return '<div class="vlab solo">' + (used
-      ? esc(L.fmtValue(used, cur)) + ' used'
+      ? '<span class="captured">&#10003; ' +
+        esc(L.fmtValue(used, cur)) + ' captured</span>'
       : '<b>' + esc(L.fmtValue(total, cur)) + '</b> available') +
       '</div>';
   }
@@ -771,21 +772,22 @@
         '</span></label>';
     }
     if (L.RECURRING[b.reset]) {
+      /* Same tap-to-fill language as the single control, just repeated
+         per period. Switches here overflowed the row and read as a
+         different interaction model from everywhere else. */
       var labels = L.PERIOD_LABELS[b.reset];
       var cur = L.currentPeriod(b.reset, t);
-      var cols = labels.length > 4 ? "" : " cols2";
-      if (labels.length === 4) cols = "";
-      var h = '<div class="pergrid' +
-        (labels.length === 2 ? " cols2" : "") + '">';
+      var cls = "pergrid n" + labels.length;
+      var h = '<div class="' + cls + '">';
       labels.forEach(function (lab, p) {
-        var used = (b.used_periods || []).indexOf(p) >= 0;
-        var flash = p === cur && !used && L.isExpiringSoon(b, now());
-        h += '<div class="pcell' + (flash ? " flash" : "") + '">' +
-          '<label class="switch"><input type="checkbox" ' +
-          'data-a="period" data-k="' + esc(b.key) + '" data-p="' + p +
-          '"' + (used ? " checked" : "") + '>' +
-          '<span class="track"></span></label>' +
-          '<span class="tglabel">' + lab + '</span></div>';
+        var pu = (b.used_periods || []).indexOf(p) >= 0;
+        var isNow = p === cur;
+        h += '<label class="perchip' + (pu ? " on" : "") +
+          (isNow ? " now" : "") + '">' +
+          '<input type="checkbox" data-a="period" data-k="' +
+          esc(b.key) + '" data-p="' + p + '"' +
+          (pu ? " checked" : "") + '>' +
+          '<span>' + lab + '</span></label>';
       });
       return h + "</div>";
     }

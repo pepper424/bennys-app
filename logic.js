@@ -162,7 +162,7 @@
     [/lowe's/i,                   "LO", "#0B3B8C", "#2E63C4"],
     [/apple/i,                    "AP", "#3A3A3C", "#6E6E73"],
     [/uber|rideshare/i,           "UB", "#1B1B1B", "#4A4A4A"],
-    [/coinbase|gemini|bitcoin/i,  "CB", "#0A2A6B", "#1652F0"],
+    [/gemini/i,                   "GM", "#0A2A6B", "#1652F0"],
     [/robinhood/i,                "RH", "#0B5C2E", "#18B44A"],
     [/venmo|paypal/i,             "PP", "#0B3A7A", "#2077C4"],
     [/bilt/i,                     "BL", "#1A1A1A", "#4D4D4D"],
@@ -208,6 +208,7 @@
      reproducing anyone's trademark. */
   var CARD_ART = {
     "Amex Platinum":              ["AX",  "#E8EAEC", "#A9B0B8"],
+    "Coinbase One Card":          ["CB",  "#2A2A2E", "#0E0E10"],
     "Amex Schwab Platinum":       ["AX",  "#E8EAEC", "#A9B0B8"],
     "Amex Morgan Stanley Platinum":["AX", "#E8EAEC", "#A9B0B8"],
     "Amex Gold":                  ["AX",  "#E5C77E", "#B8923E"],

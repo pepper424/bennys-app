@@ -32,12 +32,13 @@
     platform: { ios: false, android: false, standalone: false },
     installDismissed: false,
     pushState: "unsupported",   // unsupported|off|on|blocked
+    deleting: false,
     pushAsked: false,
     env: null                // injected {supabase, fetchJSON, now()}
   };
 
   var CARD_ORDER = [];
-  var BUILD = "3.2.1";
+  var BUILD = "3.3.1";
 
   /* ================= helpers ================= */
   function esc(s) { return L.esc(s); }
@@ -356,6 +357,36 @@
       toast("Cards removed"); paint();
     },
 
+    deleteAccount: function () {
+      S.deleting = true; paint();
+      var unsub = Promise.resolve();
+      if (S.pushState === "on" && typeof window !== "undefined" &&
+          window.navigator && window.navigator.serviceWorker) {
+        // release the browser's push subscription too, so the device
+        // stops holding a token for an account that no longer exists
+        unsub = window.navigator.serviceWorker.ready.then(function (reg) {
+          return reg.pushManager.getSubscription();
+        }).then(function (sub) {
+          return sub ? sub.unsubscribe() : null;
+        }).catch(function () { return null; });
+      }
+      unsub.then(function () {
+        return S.env.deleteAccount();
+      }).then(function () {
+        S.deleting = false;
+        S.user = null; S.profile = null; S.benefits = [];
+        S.pushState = "off";
+        try { localStorage.removeItem("snt_push_asked"); } catch (e) {}
+        S.screen = "auth"; S.authTab = "signup";
+        S.authMsg = "";
+        S.authOk = "Your account and all its data have been deleted.";
+        closeModal(); paint();
+      }).catch(function (err) {
+        S.deleting = false; paint();
+        toast(deleteErrorText(err), true);
+      });
+    },
+
     resetDashboard: function () {
       S.env.deleteDashboard(S.user.id).then(function () {
         S.profile = { cards: [], anniversaries: {}, state: {},
@@ -449,6 +480,20 @@
     }).then(function (sub) {
       S.pushState = sub ? "on" : "off";
     }).catch(function () { S.pushState = "off"; });
+  }
+
+  function deleteErrorText(err) {
+    var m = (err && (err.message || err.hint || "")) + "";
+    if (/could not find the function|does not exist|PGRST202/i.test(m)) {
+      return "Account deletion is not set up on the server yet - " +
+             "email support and we will remove it for you.";
+    }
+    if (/permission denied|42501/i.test(m)) {
+      return "The server refused the deletion request - please email " +
+             "support.";
+    }
+    return "Could not delete the account - check your connection or " +
+           "email support.";
   }
 
   function friendlyAuthError(err) {
@@ -1156,7 +1201,11 @@
       '<button class="ghost" data-a="reset-open">Reset dashboard' +
       '</button>' +
       '<div class="hint">Resetting clears your cards, notes, and ' +
-      'usage history. Your account remains active.</div></div>';
+      'usage history. Your account remains active.</div>' +
+      '<button class="ghost danger-text" data-a="delete-open">' +
+      'Delete my account</button>' +
+      '<div class="hint">Removes your account and all its data ' +
+      'permanently.</div></div>';
 
     return h + '</div></div></div>';
   }
@@ -1213,6 +1262,26 @@
         "access to your accounts or transactions. It stores only the " +
         "cards you select, the credits you mark as used, and your " +
         "notes - secured to your account and visible to no one else.");
+  }
+
+  function deleteModalHTML() {
+    return '<div class="modal-back" data-a="modal-back">' +
+      '<div class="modal"><h3>Delete your account</h3>' +
+      '<div class="sub" style="font-size:.95rem;color:var(--ink);' +
+      'font-weight:600">This permanently deletes your account and ' +
+      'everything in it.</div>' +
+      '<div class="hint">Your sign-in, cards, notes, usage history, ' +
+      'preferences, and any notification token are removed from our ' +
+      'servers. This cannot be undone and there is no way to recover ' +
+      'the data afterwards. If you only want to start over, use ' +
+      '<b>Reset dashboard</b> instead - that keeps your login.</div>' +
+      '<div class="row2">' +
+      '<button class="danger" data-a="delete-yes"' +
+      (S.deleting ? " disabled" : "") + '>' +
+      (S.deleting ? "Deleting..." : "Yes, delete my account") +
+      '</button>' +
+      '<button class="ghost" data-a="delete-no">Cancel</button>' +
+      '</div></div></div>';
   }
 
   function resetModalHTML() {
@@ -1589,6 +1658,15 @@
       deletePushSub: function (uid) {
         return sb.from("push_subs").delete().eq("user_id", uid)
           .then(function (r) { if (r.error) throw r.error; });
+      },
+      /* Deleting an auth user needs privileges the browser must never
+         hold, so this calls a SECURITY DEFINER function in the database
+         that only ever deletes the caller's own row. */
+      deleteAccount: function () {
+        return sb.rpc("delete_own_account").then(function (r) {
+          if (r.error) throw r.error;
+          return sb.auth.signOut();
+        });
       }
     };
 
@@ -1793,6 +1871,12 @@
       else if (a === "hide-yes") A.hideBenefit(el.getAttribute("data-k"));
       else if (a === "hide-no") closeModal();
       else if (a === "restore") A.restoreBenefit(el.getAttribute("data-k"));
+      else if (a === "delete-open") {
+        document.getElementById("modal-root").innerHTML =
+          deleteModalHTML();
+      }
+      else if (a === "delete-yes") A.deleteAccount();
+      else if (a === "delete-no") closeModal();
       else if (a === "reset-open") {
         document.getElementById("modal-root").innerHTML =
           resetModalHTML();
@@ -1975,6 +2059,7 @@
              errorView: errorView, installView: installView,
              hideModalHTML: hideModalHTML,
              settingsModalHTML: settingsModalHTML,
+             deleteModalHTML: deleteModalHTML,
              noteModalHTML: noteModalHTML,
              pushModalHTML: pushModalHTML, helpHTML: helpHTML },
     shouldShowInstallGate: shouldShowInstallGate,

@@ -1,6 +1,6 @@
 {
- "catalog_version": "2026-07-30a",
- "audited": "2026-07-30a: STRUCTURAL CORRECTION on top of the 2026-07-29f full audit. The `value` field was overloaded and conflated three different things, which inflated apparent card value. Now disambiguated: value_type='credit' means real statement-credit dollars (a trackable pot); value_type='estimate' means the editorial worth of a non-cash perk such as a free night, companion certificate, lounge membership, or bundled subscription (NOT a dollar pot - it is used once, not drawn down); value_type='none' means no dollar value. New `gate` field marks benefits that do not exist until a spend or relationship threshold is met - 28 benefits are gated, led by the Sapphire Reserve's $75,000 tier. Also split the CSR $75K bundle into the $250 Shops credit, the separate $500 Southwest credit, and zero-value status unlocks; fixed a unit collision on Atmos Summit lounge passes where value=2 meant 2 passes rather than $2 (now count=2); and zeroed the obsolete Southwest Upgraded Boardings value.",
+ "catalog_version": "2026-07-30d",
+ "audited": "2026-07-30a: STRUCTURAL CORRECTION on top of the 2026-07-29f full audit. The `value` field was overloaded and conflated three different things, which inflated apparent card value. Now disambiguated: value_type='credit' means real statement-credit dollars (a trackable pot); value_type='estimate' means the editorial worth of a non-cash perk such as a free night, companion certificate, lounge membership, or bundled subscription (NOT a dollar pot - it is used once, not drawn down); value_type='none' means no dollar value. New `gate` field marks benefits that do not exist until a spend or relationship threshold is met - 28 benefits are gated, led by the Sapphire Reserve's $75,000 tier. Also split the CSR $75K bundle into the $250 Shops credit, the separate $500 Southwest credit, and zero-value status unlocks; fixed a unit collision on Atmos Summit lounge passes where value=2 meant 2 passes rather than $2 (now count=2); and zeroed the obsolete Southwest Upgraded Boardings value. EARN AUDIT COMPLETE: all 195 cards carry an `earn` block (currency, one-line summary, rate table with caps, notes). Cards with no rewards program - secured, credit-builder, and 0%-APR products - state that plainly rather than implying earning that doesn't exist. Credit-union entries decline to guess at unpublished rates and flag verify-with-issuer instead. Notable corrections across the earn audit: Amex Gold prepaid hotels 2x to 5x (Apr 30 2026); Venture X and Venture gained 5x Capital One Entertainment; Altitude Connect 4x gas capped $1,000/quarter; Altitude Go 4x dining capped $2,000/quarter since Apr 14 2025; Altitude Reserve 3x mobile wallet capped $5,000/cycle since Dec 15 2025; Navy Federal cashRewards is 1.5% standard with 2% only on the Plus version issued at a $5,000+ limit; USAA Cashback Plus caps are per-category; Citi Dividend carries a hard $300 annual cash-back ceiling.",
  "cards": {
   "Amex Platinum": {
    "meta": "American Express - $895 AF",
@@ -157,7 +157,27 @@
      "name": "Zero Liability",
      "desc": "Not responsible for unauthorized charges on the account, per Amex/network zero liability policy."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Membership Rewards points",
+    "summary": "5x flights and prepaid hotels through Amex Travel. Everything else earns 1x.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "Flights booked direct with airlines or through Amex Travel",
+      "cap": "$500,000 per calendar year, then 1x"
+     },
+     {
+      "rate": "5x",
+      "on": "Prepaid hotels booked through amextravel.com"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Weak everyday earner - the card's value is in credits and lounge access, not multipliers. Pair it with an Amex Gold for dining and groceries. Points transfer to 20+ airline and hotel partners; Amex charges a $0.0006-per-point excise tax offset fee (max $99) on transfers to U.S. programs like Delta."
+   }
   },
   "Amex Schwab Platinum": {
    "meta": "Amex x Charles Schwab - $895 AF",
@@ -328,7 +348,27 @@
      "name": "Zero Liability",
      "desc": "Not responsible for unauthorized charges on the account, per Amex/network zero liability policy."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Membership Rewards points",
+    "summary": "5x flights and prepaid hotels through Amex Travel. Everything else earns 1x.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "Flights booked direct with airlines or through Amex Travel",
+      "cap": "$500,000 per calendar year, then 1x"
+     },
+     {
+      "rate": "5x",
+      "on": "Prepaid hotels booked through amextravel.com"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Identical earning to the standard Platinum. The Schwab differentiator is redemption, not earning: points cash out to a Schwab brokerage account at a fixed rate, giving Membership Rewards a guaranteed cash floor most Amex cards lack. Requires an eligible Schwab account."
+   }
   },
   "Amex Morgan Stanley Platinum": {
    "meta": "Amex x Morgan Stanley - $895 AF",
@@ -499,7 +539,27 @@
      "name": "Zero Liability",
      "desc": "Not responsible for unauthorized charges on the account, per Amex/network zero liability policy."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Membership Rewards points",
+    "summary": "5x flights and prepaid hotels through Amex Travel. Everything else earns 1x.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "Flights booked direct with airlines or through Amex Travel",
+      "cap": "$500,000 per calendar year, then 1x"
+     },
+     {
+      "rate": "5x",
+      "on": "Prepaid hotels booked through amextravel.com"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Identical earning to the standard Platinum. The differentiator is redemption: points deposit into a Morgan Stanley brokerage account at a fixed cash rate. Requires an eligible Morgan Stanley account, which may carry its own fees."
+   }
   },
   "Amex Gold": {
    "meta": "American Express - $325 AF",
@@ -577,7 +637,40 @@
      "name": "Zero Liability",
      "desc": "Not responsible for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Membership Rewards points",
+    "summary": "4x at restaurants worldwide and U.S. supermarkets, both capped annually. 5x prepaid hotels.",
+    "rates": [
+     {
+      "rate": "4x",
+      "on": "Restaurants worldwide, including takeout and U.S. delivery",
+      "cap": "$50,000 per calendar year, then 1x"
+     },
+     {
+      "rate": "4x",
+      "on": "U.S. supermarkets",
+      "cap": "$25,000 per calendar year, then 1x"
+     },
+     {
+      "rate": "5x",
+      "on": "Prepaid hotels booked through amextravel.com or the Amex Travel App"
+     },
+     {
+      "rate": "3x",
+      "on": "Flights booked direct with airlines or through Amex Travel"
+     },
+     {
+      "rate": "2x",
+      "on": "Prepaid car rentals and cruises booked through Amex Travel"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "UPDATED Apr 30, 2026: prepaid hotels rose from 2x to 5x and prepaid car rentals were added at 2x. The supermarket category is narrower than it sounds - Costco, Walmart, and Target do not code as supermarkets, and neither do most meal-kit or online grocery services."
+   }
   },
   "Bonvoy Brilliant": {
    "meta": "Amex Marriott Bonvoy Brilliant - $650 AF - Anniv Nov 27",
@@ -686,7 +779,30 @@
      "name": "Zero Liability",
      "desc": "Not responsible for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Marriott Bonvoy points",
+    "summary": "6x at Marriott properties, 3x dining and flights, 2x everything else.",
+    "rates": [
+     {
+      "rate": "6x",
+      "on": "Eligible purchases at hotels participating in Marriott Bonvoy (up to 21x total with elite and base earning)"
+     },
+     {
+      "rate": "3x",
+      "on": "Restaurants worldwide"
+     },
+     {
+      "rate": "3x",
+      "on": "Flights booked directly with airlines"
+     },
+     {
+      "rate": "2x",
+      "on": "All other eligible purchases"
+     }
+    ],
+    "notes": "Bonvoy points are worth roughly 0.65-0.8 cents after the 2026 devaluation, down from about 0.9 cents five years ago. The 6x Marriott rate is the same one the much cheaper Bonvoy Bevy offers."
+   }
   },
   "Hilton Aspire": {
    "meta": "Amex Hilton Honors Aspire - $550 AF - Anniv Jan 3",
@@ -795,7 +911,34 @@
      "name": "Zero Liability",
      "desc": "Not responsible for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Hilton Honors points",
+    "summary": "14x at Hilton properties - up to 34x once Diamond status bonuses stack.",
+    "rates": [
+     {
+      "rate": "14x",
+      "on": "Hotels and resorts in the Hilton portfolio (about 34x total with Diamond status and base earning)"
+     },
+     {
+      "rate": "7x",
+      "on": "Flights booked direct or through amextravel.com"
+     },
+     {
+      "rate": "7x",
+      "on": "Car rentals booked directly with select companies"
+     },
+     {
+      "rate": "7x",
+      "on": "U.S. restaurants"
+     },
+     {
+      "rate": "3x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "The highest raw earning rate of any card here, but Hilton points are worth only about 0.45 cents - roughly a third of a Hyatt point. High volume, low per-point value."
+   }
   },
   "Venture X": {
    "meta": "Capital One Venture X - $395 AF - Anniv Mar 7",
@@ -900,7 +1043,30 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Capital One miles",
+    "summary": "10x hotels and cars through Capital One Travel, and an uncapped 2x on everything else.",
+    "rates": [
+     {
+      "rate": "10x",
+      "on": "Hotels and rental cars booked through Capital One Travel"
+     },
+     {
+      "rate": "5x",
+      "on": "Flights and vacation rentals booked through Capital One Travel"
+     },
+     {
+      "rate": "5x",
+      "on": "Capital One Entertainment purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "All other purchases, uncapped"
+     }
+    ],
+    "notes": "The strongest flat base rate among premium travel cards - 2x on everything with no categories to track. Miles transfer to 15+ airline and hotel partners at mostly 1:1."
+   }
   },
   "Sapphire Reserve": {
    "meta": "Chase Sapphire Reserve - $795 AF - Anniv Sep 18",
@@ -1101,7 +1267,44 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring with text, email, or phone alerts."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Ultimate Rewards points",
+    "summary": "8x through Chase Travel, 4x on flights and hotels booked direct, 3x dining worldwide.",
+    "rates": [
+     {
+      "rate": "8x",
+      "on": "Chase Travel: flights, hotels including The Edit, car rentals, cruises, activities, tours"
+     },
+     {
+      "rate": "4x",
+      "on": "Flights and hotels booked directly with the airline or hotel"
+     },
+     {
+      "rate": "3x",
+      "on": "Dining worldwide, including eligible delivery"
+     },
+     {
+      "rate": "3x",
+      "on": "Social media and search engine advertising"
+     },
+     {
+      "rate": "10x",
+      "on": "Peloton equipment and accessory purchases over $150",
+      "cap": "50,000 points total, through Dec 31, 2027"
+     },
+     {
+      "rate": "5x",
+      "on": "Lyft rides",
+      "cap": "Through Sep 30, 2027"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Points Boost can lift redemption value well above 1 cent on select hotels and flights through Chase Travel. Transfers 1:1 to 14 airline and hotel partners, and Reserve cardholders keep the 1:1 World of Hyatt ratio that the Sapphire Preferred lost."
+   }
   },
   "Ritz-Carlton": {
    "meta": "Chase Ritz-Carlton - $450 AF - Anniv Jul 14",
@@ -1202,7 +1405,26 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Marriott Bonvoy points",
+    "summary": "6x at Marriott, 3x on dining, car rentals, and airfare booked direct.",
+    "rates": [
+     {
+      "rate": "6x",
+      "on": "Marriott properties"
+     },
+     {
+      "rate": "3x",
+      "on": "Dining, car rentals, and airfare booked directly with airlines"
+     },
+     {
+      "rate": "2x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Closed to new applicants since 2018 - obtainable only by product change from a personal Chase Marriott card held 12+ months. The 2x base is better than most hotel cards. Bonvoy points sit around 0.65-0.8 cents in 2026."
+   }
   },
   "IHG Platinum (Select)": {
    "meta": "Chase IHG Select Platinum Elite MC (legacy) - $49 AF - Anniv Jun 3",
@@ -1289,7 +1511,26 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "IHG One Rewards points",
+    "summary": "Elevated earning at IHG, with lower multipliers elsewhere.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "IHG hotel purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "Gas stations, grocery stores, and restaurants"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "A closed legacy product whose value is the $49 fee against a 40,000-point anniversary night, not its multipliers. VERIFY current rates in Card Benefits on chase.com - legacy card terms are rarely published and may differ from the current IHG lineup."
+   }
   },
   "Citi Strata Elite": {
    "meta": "Citi Strata Elite - $595 AF",
@@ -1400,7 +1641,30 @@
      "name": "Known Coverage Gaps",
      "desc": "No baggage delay, travel accident, emergency evacuation, roadside assistance, cell phone protection, or 24/7 travel emergency assistance hotline."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "ThankYou points",
+    "summary": "12x through Citi Travel, 6x dining on weekend nights, 1.5x on everything else.",
+    "rates": [
+     {
+      "rate": "12x",
+      "on": "Hotels, car rentals, and attractions booked through cititravel.com"
+     },
+     {
+      "rate": "6x",
+      "on": "Air travel booked through cititravel.com"
+     },
+     {
+      "rate": "6x",
+      "on": "Restaurants on Citi Nights - Friday and Saturday, 6 p.m. to 6 a.m. ET"
+     },
+     {
+      "rate": "1.5x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "The 6x dining rate applies only during the Friday/Saturday overnight window - regular weekday dining earns the 1.5x base. The 1.5x base is the weakest among premium cards; the Venture X pays 2x."
+   }
   },
   "Sapphire Preferred": {
    "meta": "Chase - $95 AF",
@@ -1502,7 +1766,59 @@
      "name": "Transfer Partner Change",
      "desc": "World of Hyatt transfers dropped from 1:1 to 4:3. Effective immediately for cardmembers who applied on or after Jun 15, 2026, and Oct 1, 2026 for anyone who applied before that date."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Ultimate Rewards points",
+    "summary": "5x through Chase Travel, 3x on dining, gas, EV charging, and vacation homes.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "Chase Travel: flights, hotels, vacation homes, cars, cruises, activities, tours"
+     },
+     {
+      "rate": "5x",
+      "on": "Lyft rides",
+      "cap": "Through Sep 30, 2027"
+     },
+     {
+      "rate": "5x",
+      "on": "Peloton equipment and accessories over $150",
+      "cap": "Through Dec 31, 2027"
+     },
+     {
+      "rate": "3x",
+      "on": "Dining worldwide, including takeout and eligible delivery"
+     },
+     {
+      "rate": "3x",
+      "on": "Gas stations and EV charging",
+      "cap": "Added Jun 15, 2026"
+     },
+     {
+      "rate": "3x",
+      "on": "Vacation homes: Airbnb, Vrbo, Plum Guide, HomeAway, Homestay.com, Vacasa",
+      "cap": "Added Jun 15, 2026"
+     },
+     {
+      "rate": "3x",
+      "on": "Select streaming services"
+     },
+     {
+      "rate": "3x",
+      "on": "Online grocery purchases",
+      "cap": "Excludes Target, Walmart, and wholesale clubs"
+     },
+     {
+      "rate": "2x",
+      "on": "All other travel worldwide"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "DEVALUATION: World of Hyatt transfers dropped from 1:1 to 4:3. Immediate for anyone who applied on or after Jun 15, 2026; existing cardholders keep 1:1 through Sep 30, 2026. All 13 other partners remain 1:1."
+   }
   },
   "Freedom Unlimited": {
    "meta": "Chase - $0 AF",
@@ -1556,7 +1872,30 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Ultimate Rewards points (as cash back)",
+    "summary": "1.5% on everything, with no caps and nothing to activate.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Chase Travel purchases"
+     },
+     {
+      "rate": "3%",
+      "on": "Dining, including takeout and eligible delivery"
+     },
+     {
+      "rate": "3%",
+      "on": "Drugstores"
+     },
+     {
+      "rate": "1.5%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "The no-thinking complement to a Sapphire card. Note it keeps its 3% foreign transaction fee even after the sibling Freedom Flex drops its own on Sep 20, 2026."
+   }
   },
   "Freedom Flex": {
    "meta": "Chase - $0 AF",
@@ -1618,7 +1957,35 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Ultimate Rewards points (as cash back)",
+    "summary": "5% on rotating quarterly categories - you must activate every quarter.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Rotating quarterly bonus categories",
+      "cap": "$1,500 in combined purchases per quarter, then 1%. ACTIVATION REQUIRED each quarter"
+     },
+     {
+      "rate": "5%",
+      "on": "Chase Travel purchases"
+     },
+     {
+      "rate": "3%",
+      "on": "Dining, including takeout and eligible delivery"
+     },
+     {
+      "rate": "3%",
+      "on": "Drugstores"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Cash back is technically Ultimate Rewards points - pair with a Sapphire or Ink card to convert to transfer partners. Foreign transaction fees disappear Sep 20, 2026, the same day cell phone protection ends."
+   }
   },
   "Prime Visa": {
    "meta": "Chase x Amazon - $0 AF (Prime req.)",
@@ -1669,7 +2036,31 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Amazon points (as cash back)",
+    "summary": "5% at Amazon and Whole Foods with an active Prime membership.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Amazon.com, Amazon Fresh, and Whole Foods Market",
+      "cap": "Requires active Prime; drops to 3% without it"
+     },
+     {
+      "rate": "5%",
+      "on": "Chase Travel bookings"
+     },
+     {
+      "rate": "2%",
+      "on": "Restaurants, gas stations, and local transit and commuting"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Rewards do NOT transfer to airline or hotel partners even if you hold a Sapphire card - they redeem at Amazon checkout, for cash, or through Chase Travel. Factor the Prime fee into whether the 5% earns its keep."
+   }
   },
   "United Gateway": {
    "meta": "Chase x United - $0 AF",
@@ -1720,7 +2111,30 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "United MileagePlus miles",
+    "summary": "2x on United, gas stations, and local transit.",
+    "rates": [
+     {
+      "rate": "2x",
+      "on": "United purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "Gas stations"
+     },
+     {
+      "rate": "2x",
+      "on": "Local transit and commuting"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "No free checked bag at this tier. Checking one bag round-trip twice a year already exceeds the $150 Explorer's annual fee, which also adds Club passes and several credits."
+   }
   },
   "United Explorer": {
    "meta": "Chase x United - $150 AF ($0 yr 1)",
@@ -1849,7 +2263,38 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring with alerts."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "United MileagePlus miles",
+    "summary": "2x on United, dining, and hotels. 5x on prepaid United Hotels.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "Prepaid United Hotels bookings"
+     },
+     {
+      "rate": "2x",
+      "on": "United purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "Dining, including eligible delivery"
+     },
+     {
+      "rate": "2x",
+      "on": "Hotel stays"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "PQP",
+      "on": "Card spend earns Premier qualifying points toward status"
+     }
+    ],
+    "notes": "Access to expanded United award inventory not available to non-cardholders."
+   }
   },
   "United Quest": {
    "meta": "Chase x United - $350 AF",
@@ -1969,7 +2414,38 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring with alerts."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "United MileagePlus miles",
+    "summary": "3x on United, 2x on other travel, dining, and streaming.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "United purchases including flights, in-flight food, Wi-Fi, and Club passes"
+     },
+     {
+      "rate": "2x",
+      "on": "Other travel: hotels, rideshare, trains"
+     },
+     {
+      "rate": "2x",
+      "on": "Dining, including eligible delivery"
+     },
+     {
+      "rate": "2x",
+      "on": "Select streaming services"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "PQP",
+      "on": "1 PQP per $20 spent, up to 18,000 PQP per calendar year"
+     }
+    ],
+    "notes": "The strongest PQP earning of the personal United cards, plus a 1,000 PQP bonus credited after Feb 1 each year."
+   }
   },
   "United Club Infinite": {
    "meta": "Chase x United - $695 AF",
@@ -2111,7 +2587,34 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "United MileagePlus miles",
+    "summary": "Up to 11x total on United, 2x on all other travel and dining.",
+    "rates": [
+     {
+      "rate": "4x",
+      "on": "United purchases (up to 11x total once MileagePlus base earning is included)"
+     },
+     {
+      "rate": "2x",
+      "on": "All other travel"
+     },
+     {
+      "rate": "2x",
+      "on": "Dining, including eligible delivery"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "PQP",
+      "on": "Up to 28,000 Premier qualifying points per year from card spend"
+     }
+    ],
+    "notes": "Also 25% bonus miles on MileagePlus X purchases, and access to expanded XN saver award inventory not offered to non-cardholders."
+   }
   },
   "Southwest Plus": {
    "meta": "Chase x Southwest - $99 AF",
@@ -2200,7 +2703,26 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Southwest Rapid Rewards points",
+    "summary": "2x on Southwest purchases, with limited everyday categories.",
+    "rates": [
+     {
+      "rate": "2x",
+      "on": "Southwest Airlines purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "Rapid Rewards hotel and car rental partners"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "VERIFY your card's exact multipliers and spend caps on chase.com. Southwest trimmed bonus categories across the lineup effective Jan 1, 2026 and published tier details conflict between sources. Card spend also earns Companion Pass qualifying points, plus a 10,000-point boost each year."
+   }
   },
   "Southwest Premier": {
    "meta": "Chase x Southwest - $149 AF",
@@ -2297,7 +2819,34 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Southwest Rapid Rewards points",
+    "summary": "3x on Southwest purchases, plus partner and everyday earning.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "Southwest Airlines purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "Rapid Rewards hotel and car rental partners"
+     },
+     {
+      "rate": "2x",
+      "on": "Local transit and commuting, internet, cable, phone, and select streaming"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "TQP",
+      "on": "1,500 tier qualifying points per $5,000 of spend, toward A-List status"
+     }
+    ],
+    "notes": "VERIFY your card's exact multipliers and spend caps on chase.com. Southwest trimmed bonus categories across the lineup effective Jan 1, 2026 and published tier details conflict between sources. Card spend also earns Companion Pass qualifying points, plus a 10,000-point boost each year."
+   }
   },
   "Southwest Priority": {
    "meta": "Chase x Southwest - $229 AF",
@@ -2400,7 +2949,34 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Southwest Rapid Rewards points",
+    "summary": "3x on Southwest purchases - the top Southwest earning tier.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "Southwest Airlines purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "Rapid Rewards hotel and car rental partners"
+     },
+     {
+      "rate": "2x",
+      "on": "Local transit and commuting, internet, cable, phone, and select streaming"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "TQP",
+      "on": "Tier qualifying points from card spend, toward A-List status"
+     }
+    ],
+    "notes": "VERIFY your card's exact multipliers and spend caps on chase.com. Southwest trimmed bonus categories across the lineup effective Jan 1, 2026 and published tier details conflict between sources. Card spend also earns Companion Pass qualifying points, plus a 10,000-point boost each year."
+   }
   },
   "Marriott Bold": {
    "meta": "Chase x Marriott - $0 AF",
@@ -2447,7 +3023,26 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Marriott Bonvoy points",
+    "summary": "3x at Marriott properties, with modest everyday earning.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "Marriott properties (about 14x total with member base earning)"
+     },
+     {
+      "rate": "2x",
+      "on": "Grocery stores, rideshare, select food delivery, streaming, and internet, cable, and phone"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "No annual Free Night Award at this tier - that's the $95 Boundless's defining benefit, along with 15 Elite Night Credits instead of 5."
+   }
   },
   "Marriott Boundless": {
    "meta": "Chase x Marriott - $95 AF",
@@ -2516,7 +3111,27 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Marriott Bonvoy points",
+    "summary": "6x at Marriott, 3x on groceries, gas, and dining up to $6,000 a year.",
+    "rates": [
+     {
+      "rate": "6x",
+      "on": "Marriott properties (up to about 17x total with member base earning)"
+     },
+     {
+      "rate": "3x",
+      "on": "Grocery stores, gas stations, and restaurants",
+      "cap": "$6,000 in combined annual spend, then 2x"
+     },
+     {
+      "rate": "2x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Bonvoy points sit around 0.65-0.8 cents in 2026. The annual Free Night Award, not the multipliers, is what justifies the $95 fee."
+   }
   },
   "IHG Traveler": {
    "meta": "Chase x IHG - $0 AF",
@@ -2563,7 +3178,26 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "IHG One Rewards points",
+    "summary": "Up to 17x at IHG, plus 3x on gas, dining, utilities, and streaming.",
+    "rates": [
+     {
+      "rate": "17x",
+      "on": "IHG properties (5x card bonus plus Silver elite and base earning)"
+     },
+     {
+      "rate": "3x",
+      "on": "Gas stations, restaurants, utilities, phone, internet, cable, and streaming"
+     },
+     {
+      "rate": "2x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "IHG points are worth about 0.5-0.6 cents and EXPIRE after 12 months of account inactivity. The fourth-night-free award benefit carries most of this card's value."
+   }
   },
   "IHG Premier": {
    "meta": "Chase x IHG - $99 AF",
@@ -2670,7 +3304,26 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "IHG One Rewards points",
+    "summary": "Up to 26x at IHG, 5x on travel, gas, and dining.",
+    "rates": [
+     {
+      "rate": "26x",
+      "on": "IHG properties (10x card bonus plus Platinum elite and base earning)"
+     },
+     {
+      "rate": "5x",
+      "on": "Travel, gas stations, and restaurants"
+     },
+     {
+      "rate": "3x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "IHG points are worth only about 0.5-0.6 cents and EXPIRE after 12 months of account inactivity. The fourth-night-free benefit on award stays is where the real value sits, not the multipliers."
+   }
   },
   "World of Hyatt": {
    "meta": "Chase x Hyatt - $95 AF",
@@ -2743,7 +3396,38 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring with alerts."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "World of Hyatt points",
+    "summary": "Up to 9x at Hyatt, 2x on dining, airfare, transit, and gyms.",
+    "rates": [
+     {
+      "rate": "9x",
+      "on": "Hyatt hotels and resorts (4x card bonus plus up to 5x World of Hyatt member base earning)"
+     },
+     {
+      "rate": "2x",
+      "on": "Restaurants"
+     },
+     {
+      "rate": "2x",
+      "on": "Airline tickets purchased directly from the airline"
+     },
+     {
+      "rate": "2x",
+      "on": "Local transit and commuting"
+     },
+     {
+      "rate": "2x",
+      "on": "Fitness club and gym memberships"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Hyatt points are the most valuable hotel currency at roughly 1.6-1.8 cents, more than double Marriott and nearly four times Hilton. Every $5,000 of spend also earns 2 elite night credits."
+   }
   },
   "Aeroplan Card": {
    "meta": "Chase x Air Canada - $95 AF",
@@ -2816,7 +3500,30 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Air Canada Aeroplan points",
+    "summary": "3x on Air Canada, dining, and groceries.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "Air Canada purchases"
+     },
+     {
+      "rate": "3x",
+      "on": "Dining, including takeout and eligible delivery"
+     },
+     {
+      "rate": "3x",
+      "on": "Grocery stores"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Aeroplan is widely regarded as one of the strongest programs for Star Alliance award availability, and points don't expire while the card is open. 3x on groceries is unusual for an airline co-brand."
+   }
   },
   "Amex Green": {
    "meta": "American Express - $150 AF",
@@ -2886,7 +3593,30 @@
      "name": "Known Coverage Gaps",
      "desc": "No lounge access (no Priority Pass, no Centurion), no Global Entry or TSA PreCheck credit, no dining credits, no trip cancellation or interruption insurance, and no cell phone protection."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Membership Rewards points",
+    "summary": "3x on travel, transit, and restaurants worldwide. No caps.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "Travel: airfare, hotels, cruises, tours, car rentals, campgrounds, vacation rentals"
+     },
+     {
+      "rate": "3x",
+      "on": "Transit: trains, taxis, rideshare, ferries, tolls, parking, buses, subways"
+     },
+     {
+      "rate": "3x",
+      "on": "Restaurants worldwide, including takeout and U.S. delivery"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "The broadest uncapped 3x travel definition of any Amex card. Closed to new applicants and being renamed the American Express Classic Green Card on Aug 20, 2026."
+   }
   },
   "Amex EveryDay": {
    "meta": "American Express - $0 AF",
@@ -2937,7 +3667,32 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Membership Rewards points",
+    "summary": "2x at U.S. supermarkets, plus 20% more points when you make 20+ purchases a month.",
+    "rates": [
+     {
+      "rate": "2x",
+      "on": "U.S. supermarkets",
+      "cap": "$6,000 per calendar year, then 1x"
+     },
+     {
+      "rate": "2x",
+      "on": "Prepaid hotels and car rentals booked through amextravel.com"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "+20%",
+      "on": "Bonus on all points earned in a billing period",
+      "cap": "Requires 20 or more purchases in that billing period"
+     }
+    ],
+    "notes": "One of the few no-annual-fee cards earning full Membership Rewards points. Small transactions count toward the 20-purchase threshold, so splitting purchases genuinely works - but you must hit 20 every cycle or the bonus is lost. Charges a foreign transaction fee."
+   }
   },
   "Blue Cash Everyday": {
    "meta": "American Express - $0 AF",
@@ -2999,7 +3754,33 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Reward Dollars (cash back)",
+    "summary": "3% at U.S. supermarkets, U.S. gas stations, and U.S. online retail.",
+    "rates": [
+     {
+      "rate": "3%",
+      "on": "U.S. supermarkets",
+      "cap": "$6,000 per calendar year, then 1%"
+     },
+     {
+      "rate": "3%",
+      "on": "U.S. gas stations",
+      "cap": "$6,000 per calendar year, then 1%"
+     },
+     {
+      "rate": "3%",
+      "on": "U.S. online retail",
+      "cap": "$6,000 per calendar year, then 1%"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Each 3% category has its own separate $6,000 annual cap, which is more generous than it first appears. WARNING: charges a foreign transaction fee of around 2.7% - don't use it abroad."
+   }
   },
   "Blue Cash Preferred": {
    "meta": "American Express - $95 AF ($0 yr 1)",
@@ -3057,7 +3838,35 @@
      "name": "Known Coverage Gaps",
      "desc": "No trip delay, trip cancellation, baggage, or cell phone coverage - this is a cash-back card, not a travel card."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Reward Dollars (cash back)",
+    "summary": "6% at U.S. supermarkets on the first $6,000 a year, and 6% on streaming.",
+    "rates": [
+     {
+      "rate": "6%",
+      "on": "U.S. supermarkets",
+      "cap": "$6,000 per calendar year, then 1%"
+     },
+     {
+      "rate": "6%",
+      "on": "Select U.S. streaming subscriptions"
+     },
+     {
+      "rate": "3%",
+      "on": "U.S. gas stations"
+     },
+     {
+      "rate": "3%",
+      "on": "Transit"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "The highest supermarket rate available on any card, but the $6,000 cap means about $500/month before it drops to 1%. WARNING: this card charges a foreign transaction fee of around 2.7% - don't use it abroad."
+   }
   },
   "Delta SkyMiles Blue": {
    "meta": "Amex x Delta - $0 AF",
@@ -3104,7 +3913,26 @@
      "name": "Upgrade Consideration",
      "desc": "If you check bags on Delta even twice a year, the $150 Gold card's free first and second bag benefit plus its $120 rideshare credit will typically outrun this card's $0 fee."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Delta SkyMiles",
+    "summary": "2x on Delta purchases and at restaurants worldwide.",
+    "rates": [
+     {
+      "rate": "2x",
+      "on": "Delta purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "Restaurants worldwide, including takeout and U.S. delivery"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Pure earning vehicle - no free checked bag, no lounge access, no companion certificate. A SkyMile is worth roughly 1.1 cents, and Amex Membership Rewards transfer to Delta 1:1, so a Gold or Platinum usually earns Delta miles faster than this card does. Charges a foreign transaction fee."
+   }
   },
   "Delta SkyMiles Gold": {
    "meta": "Amex x Delta - $150 AF ($0 yr 1)",
@@ -3181,7 +4009,30 @@
      "name": "Known Coverage Gaps",
      "desc": "No cell phone protection, no trip cancellation or interruption insurance, and no trip delay insurance at this tier. Also no Sky Club access."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Delta SkyMiles",
+    "summary": "2x on Delta, dining, and U.S. supermarkets.",
+    "rates": [
+     {
+      "rate": "2x",
+      "on": "Delta purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "Restaurants worldwide, including takeout and delivery"
+     },
+     {
+      "rate": "2x",
+      "on": "U.S. supermarkets"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Entry tier. Spend $10,000 in a calendar year to earn a Delta flight credit worth up to $200."
+   }
   },
   "Delta SkyMiles Platinum": {
    "meta": "Amex x Delta - $350 AF",
@@ -3275,7 +4126,38 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Delta SkyMiles",
+    "summary": "3x on Delta and hotels, 2x on dining and U.S. supermarkets.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "Delta and Delta Vacations purchases"
+     },
+     {
+      "rate": "3x",
+      "on": "Hotels"
+     },
+     {
+      "rate": "2x",
+      "on": "Restaurants worldwide, including takeout and delivery"
+     },
+     {
+      "rate": "2x",
+      "on": "U.S. supermarkets"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "MQD",
+      "on": "Card spend earns MQDs toward Medallion status, plus an annual MQD Headstart"
+     }
+    ],
+    "notes": "Better everyday coverage than the Reserve. The companion certificate is the main draw at this tier."
+   }
   },
   "Delta SkyMiles Reserve": {
    "meta": "Amex x Delta - $650 AF",
@@ -3388,7 +4270,26 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Delta SkyMiles",
+    "summary": "3x on Delta purchases, 1x elsewhere, plus MQDs toward Medallion status.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "Delta and Delta Vacations purchases"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "MQD",
+      "on": "Card spend earns Medallion Qualification Dollars toward status, plus an annual MQD Headstart"
+     }
+    ],
+    "notes": "Thin multipliers by design - this card is bought for the companion certificate, Sky Club access, and status acceleration, not earning. A SkyMile is worth roughly 1.1 cents, among the weakest major currencies, and Amex Membership Rewards transfer to Delta 1:1."
+   }
   },
   "Hilton Honors Card": {
    "meta": "Amex x Hilton - $0 AF",
@@ -3447,7 +4348,26 @@
      "name": "Known Coverage Gaps",
      "desc": "No annual free night certificate (that starts at Surpass), no resort or airline credits, no lounge access, no trip cancellation coverage, and no cell phone protection."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Hilton Honors points",
+    "summary": "7x at Hilton properties, 5x at U.S. restaurants, supermarkets, and gas.",
+    "rates": [
+     {
+      "rate": "7x",
+      "on": "Eligible Hilton portfolio purchases"
+     },
+     {
+      "rate": "5x",
+      "on": "U.S. restaurants, U.S. supermarkets, and U.S. gas stations"
+     },
+     {
+      "rate": "3x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Hilton points are worth roughly 0.45 cents, so 7x at Hilton is about a 3% return. Automatic Silver status adds a 20% base points bonus on top."
+   }
   },
   "Hilton Surpass": {
    "meta": "Amex x Hilton - $150 AF",
@@ -3524,7 +4444,26 @@
      "name": "Known Coverage Gaps",
      "desc": "Priority Pass was REMOVED from this card - lounge access is Aspire-only now. Also no trip cancellation or interruption insurance and no cell phone protection."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Hilton Honors points",
+    "summary": "12x at Hilton, 6x at U.S. restaurants, supermarkets, and gas.",
+    "rates": [
+     {
+      "rate": "12x",
+      "on": "Eligible Hilton portfolio purchases"
+     },
+     {
+      "rate": "6x",
+      "on": "U.S. restaurants, U.S. supermarkets, and U.S. gas stations"
+     },
+     {
+      "rate": "3x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Strong everyday categories for a hotel card. Hilton points are worth roughly 0.45 cents, so weigh the 6x grocery rate against a 4x Amex Gold Membership Rewards point worth about 2 cents."
+   }
   },
   "Citi Double Cash": {
    "meta": "Citi - $0 AF",
@@ -3571,7 +4510,27 @@
      "name": "Known Coverage Gaps",
      "desc": "No travel insurance, no cell phone protection, no lounge access. Verify current protections at citi.com - Citi has trimmed benefits across its no-fee cards in recent years."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "ThankYou points",
+    "summary": "2% on everything - 1% when you buy, 1% again as you pay it off.",
+    "rates": [
+     {
+      "rate": "1%",
+      "on": "All purchases, when you buy"
+     },
+     {
+      "rate": "1%",
+      "on": "The same purchases, when you pay them off"
+     },
+     {
+      "rate": "5%",
+      "on": "Hotels, car rentals, and attractions booked through Citi Travel",
+      "cap": "Limited-time offer - verify current status at citi.com"
+     }
+    ],
+    "notes": "The second 1% only lands when you actually pay the balance, so carrying debt costs you half the reward. Rewards accrue as ThankYou points, so pairing with a Strata card unlocks transfer partners."
+   }
   },
   "Citi Custom Cash": {
    "meta": "Citi - $0 AF",
@@ -3618,7 +4577,28 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "ThankYou points",
+    "summary": "5% automatically on your top spend category each billing cycle.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Your highest-spend eligible category each billing cycle",
+      "cap": "$500 per cycle, then 1%. Citi picks the category - you don't"
+     },
+     {
+      "rate": "4%",
+      "on": "Hotels, car rentals, and attractions booked through Citi Travel",
+      "cap": "Limited-time - verify at citi.com"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "CLOSED to new applications as of May 28, 2026 - existing accounts continue but can't be replaced. The $500 monthly cap limits the 5% to about $25/month. Classic pairing is Custom Cash for your top category, Double Cash at 2% for everything else, and a Strata card to unlock transfers."
+   }
   },
   "Citi Strata": {
    "meta": "Citi - $0 AF",
@@ -3661,7 +4641,34 @@
      "name": "Known Coverage Gaps",
      "desc": "No travel insurance, no lounge access, no cell phone protection. Citi has trimmed protections across its no-fee cards - verify current coverage at citi.com."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "ThankYou points",
+    "summary": "3x on dining, groceries, gas, and EV charging.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "Restaurants"
+     },
+     {
+      "rate": "3x",
+      "on": "Supermarkets"
+     },
+     {
+      "rate": "3x",
+      "on": "Gas stations and EV charging"
+     },
+     {
+      "rate": "3x",
+      "on": "Select transit and select streaming"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "VERIFY current categories at citi.com - Citi restructured the Strata line through 2025-2026 and category definitions have shifted. On its own ThankYou points redeem near 1 cent; pair with a Strata Premier or Elite to unlock transfer partners."
+   }
   },
   "Costco Anywhere Visa": {
    "meta": "Citi x Costco - $0 AF (membership req.)",
@@ -3715,7 +4722,36 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Citi cash back",
+    "summary": "5% on Costco gas, 4% on other gas and EV, 3% on dining and travel.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Gas purchased at Costco",
+      "cap": "$7,000 combined annual gas spend, then 1%"
+     },
+     {
+      "rate": "4%",
+      "on": "Other eligible gas and EV charging",
+      "cap": "$7,000 combined annual gas spend, then 1%"
+     },
+     {
+      "rate": "3%",
+      "on": "Restaurants and eligible travel, including Costco Travel"
+     },
+     {
+      "rate": "2%",
+      "on": "All other Costco and Costco.com purchases"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "CRITICAL TIMING: cash back is not paid monthly. It arrives once a year as a reward certificate after your FEBRUARY statement closes, and must be redeemed at a U.S. Costco warehouse before year end or it's forfeited. Requires an active Costco membership. No foreign transaction fee."
+   }
   },
   "AAdvantage MileUp": {
    "meta": "Citi x American - $0 AF",
@@ -3758,7 +4794,30 @@
      "name": "Known Coverage Gaps",
      "desc": "No lounge access, no priority boarding, no Global Entry credit, no cell phone protection."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "AAdvantage miles",
+    "summary": "2x on American Airlines purchases and at grocery stores.",
+    "rates": [
+     {
+      "rate": "2x",
+      "on": "Eligible American Airlines purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "Grocery stores"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "LP",
+      "on": "Loyalty Points from purchases count toward AAdvantage status"
+     }
+    ],
+    "notes": "No free checked bag at this tier - that starts at the $99 Platinum Select, which covers the cardmember plus 4 companions. One round-trip with a checked bag typically justifies the upgrade."
+   }
   },
   "AAdvantage Platinum Select": {
    "meta": "Citi x American - $99 AF ($0 yr 1)",
@@ -3832,7 +4891,34 @@
      "name": "Known Coverage Gaps",
      "desc": "No lounge access, no Global Entry or TSA PreCheck credit, no cell phone protection. Verify current limits at citi.com."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "AAdvantage miles",
+    "summary": "2x on American Airlines, gas stations, and restaurants.",
+    "rates": [
+     {
+      "rate": "2x",
+      "on": "Eligible American Airlines purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "Gas stations"
+     },
+     {
+      "rate": "2x",
+      "on": "Restaurants"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "LP",
+      "on": "Loyalty Points from purchases count toward AAdvantage status"
+     }
+    ],
+    "notes": "Loyalty Points from card spend count toward AAdvantage status, which is the strategic reason to put spend here rather than on a transferable-points card. Also 25% back on eligible in-flight purchases."
+   }
   },
   "AAdvantage Executive": {
    "meta": "Citi x American - $595 AF",
@@ -3937,7 +5023,30 @@
      "name": "Known Coverage Gaps",
      "desc": "No cell phone protection, roadside assistance, or 24/7 travel emergency assistance hotline."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "AAdvantage miles",
+    "summary": "10x on AA hotels and cars, 4x on American Airlines purchases.",
+    "rates": [
+     {
+      "rate": "10x",
+      "on": "Hotels booked via aa.com/hotels and cars via AAdvantage Cars"
+     },
+     {
+      "rate": "4x",
+      "on": "Eligible American Airlines purchases"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "LP",
+      "on": "1 Loyalty Point per eligible AAdvantage mile earned from purchases, toward status"
+     }
+    ],
+    "notes": "Loyalty Points from card spend count toward AAdvantage status, which is the main strategic reason to put spend here rather than on a transferable-points card."
+   }
   },
   "VentureOne": {
    "meta": "Capital One - $0 AF",
@@ -3988,7 +5097,22 @@
      "name": "Known Coverage Gaps",
      "desc": "No cell phone protection, no trip cancellation or delay coverage, and no lounge access at this tier."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Capital One miles",
+    "summary": "1.25x on everything, with full transfer partner access and no fee.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "Hotels and rental cars booked through Capital One Travel"
+     },
+     {
+      "rate": "1.25x",
+      "on": "All other purchases, uncapped"
+     }
+    ],
+    "notes": "The cheapest entry into Capital One's transfer ecosystem - miles move to the same 15+ airline and hotel partners as the Venture X despite the $0 annual fee. No foreign transaction fee."
+   }
   },
   "Venture": {
    "meta": "Capital One - $95 AF",
@@ -4071,7 +5195,26 @@
      "name": "Known Coverage Gaps",
      "desc": "No cell phone protection on the Venture (the Venture X has it), and no Priority Pass."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Capital One miles",
+    "summary": "2x on every purchase, no caps and no categories.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "Hotels, vacation rentals, and rental cars booked through Capital One Travel"
+     },
+     {
+      "rate": "5x",
+      "on": "Capital One Entertainment purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "All other purchases, uncapped"
+     }
+    ],
+    "notes": "Built for large non-category spend - tuition, medical bills, contractors, home repairs - that most cards only pay 1x on. Same transfer partner roster as the Venture X."
+   }
   },
   "Savor": {
    "meta": "Capital One - $0 AF",
@@ -4122,7 +5265,43 @@
      "name": "Known Coverage Gaps",
      "desc": "No cell phone protection, no travel insurance beyond rental coverage, no lounge access."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Capital One cash back",
+    "summary": "3% on dining, entertainment, groceries, and streaming. No annual fee.",
+    "rates": [
+     {
+      "rate": "8%",
+      "on": "Capital One Entertainment purchases"
+     },
+     {
+      "rate": "5%",
+      "on": "Hotels and rental cars booked through Capital One Travel"
+     },
+     {
+      "rate": "3%",
+      "on": "Dining"
+     },
+     {
+      "rate": "3%",
+      "on": "Entertainment"
+     },
+     {
+      "rate": "3%",
+      "on": "Grocery stores",
+      "cap": "Excludes superstores like Walmart and Target"
+     },
+     {
+      "rate": "3%",
+      "on": "Popular streaming services"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Unusually strong category coverage for a $0 annual fee card, and it carries no foreign transaction fee."
+   }
   },
   "Quicksilver": {
    "meta": "Capital One - $0 AF",
@@ -4169,7 +5348,22 @@
      "name": "Known Coverage Gaps",
      "desc": "No cell phone protection, no trip cancellation or delay coverage, and no lounge access at this tier."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Capital One cash back",
+    "summary": "1.5% on everything, no caps and no categories.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Hotels and rental cars booked through Capital One Travel"
+     },
+     {
+      "rate": "1.5%",
+      "on": "All other purchases, uncapped"
+     }
+    ],
+    "notes": "No foreign transaction fee, which is unusual on a no-fee flat-rate card and makes it a reasonable travel companion."
+   }
   },
   "Active Cash": {
    "meta": "Wells Fargo - $0 AF",
@@ -4208,7 +5402,18 @@
      "name": "FOREIGN TRANSACTION FEE APPLIES",
      "desc": "This card charges a foreign transaction fee - unlike the Wells Fargo Autograph cards. Don't use it abroad."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Wells Fargo cash rewards",
+    "summary": "2% on every purchase, uncapped, with no annual fee.",
+    "rates": [
+     {
+      "rate": "2%",
+      "on": "All purchases, no categories and no caps"
+     }
+    ],
+    "notes": "One of the simplest flat-rate cards available, and it carries cell phone protection - newly relevant since the Chase Freedom Flex drops its own coverage on Sep 20, 2026. WARNING: it does charge a foreign transaction fee."
+   }
   },
   "Autograph": {
    "meta": "Wells Fargo - $0 AF",
@@ -4263,7 +5468,38 @@
      "name": "Transfer Partners",
      "desc": "Limited compared to the Autograph Journey, though 1:1 transfers to programs like Air France-KLM Flying Blue are available. Most holders redeem as statement credits or toward travel."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Wells Fargo Rewards points",
+    "summary": "3x across six everyday categories including phone plans.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "Restaurants"
+     },
+     {
+      "rate": "3x",
+      "on": "Travel and transit"
+     },
+     {
+      "rate": "3x",
+      "on": "Gas stations"
+     },
+     {
+      "rate": "3x",
+      "on": "Popular streaming services"
+     },
+     {
+      "rate": "3x",
+      "on": "Phone plans"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Groceries earn only 1x - a grocery-heavy household earns more elsewhere. Paying your phone bill here earns 3x AND activates the card's cell phone protection. No foreign transaction fee."
+   }
   },
   "Autograph Journey": {
    "meta": "Wells Fargo - $95 AF",
@@ -4328,7 +5564,30 @@
      "name": "Known Coverage Gaps",
      "desc": "No lounge access and no Global Entry or TSA PreCheck credit. Verify travel insurance limits with Wells Fargo - coverage is thinner than Chase or Amex equivalents at this fee level."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Wells Fargo Rewards points",
+    "summary": "5x hotels, 4x airlines, 3x other travel and dining.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "Hotels"
+     },
+     {
+      "rate": "4x",
+      "on": "Airlines"
+     },
+     {
+      "rate": "3x",
+      "on": "Other travel and dining"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "The 5x hotel rate is among the best available for direct hotel bookings. Points transfer to airline and hotel partners - a broader roster than the no-fee Autograph. Its cell phone protection ($1,000/claim, $25 deductible) is best-in-class."
+   }
   },
   "Bilt Blue": {
    "meta": "Bilt x Cardless - $0 AF",
@@ -4371,7 +5630,27 @@
      "name": "Known Coverage Gaps",
      "desc": "No hotel credits, no Bilt Cash allowance, no Priority Pass, and no cell phone protection - those start at Obsidian ($95) and Palladium ($495)."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Bilt Points",
+    "summary": "Up to 1.25x on rent and mortgage with no transaction fee.",
+    "rates": [
+     {
+      "rate": "1.25x",
+      "on": "Rent, mortgage, and HOA payments",
+      "cap": "No transaction fee"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "4%",
+      "on": "Alternative structure: cash back in Bilt Cash on everyday spend"
+     }
+    ],
+    "notes": "The no-fee entry into the Bilt ecosystem. No hotel credits, no Bilt Cash allowance, no Priority Pass - those start at Obsidian ($95) and Palladium ($495)."
+   }
   },
   "Bilt Obsidian": {
    "meta": "Bilt x Cardless - $95 AF",
@@ -4428,7 +5707,39 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Bilt Points",
+    "summary": "4x hotels, and 3x on your choice of dining or groceries.",
+    "rates": [
+     {
+      "rate": "4x",
+      "on": "Hotels booked through Bilt Travel"
+     },
+     {
+      "rate": "3x",
+      "on": "Your choice of dining OR groceries",
+      "cap": "Grocery capped at $25,000/yr; dining reaches 6x at Bilt partners. Changeable once per year"
+     },
+     {
+      "rate": "3x",
+      "on": "Flights booked through Bilt Travel"
+     },
+     {
+      "rate": "2x",
+      "on": "Other travel"
+     },
+     {
+      "rate": "1.25x",
+      "on": "Rent, mortgage, and HOA payments"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Set a reminder to review your dining-versus-grocery choice against actual spend - you can only change it once a year."
+   }
   },
   "Bilt Palladium": {
    "meta": "Bilt x Cardless - $495 AF",
@@ -4500,7 +5811,27 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Bilt Points",
+    "summary": "Up to 1.25x on rent and mortgage with no transaction fee, 2x on everything else.",
+    "rates": [
+     {
+      "rate": "1.25x",
+      "on": "Rent, mortgage, and HOA payments",
+      "cap": "No transaction fee - the core Bilt differentiator"
+     },
+     {
+      "rate": "2x",
+      "on": "All other purchases, uncapped and category-free"
+     },
+     {
+      "rate": "4%",
+      "on": "Alternative structure: cash back in Bilt Cash instead of points"
+     }
+    ],
+    "notes": "The only meaningful way to earn rewards on housing payments without a processing fee. Transfer ratios improve on Rent Day. Bilt Cash above $100 expires at the end of each calendar year."
+   }
   },
   "BofA Customized Cash": {
    "meta": "Bank of America - $0 AF",
@@ -4547,7 +5878,28 @@
      "name": "No Transfer Partners",
      "desc": "Bank of America has no airline or hotel transfer partners. Rewards redeem for cash, statement credits, or travel booked through BofA."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "BofA cash back",
+    "summary": "3% in one category you pick, 2% at groceries - both capped quarterly.",
+    "rates": [
+     {
+      "rate": "3%",
+      "on": "One category of your choice: gas and EV, online shopping, dining, travel, drug stores, or home improvement",
+      "cap": "$2,500 combined quarterly cap across the 3% and 2% categories, then 1%"
+     },
+     {
+      "rate": "2%",
+      "on": "Grocery stores and wholesale clubs",
+      "cap": "Shares the same $2,500 quarterly cap"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "The $2,500 combined quarterly cap is the real constraint - roughly $833/month across your bonus categories before everything drops to 1%. You can change your chosen category once per calendar month. Charges a foreign transaction fee. BofA Rewards tier bonuses stack on top of every rate: Preferred Plus ($30K+ combined balances) through Premier ($1M+, a 75% bonus). Requires a BofA checking account. Preferred Rewards was renamed BofA Rewards on May 27, 2026. Mark N/A if you aren't enrolled. Bank of America has NO airline or hotel transfer partners."
+   }
   },
   "BofA Unlimited Cash": {
    "meta": "Bank of America - $0 AF",
@@ -4590,7 +5942,23 @@
      "name": "No Transfer Partners",
      "desc": "Bank of America has no airline or hotel transfer partners. Rewards redeem for cash, statement credits, or travel booked through BofA."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "BofA cash back",
+    "summary": "1.5% on everything, rising to about 2.625% at the top tier.",
+    "rates": [
+     {
+      "rate": "1.5%",
+      "on": "All purchases, uncapped"
+     },
+     {
+      "rate": "+25-75%",
+      "on": "BofA Rewards tier bonus",
+      "cap": "Requires BofA checking and qualifying combined balances"
+     }
+    ],
+    "notes": "At the Premier tier this becomes one of the strongest uncapped flat rates available - but only with $1M+ in combined BofA and Merrill balances. Charges a foreign transaction fee. BofA Rewards tier bonuses stack on top of every rate: Preferred Plus ($30K+ combined balances) through Premier ($1M+, a 75% bonus). Requires a BofA checking account. Preferred Rewards was renamed BofA Rewards on May 27, 2026. Mark N/A if you aren't enrolled. Bank of America has NO airline or hotel transfer partners."
+   }
   },
   "BofA Travel Rewards": {
    "meta": "Bank of America - $0 AF",
@@ -4633,7 +6001,23 @@
      "name": "No Transfer Partners",
      "desc": "Bank of America has no airline or hotel transfer partners. Rewards redeem for cash, statement credits, or travel booked through BofA."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "BofA points",
+    "summary": "1.5x on everything, redeemed against travel and dining purchases.",
+    "rates": [
+     {
+      "rate": "1.5x",
+      "on": "All purchases, uncapped"
+     },
+     {
+      "rate": "+25-75%",
+      "on": "BofA Rewards tier bonus",
+      "cap": "Requires BofA checking and qualifying combined balances"
+     }
+    ],
+    "notes": "Points redeem as a statement credit against travel and dining at 1 cent each. No foreign transaction fee, which is the main reason to carry it over the Unlimited Cash. BofA Rewards tier bonuses stack on top of every rate: Preferred Plus ($30K+ combined balances) through Premier ($1M+, a 75% bonus). Requires a BofA checking account. Preferred Rewards was renamed BofA Rewards on May 27, 2026. Mark N/A if you aren't enrolled. Bank of America has NO airline or hotel transfer partners."
+   }
   },
   "BofA Premium Rewards": {
    "meta": "Bank of America - $95 AF",
@@ -4710,7 +6094,27 @@
      "name": "Versus the Elite",
      "desc": "The $550 Premium Rewards Elite adds a $300 airline incidental credit, a $150 lifestyle credit, four Priority Pass memberships, and the Visa Infinite Luxury Hotel Collection. This $95 card has none of those."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "BofA points",
+    "summary": "2x travel and dining, 1.5x everything else - plus up to 75% more by tier.",
+    "rates": [
+     {
+      "rate": "2x",
+      "on": "Travel and dining"
+     },
+     {
+      "rate": "1.5x",
+      "on": "All other purchases, uncapped, points never expire"
+     },
+     {
+      "rate": "+25-75%",
+      "on": "BofA Rewards tier bonus on every purchase",
+      "cap": "Requires a BofA checking account and qualifying combined balances"
+     }
+    ],
+    "notes": "At the top Premier tier ($1M+ combined balances) the base rises to about 2.625% and travel/dining to 3.5%. Without the banking relationship it's an ordinary 1.5x card. Bank of America has NO airline or hotel transfer partners."
+   }
   },
   "BofA Premium Rewards Elite": {
    "meta": "Bank of America - $550 AF",
@@ -4811,7 +6215,27 @@
      "name": "Key Limitation",
      "desc": "Bank of America has NO airline or hotel transfer partners. Points redeem for cash, statement credits, or travel booked through the BofA portal only."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "BofA points",
+    "summary": "2x travel and dining, 1.5x everything else, plus tier bonuses.",
+    "rates": [
+     {
+      "rate": "2x",
+      "on": "Travel and dining"
+     },
+     {
+      "rate": "1.5x",
+      "on": "All other purchases, uncapped, points never expire"
+     },
+     {
+      "rate": "+25-75%",
+      "on": "BofA Rewards tier bonus",
+      "cap": "Requires BofA checking and qualifying combined balances"
+     }
+    ],
+    "notes": "Identical earning to the $95 Premium Rewards - the $550 fee buys credits and four Priority Pass memberships, not better multipliers. Redemption is 1 cent per point, or 1.2 cents toward airfare through the BofA portal. BofA Rewards tier bonuses stack on top of every rate: Preferred Plus ($30K+ combined balances) through Premier ($1M+, a 75% bonus). Requires a BofA checking account. Preferred Rewards was renamed BofA Rewards on May 27, 2026. Mark N/A if you aren't enrolled. Bank of America has NO airline or hotel transfer partners."
+   }
   },
   "Atmos Rewards Ascent": {
    "meta": "BofA x Alaska/Hawaiian - $95 AF",
@@ -4877,7 +6301,30 @@
      "name": "Versus the Summit",
      "desc": "The $395 Summit adds Alaska Lounge passes, up to two Global Companion Awards redeemable in any cabin, 10,000 annual status points, travel delay credits, and 3x on all foreign spend. This card's value is concentrated in the single $99 companion fare."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Atmos Rewards points",
+    "summary": "3x on Alaska and Hawaiian, 2x on gas, transit, and streaming.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "Eligible Alaska Airlines and Hawaiian Airlines purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "Gas, EV charging, local transit including rideshare, cable, and select streaming"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "+10%",
+      "on": "Relationship bonus for eligible BofA account holders"
+     }
+    ],
+    "notes": "IMPORTANT: the 10% bonus sits OUTSIDE the BofA Rewards tier system - Atmos co-branded cards are excluded, so your Preferred Honors or Premier tier does nothing here. No foreign transaction fee."
+   }
   },
   "Atmos Rewards Summit": {
    "meta": "BofA x Alaska/Hawaiian - $395 AF",
@@ -4967,7 +6414,39 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Atmos Rewards points",
+    "summary": "3x on dining, on Alaska/Hawaiian, and on ALL foreign purchases.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "Eligible dining"
+     },
+     {
+      "rate": "3x",
+      "on": "All eligible foreign purchases",
+      "cap": "An industry first - no other card bonuses foreign spend as a category"
+     },
+     {
+      "rate": "3x",
+      "on": "Eligible Alaska Airlines and Hawaiian Airlines purchases"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "+10%",
+      "on": "Relationship bonus for eligible BofA account holders"
+     },
+     {
+      "rate": "Status",
+      "on": "1 status point per $2 spent, plus 10,000 bonus status points each anniversary"
+     }
+    ],
+    "notes": "The 3x foreign spend category pairs directly with the card's lack of foreign transaction fees - genuinely unique. Like the Ascent, the 10% bonus is separate from the BofA Rewards tier system."
+   }
   },
   "US Bank Smartly": {
    "meta": "U.S. Bank - $0 AF",
@@ -5003,7 +6482,27 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "U.S. Bank cash back",
+    "summary": "2% base, up to 4% with large U.S. Bank balances.",
+    "rates": [
+     {
+      "rate": "2%",
+      "on": "All purchases - the base rate with no banking relationship"
+     },
+     {
+      "rate": "Up to 4%",
+      "on": "All purchases, tiered by qualifying balances",
+      "cap": "$10,000 per billing cycle. Requires Smartly Checking plus deposit or investment balances"
+     },
+     {
+      "rate": "Note",
+      "on": "Savings, money market, CD, and IRA balances do NOT count toward the tiers"
+     }
+    ],
+    "notes": "Unprecedented for a no-annual-fee card, but the top tier demands a substantial banking relationship. Without it this is a 2% card. Mark N/A on the higher tiers if you don't bank with U.S. Bank."
+   }
   },
   "US Bank Cash+": {
    "meta": "U.S. Bank - $0 AF",
@@ -5039,7 +6538,31 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "U.S. Bank cash back",
+    "summary": "5% on two categories you choose each quarter - you must select them.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Two categories you select each quarter",
+      "cap": "$2,000 in combined quarterly spend, then 1%. SELECTION REQUIRED each quarter"
+     },
+     {
+      "rate": "5%",
+      "on": "Prepaid travel booked through the U.S. Bank Travel Center"
+     },
+     {
+      "rate": "2%",
+      "on": "One everyday category of your choice"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "If you don't select your categories before the quarter starts, you forfeit the 5% entirely for that quarter. Set a recurring reminder."
+   }
   },
   "Altitude Go": {
    "meta": "U.S. Bank - $0 AF",
@@ -5074,7 +6597,27 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Altitude points",
+    "summary": "4x on dining, capped at $2,000 per quarter.",
+    "rates": [
+     {
+      "rate": "4x",
+      "on": "Dining, including takeout and delivery",
+      "cap": "$2,000 per quarter since Apr 14, 2025, then 1x"
+     },
+     {
+      "rate": "2x",
+      "on": "Grocery stores, gas stations and EV charging, and streaming"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "The $2,000 quarterly dining cap was added Apr 14, 2025 - the category was previously uncapped. Includes a $15 annual streaming credit after 11 months of streaming purchases. VERIFY foreign transaction fee status at usbank.com. U.S. Bank has NO airline or hotel transfer partners - points cap out at 1 cent each."
+   }
   },
   "Altitude Connect": {
    "meta": "U.S. Bank - $0 AF",
@@ -5125,7 +6668,36 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Altitude points",
+    "summary": "4x on travel, and 4x on gas capped at $1,000 per quarter.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "Prepaid hotels and car rentals booked through the U.S. Bank Travel Center"
+     },
+     {
+      "rate": "4x",
+      "on": "Travel: airfare, hotels and cars booked outside the portal, cruises"
+     },
+     {
+      "rate": "4x",
+      "on": "Gas stations and EV charging",
+      "cap": "$1,000 per quarter, then 1x"
+     },
+     {
+      "rate": "2x",
+      "on": "Dining, streaming, and grocery stores",
+      "cap": "Excludes discount stores, supercenters, and wholesale clubs"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "The 4x gas cap of $1,000/quarter is easy to miss. The 4x travel rate beats the Sapphire Preferred at a $0 annual fee. VERIFY foreign transaction fee status at usbank.com - U.S. Bank has quietly added FX fees to Altitude cards. U.S. Bank has NO airline or hotel transfer partners - points cap out at 1 cent each."
+   }
   },
   "Altitude Reserve": {
    "meta": "U.S. Bank - $400 AF (legacy, closed to new)",
@@ -5194,7 +6766,31 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Altitude points",
+    "summary": "3x on mobile wallet purchases - now capped at $5,000 per billing cycle.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "Prepaid hotels and car rentals booked through the Altitude Rewards Center"
+     },
+     {
+      "rate": "3x",
+      "on": "Eligible travel"
+     },
+     {
+      "rate": "3x",
+      "on": "Mobile wallet purchases via Apple Pay, Google Pay, or Samsung Pay",
+      "cap": "$5,000 per billing cycle since Dec 15, 2025, then 1x"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "DEVALUED Dec 15, 2025: the previously unlimited 3x mobile wallet earning is now capped at $5,000 per cycle, and the $325 credit became Travel-Center-only. Points still redeem at 1.5 cents toward travel via Real-Time Rewards, which remains the card's structural edge. Closed to new applicants since Nov 2024."
+   }
   },
   "JetBlue Card": {
    "meta": "Barclays x JetBlue - $0 AF",
@@ -5237,7 +6833,30 @@
      "name": "Verify Current Terms",
      "desc": "Confirm current earning rates, caps, and category definitions with the issuer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "JetBlue TrueBlue points",
+    "summary": "3x on JetBlue, 2x at restaurants and grocery stores.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "JetBlue purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "Restaurants"
+     },
+     {
+      "rate": "2x",
+      "on": "Grocery stores"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "No free checked bag at this tier - that's the $99 Plus card's main draw, covering the cardmember plus 3 companions. Also 50% back on eligible inflight food and beverage purchases."
+   }
   },
   "JetBlue Plus": {
    "meta": "Barclays x JetBlue - $99 AF",
@@ -5302,7 +6921,30 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "JetBlue TrueBlue points",
+    "summary": "6x on JetBlue, 2x at restaurants and grocery stores.",
+    "rates": [
+     {
+      "rate": "6x",
+      "on": "JetBlue purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "Restaurants"
+     },
+     {
+      "rate": "2x",
+      "on": "Grocery stores"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Also 5,000 anniversary points each year, a 10% points rebate after every award redemption, and 50% back on inflight purchases. Spend $50,000 in a calendar year to earn Mosaic status."
+   }
   },
   "Wyndham Earner": {
    "meta": "Barclays x Wyndham - $0 AF",
@@ -5341,7 +6983,26 @@
      "name": "Verify Current Terms",
      "desc": "Confirm current earning rates, caps, and category definitions with the issuer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Wyndham Rewards points",
+    "summary": "5x at Wyndham hotels and at gas stations.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "Wyndham hotels and qualifying gas purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "Dining and grocery stores"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "5x on gas is unusual and genuinely useful on a no-fee hotel card. Wyndham awards start at 7,500 points per night, so points go further than the low per-point value suggests."
+   }
   },
   "Wyndham Earner+": {
    "meta": "Barclays x Wyndham - $75 AF",
@@ -5391,7 +7052,26 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Wyndham Rewards points",
+    "summary": "6x at Wyndham hotels and at gas stations.",
+    "rates": [
+     {
+      "rate": "6x",
+      "on": "Wyndham hotels and qualifying gas purchases"
+     },
+     {
+      "rate": "4x",
+      "on": "Dining and grocery stores"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "The 7,500 anniversary points are literally a free night at Wyndham's lowest award tier, which more than covers the $75 fee. Go Fast awards (points plus cash) and Vacasa rentals are where these points stretch furthest."
+   }
   },
   "Discover it Cash Back": {
    "meta": "Discover - $0 AF",
@@ -5447,7 +7127,32 @@
      "name": "Known Coverage Gaps",
      "desc": "Discover cards carry no travel insurance, no rental car coverage, no purchase protection, no extended warranty, and no cell phone protection. Whether Capital One adds any of its own protections post-migration is still unknown."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Discover cash back",
+    "summary": "5% on rotating quarterly categories - activation required every quarter.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Rotating quarterly bonus categories",
+      "cap": "$1,500 per quarter, then 1%. ACTIVATION REQUIRED each quarter"
+     },
+     {
+      "rate": "5%",
+      "on": "Hotels, vacation rentals, rental cars, and activities booked through Capital One Travel",
+      "cap": "Added post-migration"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "Match",
+      "on": "Cashback Match doubles ALL rewards earned in your first year"
+     }
+    ],
+    "notes": "Maxing all four quarters yields $300, doubled to $600 by Cashback Match in year one. Capital One began migrating Discover accounts to its own platform on Jul 27, 2026, in waves. Capital One confirmed the rotating categories and Cashback Match both continue, and added 5% earning through Capital One Travel and Entertainment. Check whether your account has moved yet."
+   }
   },
   "Discover it Miles": {
    "meta": "Discover - $0 AF",
@@ -5502,7 +7207,22 @@
      "name": "Known Coverage Gaps",
      "desc": "Discover cards carry no travel insurance, no rental car coverage, no purchase protection, no extended warranty, and no cell phone protection. Whether Capital One adds any of its own protections post-migration is still unknown."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Discover miles",
+    "summary": "1.5x on every purchase, doubled in your first year.",
+    "rates": [
+     {
+      "rate": "1.5x",
+      "on": "All purchases, uncapped"
+     },
+     {
+      "rate": "Match",
+      "on": "Discover Match doubles all miles earned in your first year - an effective 3x"
+     }
+    ],
+    "notes": "The first-year match makes this an effective 3% card for twelve months, then 1.5%. Capital One began migrating Discover accounts to its own platform on Jul 27, 2026, in waves. Capital One confirmed the rotating categories and Cashback Match both continue, and added 5% earning through Capital One Travel and Entertainment. Check whether your account has moved yet."
+   }
   },
   "Apple Card": {
    "meta": "Apple x Goldman Sachs (moving to Chase) - $0 AF",
@@ -5571,7 +7291,26 @@
      "name": "Known Coverage Gaps",
      "desc": "No travel insurance, no rental car coverage, no purchase protection, no extended warranty, no lounge access, and no transfer partners."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Daily Cash",
+    "summary": "3% at Apple and select merchants, 2% via Apple Pay, 1% on the physical card.",
+    "rates": [
+     {
+      "rate": "3%",
+      "on": "Apple purchases and select partner merchants including Uber, Walgreens, Nike, and T-Mobile"
+     },
+     {
+      "rate": "2%",
+      "on": "Any purchase made with Apple Pay"
+     },
+     {
+      "rate": "1%",
+      "on": "Purchases made with the physical titanium card"
+     }
+    ],
+    "notes": "Daily Cash posts immediately after each purchase rather than at statement close - almost unique. Using the physical card cuts your rate by half, so default to Apple Pay wherever it's accepted. No annual fee, no foreign transaction fee. Chase replaces Goldman Sachs as issuer over roughly 24 months from Jan 2026."
+   }
   },
   "PayPal Cashback": {
    "meta": "Synchrony x PayPal - $0 AF",
@@ -5606,7 +7345,22 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "PayPal cash back",
+    "summary": "3% through PayPal checkout, 1.5% everywhere else.",
+    "rates": [
+     {
+      "rate": "3%",
+      "on": "Purchases made through PayPal checkout"
+     },
+     {
+      "rate": "1.5%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Cash back deposits to your PayPal balance. Distinct from PayPal Credit, which carries a 6-month deferred interest promotion - keep the two separate mentally, since deferred interest bills retroactively if unpaid at the deadline."
+   }
   },
   "Fidelity Rewards Visa": {
    "meta": "Elan x Fidelity - $0 AF",
@@ -5649,7 +7403,19 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Fidelity cash back",
+    "summary": "2% on everything, but only when deposited to a Fidelity account.",
+    "rates": [
+     {
+      "rate": "2%",
+      "on": "All purchases, uncapped",
+      "cap": "Full value requires depositing rewards into an eligible Fidelity account"
+     }
+    ],
+    "notes": "Rewards can auto-deposit into a brokerage, Cash Management, IRA, HSA, or 529 account and be automatically invested, which makes this a passive-investing vehicle more than a spending card. Redeeming any other way earns less. Issued by Elan Financial Services, not Fidelity."
+   }
   },
   "Robinhood Gold Card": {
    "meta": "Robinhood - $0 AF (Gold sub req.)",
@@ -5688,7 +7454,23 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Robinhood cash back",
+    "summary": "3% on everything - but requires a paid Gold subscription.",
+    "rates": [
+     {
+      "rate": "3%",
+      "on": "All purchases, uncapped",
+      "cap": "Requires an active Robinhood Gold subscription"
+     },
+     {
+      "rate": "5%",
+      "on": "Travel booked through the Robinhood travel portal"
+     }
+    ],
+    "notes": "The highest uncapped flat rate available, but factor the Gold subscription fee against it - if you'd otherwise cancel Gold, your effective rate is meaningfully lower. No foreign transaction fee. Rollout has been waitlisted; verify current availability."
+   }
   },
   "Navy Federal cashRewards": {
    "meta": "Navy Federal Credit Union - $0 AF",
@@ -5731,7 +7513,23 @@
      "name": "Rate Tiers",
      "desc": "1.5% base, rising to 1.75% or 2% with a qualifying Navy Federal checking account and direct deposit. Verify which tier you're in - the difference is worth real money on high spend."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Navy Federal cash back",
+    "summary": "1.5% standard, or 2% if your credit limit is $5,000 or more.",
+    "rates": [
+     {
+      "rate": "1.5%",
+      "on": "All purchases - the standard cashRewards card"
+     },
+     {
+      "rate": "2%",
+      "on": "All purchases - the cashRewards Plus version",
+      "cap": "Issued automatically if approved with a credit limit of $5,000+"
+     }
+    ],
+    "notes": "Which version you get is decided at approval by your credit limit, not by application choice. Cash back is uncapped and doesn't expire while the account is open. No annual fee and no foreign transaction fee. Requires Navy Federal membership (military affiliation)."
+   }
   },
   "Navy Federal More Rewards Amex": {
    "meta": "Navy Federal Credit Union - $0 AF",
@@ -5774,7 +7572,34 @@
      "name": "Amex Network Note",
      "desc": "This is an American Express-network card, so acceptance is narrower than Visa or Mastercard - particularly overseas and at small merchants. Pair it with a Visa for coverage."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Navy Federal points",
+    "summary": "3x at supermarkets, gas, restaurants, and on transit.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "Supermarkets"
+     },
+     {
+      "rate": "3x",
+      "on": "Gas stations"
+     },
+     {
+      "rate": "3x",
+      "on": "Restaurants"
+     },
+     {
+      "rate": "3x",
+      "on": "Transit"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Four uncapped 3x categories covering most everyday spend, at no annual fee - unusually strong. American Express network, so acceptance is narrower than Visa or Mastercard, particularly overseas. Requires Navy Federal membership."
+   }
   },
   "Navy Federal Flagship Rewards": {
    "meta": "Navy Federal Credit Union - $49 AF",
@@ -5839,7 +7664,22 @@
      "name": "Travel Protections",
      "desc": "Visa Signature travel protections including trip cancellation and interruption, travel accident insurance, and roadside dispatch. Verify limits with Navy Federal."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Navy Federal points",
+    "summary": "3x on travel, 2x on everything else.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "Travel"
+     },
+     {
+      "rate": "2x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "A 2x base on all non-travel spend is strong for a $49 card, and Navy Federal charges no foreign transaction fee. Also includes an annual Amazon Prime credit and a Global Entry or TSA PreCheck credit. Requires Navy Federal membership."
+   }
   },
   "PenFed Pathfinder Rewards": {
    "meta": "PenFed Credit Union - $95 AF (waived w/ Honors Advantage)",
@@ -5914,7 +7754,22 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "PenFed points",
+    "summary": "4x on travel, 3x on everything else.",
+    "rates": [
+     {
+      "rate": "4x",
+      "on": "All eligible travel purchases"
+     },
+     {
+      "rate": "3x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "The $95 fee is WAIVED for PenFed Honors Advantage members (active-duty military, veterans, or a PenFed checking account with qualifying direct deposit), which makes this effectively free with a $100 flight credit. CAVEAT: PenFed points are worth less than 1 cent on many redemptions - check the chart before valuing 4x at face value."
+   }
   },
   "PenFed Platinum Rewards": {
    "meta": "PenFed Credit Union - $0 AF",
@@ -5957,7 +7812,30 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "PenFed points",
+    "summary": "5x at gas stations, 3x at supermarkets and on dining.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "Gas stations and EV charging"
+     },
+     {
+      "rate": "3x",
+      "on": "Supermarkets"
+     },
+     {
+      "rate": "3x",
+      "on": "Restaurants and dining"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "5x on gas is among the highest available anywhere, at no annual fee. But PenFed points redeem below 1 cent for many options, so the effective return is lower than the multiplier suggests. PenFed membership is open to anyone - no military affiliation required."
+   }
   },
   "USAA Preferred Cash Rewards": {
    "meta": "USAA - $0 AF (military-affiliated membership req.)",
@@ -6010,7 +7888,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "USAA cash back",
+    "summary": "1.5% on every purchase, no caps or categories.",
+    "rates": [
+     {
+      "rate": "1.5%",
+      "on": "All purchases, uncapped"
+     }
+    ],
+    "notes": "No annual fee and no foreign transaction fee, which matters for members stationed overseas. Requires USAA membership (military affiliation)."
+   }
   },
   "USAA Cashback Rewards Plus Amex": {
    "meta": "USAA - $0 AF (military-affiliated membership req.)",
@@ -6064,7 +7953,33 @@
      "name": "Amex Network Note",
      "desc": "American Express network, so acceptance is narrower than Visa or Mastercard."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "USAA cash back",
+    "summary": "5% on military base purchases and at gas stations.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Purchases on military bases",
+      "cap": "$5,000 per year, then 1%"
+     },
+     {
+      "rate": "5%",
+      "on": "Gas stations",
+      "cap": "$3,000 per year, then 1%"
+     },
+     {
+      "rate": "3%",
+      "on": "Grocery stores",
+      "cap": "$3,000 per year, then 1%"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "The military base category is one no other issuer bonuses. Each category has its own separate annual cap. American Express network, so acceptance is narrower than Visa or Mastercard. Requires USAA membership."
+   }
   },
   "Target Circle Card": {
    "meta": "Target x TD Bank - $0 AF",
@@ -6111,7 +8026,23 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards and financing terms change frequently and without much publicity. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Target discount",
+    "summary": "5% off every Target purchase, taken at checkout.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "All Target and Target.com purchases",
+      "cap": "Applied as an instant discount, not accrued rewards"
+     },
+     {
+      "rate": "2%",
+      "on": "Dining and gas, on the Mastercard version only"
+     }
+    ],
+    "notes": "An instant discount rather than rewards, so there's nothing to redeem or forfeit - simpler and more reliable than most store cards. Stacks with Target Circle offers and manufacturer coupons. Also includes free two-day shipping and an extended return window."
+   }
   },
   "Sam's Club Mastercard": {
    "meta": "Sam's Club x Synchrony - $0 AF (membership req.)",
@@ -6162,7 +8093,27 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Sam's Club cash back",
+    "summary": "5% on gas, 3% on dining and travel - paid once a year.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Gas at any station",
+      "cap": "$6,000 in annual gas spend, then 1%"
+     },
+     {
+      "rate": "3%",
+      "on": "Dining and travel"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "CRITICAL: cash back is capped at $5,000 per year and issued ANNUALLY as a reward that must be redeemed at Sam's Club - it doesn't post monthly. Requires an active Sam's Club membership."
+   }
   },
   "Best Buy Credit Card": {
    "meta": "Best Buy x Citi - $0 AF",
@@ -6209,7 +8160,30 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Best Buy reward certificates",
+    "summary": "5% back at Best Buy, issued as expiring certificates.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Best Buy purchases, standard tier"
+     },
+     {
+      "rate": "6%",
+      "on": "Best Buy purchases, elite tiers"
+     },
+     {
+      "rate": "2%",
+      "on": "Dining and grocery, Mastercard version"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases, Mastercard version"
+     }
+    ],
+    "notes": "Rewards accrue as certificates that EXPIRE if not redeemed at Best Buy within their window - the most common way value is lost on this card. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Lowe's Advantage Card": {
    "meta": "Lowe's x Synchrony - $0 AF",
@@ -6252,7 +8226,22 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Lowe's discount",
+    "summary": "5% off every Lowe's purchase, taken at checkout.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "All Lowe's purchases, as an instant discount"
+     },
+     {
+      "rate": "Alt",
+      "on": "Choose special financing INSTEAD of the 5% on qualifying purchases - you cannot have both"
+     }
+    ],
+    "notes": "You must choose 5% off OR promotional financing at checkout, not both. For large projects, run the math: 5% off $5,000 is $250 today versus deferred interest risk on the financing. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Verizon Visa Card": {
    "meta": "Verizon x Synchrony - $0 AF",
@@ -6295,7 +8284,30 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Verizon Dollars",
+    "summary": "4% on grocery and gas, credited against your Verizon bill.",
+    "rates": [
+     {
+      "rate": "4%",
+      "on": "Grocery stores and gas stations"
+     },
+     {
+      "rate": "3%",
+      "on": "Dining"
+     },
+     {
+      "rate": "2%",
+      "on": "Verizon purchases"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Rewards apply as Verizon Dollars against your bill or toward devices - near-zero value if you leave Verizon. Solid categories for a $0 fee card if you're staying."
+   }
   },
   "SoFi Credit Card": {
    "meta": "SoFi - $0 AF",
@@ -6334,7 +8346,24 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "SoFi cash back",
+    "summary": "2% when redeemed into a SoFi account, less otherwise.",
+    "rates": [
+     {
+      "rate": "2%",
+      "on": "All purchases",
+      "cap": "Full rate requires redeeming into a SoFi savings, investment, or loan account"
+     },
+     {
+      "rate": "3%",
+      "on": "Dining, when redeemed into a SoFi account",
+      "cap": "Verify current promotional status at sofi.com"
+     }
+    ],
+    "notes": "Redeeming as a plain statement credit typically earns less than 2%. Mark N/A on the top rate if you don't hold SoFi accounts."
+   }
   },
   "Venmo Credit Card": {
    "meta": "Venmo x Synchrony - $0 AF",
@@ -6369,7 +8398,26 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Venmo cash back",
+    "summary": "3% on your top category and 2% on the second - chosen automatically.",
+    "rates": [
+     {
+      "rate": "3%",
+      "on": "Your highest-spend category each statement period"
+     },
+     {
+      "rate": "2%",
+      "on": "Your second-highest-spend category each statement period"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "You don't pick categories - Venmo recalculates them each statement period from your actual spend. Nothing to activate, but also nothing to optimize. Cash back lands in your Venmo balance and can auto-convert to crypto if enabled - a setting worth checking, since conversion is irreversible."
+   }
   },
   "PNC Cash Rewards Visa": {
    "meta": "PNC Bank - $0 AF",
@@ -6412,7 +8460,33 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "PNC cash back",
+    "summary": "4% on gas, 3% on dining, 2% at groceries - all capped together.",
+    "rates": [
+     {
+      "rate": "4%",
+      "on": "Gas stations",
+      "cap": "Shares a combined annual cap across all bonus categories"
+     },
+     {
+      "rate": "3%",
+      "on": "Dining",
+      "cap": "Shares the same combined cap"
+     },
+     {
+      "rate": "2%",
+      "on": "Grocery stores",
+      "cap": "Shares the same combined cap"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "All three bonus categories draw from one shared annual cap, after which everything drops to 1%. VERIFY the current cap amount with PNC - it's the main constraint on this card and PNC has adjusted it."
+   }
   },
   "PNC Cash Unlimited Visa Signature": {
    "meta": "PNC Bank - $0 AF",
@@ -6451,7 +8525,18 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "PNC cash back",
+    "summary": "2% on every purchase, uncapped.",
+    "rates": [
+     {
+      "rate": "2%",
+      "on": "All purchases, no categories and no caps"
+     }
+    ],
+    "notes": "A straightforward 2% card. PNC relationship tiers may boost this - verify whether you qualify, since it can materially change the effective rate."
+   }
   },
   "TD Cash Credit Card": {
    "meta": "TD Bank - $0 AF",
@@ -6490,7 +8575,26 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "TD cash back",
+    "summary": "3% on dining, 2% at grocery stores.",
+    "rates": [
+     {
+      "rate": "3%",
+      "on": "Dining, including takeout and delivery"
+     },
+     {
+      "rate": "2%",
+      "on": "Grocery stores"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Some TD Cash versions let you choose your 3% and 2% categories rather than fixing them at dining and groceries. VERIFY which structure your card uses at td.com."
+   }
   },
   "Frontier Airlines World Mastercard": {
    "meta": "Barclays x Frontier - $89 AF",
@@ -6548,7 +8652,30 @@
      "name": "Verify Current Terms",
      "desc": "Confirm current earning rates, caps, and category definitions with the issuer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Frontier Miles",
+    "summary": "5x on Frontier purchases, 3x on restaurants.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "Frontier Airlines purchases"
+     },
+     {
+      "rate": "3x",
+      "on": "Restaurants, including takeout and delivery"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "EQM",
+      "on": "Card spend earns elite qualifying miles toward Frontier status"
+     }
+    ],
+    "notes": "Frontier's fee structure means base fare is only part of your trip cost - value this card against total cost, not headline fares. Elite status brings free carry-ons and seat selection, which matters on an airline that charges for both."
+   }
   },
   "Marriott Bonvoy Bevy": {
    "meta": "American Express - $250 AF",
@@ -6625,7 +8752,27 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Marriott Bonvoy points",
+    "summary": "6x at Marriott, 4x at restaurants and U.S. supermarkets up to $15,000.",
+    "rates": [
+     {
+      "rate": "6x",
+      "on": "Eligible purchases at hotels participating in Marriott Bonvoy"
+     },
+     {
+      "rate": "4x",
+      "on": "Restaurants worldwide and U.S. supermarkets",
+      "cap": "$15,000 in combined annual purchases, then 2x"
+     },
+     {
+      "rate": "2x",
+      "on": "All other eligible purchases"
+     }
+    ],
+    "notes": "The 6x Marriott rate matches the $650 Bonvoy Brilliant at a $250 fee. Bonvoy points sit around 0.65-0.8 cents after the 2026 devaluation."
+   }
   },
   "Choice Privileges Mastercard": {
    "meta": "Wyndham/Choice x Barclays - $0 AF",
@@ -6664,7 +8811,26 @@
      "name": "Verify Current Terms",
      "desc": "Confirm current earning rates, caps, and category definitions with the issuer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Choice Privileges points",
+    "summary": "5x at Choice Hotels, 3x on everyday categories.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "Choice Hotels stays"
+     },
+     {
+      "rate": "3x",
+      "on": "Gas stations, grocery stores, phone plans, and select streaming"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Choice awards can be very cheap at the low end, which makes this a reasonable no-fee option for budget travel. Automatic Gold elite status included."
+   }
   },
   "Citi Rewards+": {
    "meta": "Citi - $0 AF",
@@ -6710,7 +8876,32 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "ThankYou points",
+    "summary": "Every purchase rounds up to the nearest 10 points, however small.",
+    "rates": [
+     {
+      "rate": "2x",
+      "on": "Supermarkets and gas stations",
+      "cap": "$6,000 in combined annual purchases, then 1x"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "Round-up",
+      "on": "Every purchase rounds up to the nearest 10 points - a $2 coffee earns 10 points"
+     },
+     {
+      "rate": "10% back",
+      "on": "Points returned when you redeem",
+      "cap": "First 100,000 points redeemed each year"
+     }
+    ],
+    "notes": "Best used as a dedicated small-purchase card alongside a stronger everyday card - the round-up mechanic pays disproportionately on transactions under $5. Points are ThankYou points; pair with a Strata card for transfers."
+   }
   },
   "Citi Strata Premier": {
    "meta": "Citi - $95 AF",
@@ -6772,7 +8963,38 @@
      "name": "Known Coverage Gaps",
      "desc": "No baggage delay, travel accident, emergency evacuation, roadside assistance, cell phone protection, or 24/7 travel emergency assistance hotline. Verify current limits at citi.com - Citi trimmed protections across its portfolio in recent years."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "ThankYou points",
+    "summary": "10x through Citi Travel, 3x across an unusually broad set of everyday categories.",
+    "rates": [
+     {
+      "rate": "10x",
+      "on": "Hotels, car rentals, and attractions booked through Citi Travel"
+     },
+     {
+      "rate": "3x",
+      "on": "Restaurants"
+     },
+     {
+      "rate": "3x",
+      "on": "Supermarkets"
+     },
+     {
+      "rate": "3x",
+      "on": "Gas stations and EV charging"
+     },
+     {
+      "rate": "3x",
+      "on": "Air travel and other hotels"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "One of the broadest 3x category sets at the $95 tier - groceries, gas, dining, air, and hotels all qualify with no caps."
+   }
   },
   "Marriott Bonvoy Bountiful": {
    "meta": "Chase x Marriott - $250 AF",
@@ -6845,7 +9067,27 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Marriott Bonvoy points",
+    "summary": "6x at Marriott, 4x at restaurants and U.S. supermarkets up to $15,000.",
+    "rates": [
+     {
+      "rate": "6x",
+      "on": "Marriott properties"
+     },
+     {
+      "rate": "4x",
+      "on": "Restaurants worldwide and U.S. supermarkets",
+      "cap": "$15,000 in combined annual purchases, then 2x"
+     },
+     {
+      "rate": "2x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "The Chase-issued twin of the Amex Bonvoy Bevy - same rates, same fee, same Gold status. Choose on issuer relationship and 5/24 standing rather than earning."
+   }
   },
   "Amex Cash Magnet": {
    "meta": "American Express - $0 AF (closed to new applicants)",
@@ -6896,7 +9138,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Reward Dollars (cash back)",
+    "summary": "1.5% on every purchase, no caps and no categories.",
+    "rates": [
+     {
+      "rate": "1.5%",
+      "on": "All purchases, uncapped"
+     }
+    ],
+    "notes": "CLOSED to new applicants. At a flat 1.5% it's outclassed by widely available 2% cards - if you hold one, consider a product change rather than closing, to preserve your account age. Charges a foreign transaction fee."
+   }
   },
   "Amex EveryDay Preferred": {
    "meta": "American Express - $95 AF (closed to new applicants)",
@@ -6951,7 +9204,36 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Membership Rewards points",
+    "summary": "3x at U.S. supermarkets, plus 50% more points at 30+ purchases a month.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "U.S. supermarkets",
+      "cap": "$6,000 per calendar year, then 1x"
+     },
+     {
+      "rate": "2x",
+      "on": "U.S. gas stations"
+     },
+     {
+      "rate": "2x",
+      "on": "Prepaid hotels and car rentals booked through amextravel.com"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "+50%",
+      "on": "Bonus on all points earned in a billing period",
+      "cap": "Requires 30 or more purchases in that billing period"
+     }
+    ],
+    "notes": "Hitting 30 transactions turns 3x supermarkets into an effective 4.5x - among the best grocery rates available anywhere, and better than anything Amex currently sells at this fee. CLOSED to new applicants, so it can't be replaced once closed. Charges a foreign transaction fee."
+   }
   },
   "Citi Prestige": {
    "meta": "Citi - $495 AF (closed to new applicants)",
@@ -7019,7 +9301,27 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "ThankYou points",
+    "summary": "4x on dining and air travel - a legacy structure Citi no longer sells.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "Air travel and restaurants",
+      "cap": "Historical rate - VERIFY current earning on your account at citi.com"
+     },
+     {
+      "rate": "3x",
+      "on": "Hotels and cruise lines"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "CLOSED to new applicants and progressively stripped of benefits. Citi has changed this card's earning several times without broad announcement, so treat any published rate as unverified until you confirm it in your own account. Cannot be reopened once closed."
+   }
   },
   "Freedom Rise": {
    "meta": "Chase - $0 AF",
@@ -7058,7 +9360,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Ultimate Rewards points (as cash back)",
+    "summary": "1.5% on everything - a starter card built for approval, not rewards.",
+    "rates": [
+     {
+      "rate": "1.5%",
+      "on": "All purchases"
+     }
+    ],
+    "notes": "Approval odds improve materially with an existing Chase checking account. After about a year of on-time payments Chase generally allows a product change to a Freedom Unlimited or Flex, which preserves your account age. Note it uses one of your five 5/24 slots."
+   }
   },
   "British Airways Visa": {
    "meta": "Chase x British Airways - $95 AF",
@@ -7128,7 +9441,26 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Avios",
+    "summary": "3x on British Airways and partner airline purchases.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "British Airways, Iberia, Aer Lingus, and LEVEL purchases"
+     },
+     {
+      "rate": "2x",
+      "on": "Hotel accommodations booked directly with the hotel"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "British Airways charges high carrier-imposed surcharges on its own transatlantic awards. Avios are most valuable on short-haul partner flights - Alaska, Aer Lingus, Iberia - where surcharges are minimal."
+   }
   },
   "Disney Visa": {
    "meta": "Chase x Disney - $0 AF",
@@ -7183,7 +9515,18 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Disney Rewards Dollars",
+    "summary": "1% back everywhere, redeemable only within the Disney ecosystem.",
+    "rates": [
+     {
+      "rate": "1%",
+      "on": "All purchases"
+     }
+    ],
+    "notes": "Rewards load onto a Disney Rewards Redemption Card usable at Disney parks, resorts, stores, and cruises - not redeemable for cash or statement credits. The card's real value is park perks and discounts, not earning."
+   }
   },
   "Disney Premier Visa": {
    "meta": "Chase x Disney - $49 AF",
@@ -7234,7 +9577,26 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Disney Rewards Dollars",
+    "summary": "2% on groceries, gas, dining, and Disney purchases.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Disney+, Hulu, and ESPN+ subscriptions purchased directly"
+     },
+     {
+      "rate": "2%",
+      "on": "Grocery stores, gas stations, restaurants, and most Disney purchases"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Rewards redeem only within the Disney ecosystem via the Disney Rewards Redemption Card. The $49 fee pays for itself only with meaningful Disney spend."
+   }
   },
   "DoorDash Rewards Mastercard": {
    "meta": "Chase x DoorDash - $0 AF",
@@ -7285,7 +9647,30 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Ultimate Rewards points (as cash back)",
+    "summary": "4% on DoorDash and Caviar, plus complimentary DashPass.",
+    "rates": [
+     {
+      "rate": "4%",
+      "on": "DoorDash and Caviar orders"
+     },
+     {
+      "rate": "3%",
+      "on": "Dining purchased directly from restaurants"
+     },
+     {
+      "rate": "2%",
+      "on": "Grocery stores, online and in-store"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "The included DashPass membership ($96+/yr value) is worth more than the multipliers for most households. Cash back is technically Ultimate Rewards points - pair with a Sapphire or Ink card to convert to airline and hotel transfer partners."
+   }
   },
   "Instacart Mastercard": {
    "meta": "Chase x Instacart - $0 AF",
@@ -7336,7 +9721,30 @@
      "name": "Zero Liability / Fraud Protection",
      "desc": "Not liable for unauthorized charges; 24/7 fraud monitoring."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Ultimate Rewards points (as cash back)",
+    "summary": "5% on Instacart and Chase Travel, plus Instacart+ included.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Instacart purchases"
+     },
+     {
+      "rate": "5%",
+      "on": "Chase Travel bookings"
+     },
+     {
+      "rate": "2%",
+      "on": "Restaurants, gas stations, and select streaming"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Complimentary Instacart+ membership while you hold the card. Cash back is technically Ultimate Rewards points - pair with a Sapphire or Ink card to convert to airline and hotel transfer partners."
+   }
   },
   "Allegiant Allways Rewards Visa": {
    "meta": "Bank of America x Allegiant - $59 AF",
@@ -7382,7 +9790,26 @@
      "name": "Verify Current Terms",
      "desc": "Confirm current earning rates, caps, and category definitions with the issuer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Allegiant points",
+    "summary": "3x on Allegiant purchases and Allegiant hotel and car bookings.",
+    "rates": [
+     {
+      "rate": "3x",
+      "on": "Allegiant Air purchases and Allegiant hotel and car bookings"
+     },
+     {
+      "rate": "2x",
+      "on": "Dining"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Allegiant serves mostly leisure routes from smaller airports, often only a few days a week. Only worth the $59 fee if Allegiant actually flies where you go. Not eligible for BofA Rewards tier bonuses - co-branded cards are excluded."
+   }
   },
   "US Bank Shopper Cash Rewards": {
    "meta": "U.S. Bank - $95 AF (closed to new applicants)",
@@ -7429,7 +9856,27 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "U.S. Bank cash back",
+    "summary": "6% at two retailers you choose, capped quarterly.",
+    "rates": [
+     {
+      "rate": "6%",
+      "on": "Two retailers you select from U.S. Bank's list",
+      "cap": "$1,500 combined quarterly spend, then 1.5%"
+     },
+     {
+      "rate": "3%",
+      "on": "One everyday category you select: wholesale clubs, gas and EV, or bills"
+     },
+     {
+      "rate": "1.5%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "The $1,500 quarterly cap limits the 6% to about $90 per quarter - against a $95 annual fee you need to use it consistently for the card to make sense. You can typically change your picks once per quarter; most people choose once and never revisit. CLOSED to new applicants."
+   }
   },
   "Wells Fargo Attune": {
    "meta": "Wells Fargo - $0 AF",
@@ -7468,7 +9915,26 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Wells Fargo Rewards points",
+    "summary": "4% on self-care, fitness, sporting goods, and transit.",
+    "rates": [
+     {
+      "rate": "4%",
+      "on": "Self-care and beauty, gyms and fitness services, sporting goods"
+     },
+     {
+      "rate": "4%",
+      "on": "Public transit and select planet-friendly spend including EV charging"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "A distinctive category mix with no annual fee, but categories are defined narrowly by merchant code - a gym billed as a general services merchant may not qualify. Verify the current definitions with Wells Fargo before routing spend here."
+   }
   },
   "Bread Cashback Amex": {
    "meta": "Bread Financial - $0 AF",
@@ -7503,7 +9969,18 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Bread cash back",
+    "summary": "2% on everything, uncapped, with no annual fee.",
+    "rates": [
+     {
+      "rate": "2%",
+      "on": "All purchases, no categories and no caps"
+     }
+    ],
+    "notes": "Straightforward flat-rate earning with none of the deferred-interest complexity of Bread Financial's retail cards. American Express network, so acceptance is narrower than Visa or Mastercard, particularly abroad."
+   }
   },
   "Gemini Credit Card": {
    "meta": "Gemini - $0 AF",
@@ -7538,7 +10015,26 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Cryptocurrency",
+    "summary": "3% on dining, 2% on groceries - paid in crypto, in real time.",
+    "rates": [
+     {
+      "rate": "3%",
+      "on": "Dining"
+     },
+     {
+      "rate": "2%",
+      "on": "Grocery stores"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Rewards are paid in the cryptocurrency of your choice immediately after each purchase. Their value FLUCTUATES after you earn them, so a 3% reward may be worth more or less by the time you use it, and disposal may create a taxable event. No annual fee, no foreign transaction fee."
+   }
   },
   "Discover it Chrome": {
    "meta": "Discover - $0 AF",
@@ -7593,7 +10089,27 @@
      "name": "Known Coverage Gaps",
      "desc": "Discover cards carry no travel insurance, no rental car coverage, no purchase protection, no extended warranty, and no cell phone protection. Whether Capital One adds any of its own protections post-migration is still unknown."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Discover cash back",
+    "summary": "2% at gas stations and restaurants, up to a quarterly cap.",
+    "rates": [
+     {
+      "rate": "2%",
+      "on": "Gas stations and restaurants",
+      "cap": "$1,000 in combined quarterly purchases, then 1%"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "Match",
+      "on": "Cashback Match doubles all rewards earned in your first year"
+     }
+    ],
+    "notes": "The $1,000 quarterly cap limits the 2% to about $20 per quarter - modest. The rotating-category Discover it Cash Back earns considerably more for most households. Capital One began migrating Discover accounts to its own platform Jul 27, 2026. Capital One confirmed the category structure and Cashback Match both continue."
+   }
   },
   "Amazon Store Card": {
    "meta": "Amazon x Synchrony - $0 AF (Prime req. for 5%)",
@@ -7640,7 +10156,19 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards and financing terms change frequently and without much publicity. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Amazon rewards",
+    "summary": "5% at Amazon with an active Prime membership.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Amazon.com purchases",
+      "cap": "Requires active Prime; lower without it"
+     }
+    ],
+    "notes": "This is the CLOSED-LOOP store card - the open-loop Prime Visa also pays 5% at Amazon, works everywhere else, and carries real travel protections. For most people who qualify, the Prime Visa is the better card. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "REI Co-op Mastercard": {
    "meta": "Capital One x REI - $0 AF",
@@ -7679,7 +10207,22 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "REI credit",
+    "summary": "5% back at REI, 1.5% everywhere else.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "REI purchases, in-store and online"
+     },
+     {
+      "rate": "1.5%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Rewards issue as REI credit, separate from the annual Co-op member dividend. Issued by Capital One, so it carries no foreign transaction fee and free authorized users."
+   }
   },
   "Coinbase One Card": {
    "meta": "Coinbase x First Electronic Bank - $0 AF (Coinbase One req.)",
@@ -7725,7 +10268,19 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Bitcoin",
+    "summary": "2% to 4% back in Bitcoin, tiered by your Coinbase holdings.",
+    "rates": [
+     {
+      "rate": "2-4%",
+      "on": "All purchases, tiered by your Bitcoin balance on Coinbase",
+      "cap": "Requires an active Coinbase One subscription"
+     }
+    ],
+    "notes": "The top rate demands a substantial Bitcoin balance, and the Coinbase One subscription fee offsets part of the return. Rewards are paid in Bitcoin, so value fluctuates after earning and disposal may be taxable. Issued by First Electronic Bank."
+   }
   },
   "Citi Dividend": {
    "meta": "Citi - $0 AF (legacy, closed to new applicants)",
@@ -7761,7 +10316,28 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Citi cash back",
+    "summary": "5% on rotating quarterly categories - with a hard $300 annual ceiling.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Rotating quarterly bonus categories",
+      "cap": "ACTIVATION REQUIRED each quarter"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "$300",
+      "on": "Hard annual cap on TOTAL cash back across all categories",
+      "cap": "Once hit, everything earns 1% for the rest of the year"
+     }
+    ],
+    "notes": "The $300 annual ceiling is this card's defining constraint and applies across every category combined - track your progress toward it. A closed legacy product that cannot be reopened once closed, so product-change rather than close if you want to preserve account age."
+   }
   },
   "Kohl's Card": {
    "meta": "Kohl's x Capital One - $0 AF",
@@ -7804,7 +10380,22 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Kohl's discounts",
+    "summary": "Cardholder discount events and Kohl's Cash, not a fixed rate.",
+    "rates": [
+     {
+      "rate": "Discounts",
+      "on": "Frequent cardholder-only percentage-off events, typically 15-30%"
+     },
+     {
+      "rate": "Kohl's Cash",
+      "on": "Earned during promotional periods, with short expiry windows"
+     }
+    ],
+    "notes": "Value comes from stacking cardholder discounts with Kohl's Cash and coupons rather than a fixed earning rate. Kohl's Cash EXPIRES quickly - check dates. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Macy's Credit Card": {
    "meta": "Macy's x Citi - $0 AF",
@@ -7847,7 +10438,22 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Star Rewards points",
+    "summary": "Star Rewards points plus cardholder savings days.",
+    "rates": [
+     {
+      "rate": "Points",
+      "on": "Star Rewards point earning, with rates rising by loyalty tier"
+     },
+     {
+      "rate": "Savings Days",
+      "on": "Cardholder-exclusive discount events throughout the year"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Nordstrom Credit Card": {
    "meta": "Nordstrom x TD Bank - $0 AF",
@@ -7890,7 +10496,22 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Nordy Club points",
+    "summary": "Nordy Club points plus early access to sales.",
+    "rates": [
+     {
+      "rate": "Points",
+      "on": "Nordy Club point earning at Nordstrom and Nordstrom Rack"
+     },
+     {
+      "rate": "Access",
+      "on": "Early access to Anniversary Sale and other cardmember events"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "TJX Rewards Card": {
    "meta": "TJX x Synchrony - $0 AF",
@@ -7933,7 +10554,22 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "TJX rewards certificates",
+    "summary": "5% back at TJX stores.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "T.J.Maxx, Marshalls, HomeGoods, HomeSense, and Sierra"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases, Mastercard version"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Ulta Beauty Rewards Mastercard": {
    "meta": "Ulta x Comenity - $0 AF",
@@ -7976,7 +10612,22 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Ultamate Rewards points",
+    "summary": "2 points per dollar at Ulta.",
+    "rates": [
+     {
+      "rate": "2x",
+      "on": "Ulta Beauty purchases"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases, Mastercard version"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Gap Good Rewards Card": {
    "meta": "Gap Inc. x Barclays - $0 AF",
@@ -8019,7 +10670,22 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Good Rewards points",
+    "summary": "5 points per dollar across the Gap brands.",
+    "rates": [
+     {
+      "rate": "5x",
+      "on": "Gap, Old Navy, Banana Republic, and Athleta"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases, Visa version"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Amazon Prime Store Card": {
    "meta": "Amazon x Synchrony - $0 AF (Prime req.)",
@@ -8066,7 +10732,19 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards and financing terms change frequently and without much publicity. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Amazon rewards",
+    "summary": "5% at Amazon with an active Prime membership.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Amazon.com purchases",
+      "cap": "Requires active Prime"
+     }
+    ],
+    "notes": "Closed-loop and Amazon-only. The Prime Visa pays the same 5% at Amazon but works everywhere and includes travel protections. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "ExxonMobil Smart Card+": {
    "meta": "ExxonMobil x Citi - $0 AF",
@@ -8109,7 +10787,26 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Exxon savings",
+    "summary": "10 cents per gallon off fuel, plus 2% on dining and groceries.",
+    "rates": [
+     {
+      "rate": "10c/gal",
+      "on": "Savings on Exxon and Mobil fuel purchases"
+     },
+     {
+      "rate": "2%",
+      "on": "Dining and grocery purchases"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Shell Fuel Rewards Card": {
    "meta": "Shell x Citi - $0 AF",
@@ -8152,7 +10849,22 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Shell Fuel Rewards",
+    "summary": "10 cents per gallon base savings at Shell.",
+    "rates": [
+     {
+      "rate": "10c/gal",
+      "on": "Base savings on Shell fuel"
+     },
+     {
+      "rate": "Savings",
+      "on": "Additional per-gallon savings from grocery and dining spend"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Kroger Rewards World Elite": {
    "meta": "Kroger x U.S. Bank - $0 AF",
@@ -8195,7 +10907,30 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Kroger rewards",
+    "summary": "5% on mobile wallet purchases, 3% on Kroger brands.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Mobile wallet purchases via Apple Pay, Google Pay, or Samsung Pay"
+     },
+     {
+      "rate": "3%",
+      "on": "Kroger-brand products and grocery purchases"
+     },
+     {
+      "rate": "2%",
+      "on": "Kroger fuel"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "The 5% mobile wallet rate is unusually strong for a grocery co-brand and applies broadly, not just at Kroger. Verify current caps with Kroger. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Alliant Cashback Visa": {
    "meta": "Alliant Credit Union - $0 AF",
@@ -8238,7 +10973,23 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Alliant cash back",
+    "summary": "2.5% on everything - but only if you hold Tier One status.",
+    "rates": [
+     {
+      "rate": "2.5%",
+      "on": "All purchases, with Alliant Tier One status",
+      "cap": "Monthly spend cap applies - verify the current limit"
+     },
+     {
+      "rate": "1.5%",
+      "on": "All purchases, without Tier One status"
+     }
+    ],
+    "notes": "Tier One requires an Alliant High-Rate Checking account, at least one monthly electronic deposit, and eStatements enrollment. Miss any condition and the rate drops sharply. Membership is open nationwide via a small donation to Foster Care to Success."
+   }
   },
   "DCU Visa Platinum Rewards": {
    "meta": "Digital Federal Credit Union - $0 AF",
@@ -8281,7 +11032,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "DCU points",
+    "summary": "Points on every purchase, with no foreign transaction fee.",
+    "rates": [
+     {
+      "rate": "Points",
+      "on": "Earning on all purchases - verify the current rate with DCU"
+     }
+    ],
+    "notes": "DCU charges no foreign transaction fee, unusual at this tier and the main reason to carry it while travelling. Membership is available nationwide through participating organizations. VERIFY current rates directly with the credit union. These programs get almost no financial press coverage and change without announcement, so third-party figures are frequently stale. Federal credit unions are capped at 18% APR by law, which is usually the bigger financial advantage over the rewards rate itself."
+   }
   },
   "BECU Cash Back Visa": {
    "meta": "Boeing Employees Credit Union - $0 AF",
@@ -8324,7 +11086,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "BECU cash back",
+    "summary": "1.5% on everything, with no fees of any kind.",
+    "rates": [
+     {
+      "rate": "1.5%",
+      "on": "All purchases, uncapped"
+     }
+    ],
+    "notes": "BECU charges no annual fee, no foreign transaction fee, no balance transfer fee, and no cash advance fee - one of the cleanest fee structures in consumer credit. Membership centers on Washington State residents plus Boeing affiliation."
+   }
   },
   "Truist Enjoy Cash": {
    "meta": "Truist Bank - $0 AF",
@@ -8363,7 +11136,28 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Truist cash back",
+    "summary": "3% on gas, 2% on utilities and groceries.",
+    "rates": [
+     {
+      "rate": "3%",
+      "on": "Gas stations",
+      "cap": "Combined annual cap applies across bonus categories"
+     },
+     {
+      "rate": "2%",
+      "on": "Utilities and grocery stores",
+      "cap": "Shares the same combined cap"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Bonus categories share a combined annual cap, after which everything drops to 1%. Verify the current cap with Truist - it's the main constraint."
+   }
   },
   "Regions Cash Rewards": {
    "meta": "Regions Bank - $0 AF",
@@ -8402,7 +11196,18 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Regions cash back",
+    "summary": "1.5% on every purchase, uncapped.",
+    "rates": [
+     {
+      "rate": "1.5%",
+      "on": "All purchases, no categories and no caps"
+     }
+    ],
+    "notes": "Straightforward flat rate. Regions relationship tiers may boost this - verify whether you qualify."
+   }
   },
   "Citizens Cash Back Plus": {
    "meta": "Citizens Bank - $0 AF",
@@ -8441,7 +11246,18 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Citizens cash back",
+    "summary": "1.8% on every purchase, uncapped.",
+    "rates": [
+     {
+      "rate": "1.8%",
+      "on": "All purchases, no categories and no caps"
+     }
+    ],
+    "notes": "An unusual rate that sits between the common 1.5% and 2% tiers. Verify whether a Citizens banking relationship raises it."
+   }
   },
   "Fifth Third Cash/Back": {
    "meta": "Fifth Third Bank - $0 AF",
@@ -8480,7 +11296,18 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Fifth Third cash back",
+    "summary": "1.67% on every purchase, uncapped.",
+    "rates": [
+     {
+      "rate": "1.67%",
+      "on": "All purchases, no categories and no caps"
+     }
+    ],
+    "notes": "The odd rate comes from Fifth Third's redemption structure. Verify current terms - regional bank card rates change quietly."
+   }
   },
   "Huntington Voice Rewards": {
    "meta": "Huntington Bank - $0 AF",
@@ -8524,7 +11351,23 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Huntington points",
+    "summary": "3% in one category you pick, on a capped amount.",
+    "rates": [
+     {
+      "rate": "3%",
+      "on": "One category you select from Huntington's list",
+      "cap": "Quarterly spend cap applies - verify the current limit"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Category changes generally take effect the FOLLOWING quarter, so plan ahead rather than switching reactively after a big purchase."
+   }
   },
   "Upgrade Cash Rewards Visa": {
    "meta": "Upgrade - $0 AF",
@@ -8559,7 +11402,18 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Upgrade cash back",
+    "summary": "1.5% - earned when you make payments, not when you buy.",
+    "rates": [
+     {
+      "rate": "1.5%",
+      "on": "Earned on PAYMENTS you make, not on purchases"
+     }
+    ],
+    "notes": "NOT a conventional credit card. Balances convert to fixed-rate installment loans with set monthly payments, and cash back is credited as you pay them down. Understand the structure before using it - it behaves like a personal loan with a card attached, and you lose the flexibility to carry a small revolving balance."
+   }
   },
   "Mission Lane Visa": {
    "meta": "Mission Lane - $0-$59 AF",
@@ -8598,7 +11452,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Mission Lane cash back",
+    "summary": "1% to 1.5% on everything, depending on your approval offer.",
+    "rates": [
+     {
+      "rate": "1-1.5%",
+      "on": "All purchases - the rate depends on the offer you were approved for"
+     }
+    ],
+    "notes": "CHECK YOUR ANNUAL FEE: it ranges from $0 to $59 by approval offer. At $59 against 1% cash back you'd need roughly $5,900 of annual spend just to break even. Reports to all three bureaus, which is the real value while rebuilding."
+   }
   },
   "Synchrony Premier": {
    "meta": "Synchrony - $0 AF",
@@ -8633,7 +11498,18 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Synchrony cash back",
+    "summary": "2% on everything, uncapped, with no annual fee.",
+    "rates": [
+     {
+      "rate": "2%",
+      "on": "All purchases, no categories and no caps"
+     }
+    ],
+    "notes": "Unlike Synchrony's retail portfolio, this is a general-purpose Mastercard with no deferred-interest structure. If you hold Synchrony store cards, this is the sane alternative for everyday spend."
+   }
   },
   "Barclays View Mastercard": {
    "meta": "Barclays - $0 AF",
@@ -8676,7 +11552,22 @@
      "name": "Verify Current Terms",
      "desc": "Terms on this card get little press coverage and change quietly. Confirm current earning rates, caps, and category definitions with the issuer."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Barclays cash back",
+    "summary": "2% on groceries, streaming, phone, and internet.",
+    "rates": [
+     {
+      "rate": "2%",
+      "on": "Grocery stores, streaming services, phone plans, and internet"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "An unusual category set aimed at recurring household bills rather than discretionary spend. Verify current caps with Barclays."
+   }
   },
   "Home Depot Consumer Card": {
    "meta": "Home Depot x Citi - $0 AF",
@@ -8720,7 +11611,22 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "No rewards",
+    "summary": "No ongoing rewards - this card exists for financing and returns.",
+    "rates": [
+     {
+      "rate": "0%",
+      "on": "No cash back or points on purchases"
+     },
+     {
+      "rate": "Financing",
+      "on": "Promotional financing on qualifying purchases, plus an extended return window"
+     }
+    ],
+    "notes": "Unusual among store cards in offering no earning at all. Its only value is the financing offer and the extended return window, which makes the deferred-interest risk the entire calculation. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Wayfair Credit Card": {
    "meta": "Wayfair x Citi - $0 AF",
@@ -8764,7 +11670,26 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Wayfair rewards",
+    "summary": "5% back across Wayfair brands.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Wayfair, AllModern, Birch Lane, Joss & Main, and Perigold"
+     },
+     {
+      "rate": "3%",
+      "on": "Other purchases, Mastercard version"
+     },
+     {
+      "rate": "1%",
+      "on": "All remaining purchases"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Dick's ScoreRewards Mastercard": {
    "meta": "Dick's x Synchrony - $0 AF",
@@ -8808,7 +11733,26 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "ScoreRewards points",
+    "summary": "5% back at Dick's Sporting Goods.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Dick's Sporting Goods, Golf Galaxy, and Public Lands"
+     },
+     {
+      "rate": "2%",
+      "on": "Gas, grocery, and dining"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Bass Pro Cabela's CLUB": {
    "meta": "Bass Pro x Capital One - $0 AF",
@@ -8852,7 +11796,26 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "CLUB points",
+    "summary": "Up to 5% back at Bass Pro Shops and Cabela's.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Bass Pro Shops and Cabela's purchases"
+     },
+     {
+      "rate": "2%",
+      "on": "Gas and restaurants"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Tractor Supply Card": {
    "meta": "Tractor Supply x Citi - $0 AF",
@@ -8896,7 +11859,22 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Tractor Supply rewards",
+    "summary": "5% back at Tractor Supply.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Tractor Supply purchases"
+     },
+     {
+      "rate": "Alt",
+      "on": "Special financing available instead of rewards on qualifying purchases"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Petco Pay Mastercard": {
    "meta": "Petco x Comenity - $0 AF",
@@ -8940,7 +11918,26 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Petco Pals rewards",
+    "summary": "4% at Petco, 3% at grocery stores.",
+    "rates": [
+     {
+      "rate": "4%",
+      "on": "Petco purchases"
+     },
+     {
+      "rate": "3%",
+      "on": "Grocery stores"
+     },
+     {
+      "rate": "1.5%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Walgreens Mastercard": {
    "meta": "Walgreens x Synchrony - $0 AF",
@@ -8984,7 +11981,30 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Walgreens Cash rewards",
+    "summary": "10% back on Walgreens-brand products.",
+    "rates": [
+     {
+      "rate": "10%",
+      "on": "Walgreens-brand products"
+     },
+     {
+      "rate": "5%",
+      "on": "Other Walgreens purchases"
+     },
+     {
+      "rate": "3%",
+      "on": "Health and wellness purchases elsewhere"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "BJ's One Mastercard": {
    "meta": "BJ's Wholesale x Comenity - $0-$40 AF",
@@ -9032,7 +12052,30 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "BJ's rewards",
+    "summary": "Up to 5% at BJ's, plus fuel savings.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "BJ's purchases, on the $40 annual fee tier"
+     },
+     {
+      "rate": "3%",
+      "on": "BJ's purchases, on the $0 fee tier"
+     },
+     {
+      "rate": "15c/gal",
+      "on": "Off BJ's Gas"
+     },
+     {
+      "rate": "2%",
+      "on": "Dining and non-BJ's purchases"
+     }
+    ],
+    "notes": "Comes in $0 and $40 annual fee versions with different rates - confirm which you hold. Requires a BJ's membership. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Meijer Mastercard": {
    "meta": "Meijer x Citi - $0 AF",
@@ -9076,7 +12119,30 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Meijer rewards",
+    "summary": "5% on Meijer-brand products, 3% on groceries.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Meijer-brand products"
+     },
+     {
+      "rate": "3%",
+      "on": "Grocery purchases at Meijer"
+     },
+     {
+      "rate": "Fuel",
+      "on": "Per-gallon fuel savings at Meijer gas stations"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Bath & Body Works Mastercard": {
    "meta": "Bath & Body Works x Comenity - $0 AF",
@@ -9120,7 +12186,26 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "BBW points",
+    "summary": "Points at Bath & Body Works plus a birthday reward.",
+    "rates": [
+     {
+      "rate": "Points",
+      "on": "Elevated point earning on Bath & Body Works purchases"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases, Mastercard version"
+     },
+     {
+      "rate": "Birthday",
+      "on": "An annual birthday gift for cardmembers"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Victoria's Secret Mastercard": {
    "meta": "Victoria's Secret x Comenity - $0 AF",
@@ -9164,7 +12249,26 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "VS points",
+    "summary": "Points at Victoria's Secret plus free shipping days.",
+    "rates": [
+     {
+      "rate": "Points",
+      "on": "Elevated point earning on Victoria's Secret and PINK purchases"
+     },
+     {
+      "rate": "1x",
+      "on": "All other purchases, Mastercard version"
+     },
+     {
+      "rate": "Birthday",
+      "on": "An annual birthday gift for cardmembers"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "American Eagle Credit Card": {
    "meta": "American Eagle x Comenity - $0 AF",
@@ -9208,7 +12312,22 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "AE rewards",
+    "summary": "Points at American Eagle and Aerie.",
+    "rates": [
+     {
+      "rate": "Points",
+      "on": "Elevated point earning at American Eagle and Aerie"
+     },
+     {
+      "rate": "20%",
+      "on": "Off your first purchase after approval"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Williams-Sonoma Key Rewards": {
    "meta": "Williams-Sonoma x Comenity - $0 AF",
@@ -9252,7 +12371,26 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Key Rewards points",
+    "summary": "Up to 5% across the Williams-Sonoma brands.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Williams Sonoma, Pottery Barn, West Elm, Mark & Graham, and Rejuvenation"
+     },
+     {
+      "rate": "4%",
+      "on": "Same brands on the non-Visa version"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases, Visa version"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "IKEA Visa": {
    "meta": "IKEA x Comenity - $0 AF",
@@ -9296,7 +12434,26 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "IKEA rewards",
+    "summary": "5% at IKEA, 3% on dining and groceries.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "IKEA purchases"
+     },
+     {
+      "rate": "3%",
+      "on": "Dining, grocery, and utilities"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Sephora Credit Card": {
    "meta": "Sephora x Comenity - $0 AF",
@@ -9340,7 +12497,26 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Beauty Insider points",
+    "summary": "4% back at Sephora.",
+    "rates": [
+     {
+      "rate": "4%",
+      "on": "Sephora purchases"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases, Visa version"
+     },
+     {
+      "rate": "Birthday",
+      "on": "An annual birthday bonus for cardmembers"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "L.L.Bean Mastercard": {
    "meta": "L.L.Bean x Citi - $0 AF",
@@ -9384,7 +12560,30 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "L.L.Bean coupon dollars",
+    "summary": "4% at L.L.Bean, 2% on dining and gas.",
+    "rates": [
+     {
+      "rate": "4%",
+      "on": "L.L.Bean purchases"
+     },
+     {
+      "rate": "2%",
+      "on": "Dining and gas stations"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "Shipping",
+      "on": "Free standard shipping on L.L.Bean orders"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Dillard's Card": {
    "meta": "Dillard's x Wells Fargo - $0 AF",
@@ -9428,7 +12627,22 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Dillard's rewards",
+    "summary": "Tiered rewards that improve with annual Dillard's spend.",
+    "rates": [
+     {
+      "rate": "Tiered",
+      "on": "Reward rate rises with annual Dillard's spend across cardholder tiers"
+     },
+     {
+      "rate": "Passes",
+      "on": "Periodic shopping passes with additional percentage discounts"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "JCPenney Credit Card": {
    "meta": "JCPenney x Synchrony - $0 AF",
@@ -9472,7 +12686,22 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "JCPenney rewards",
+    "summary": "Points at JCPenney plus cardmember coupons.",
+    "rates": [
+     {
+      "rate": "Points",
+      "on": "Point earning on JCPenney purchases"
+     },
+     {
+      "rate": "Coupons",
+      "on": "Cardmember-exclusive coupons and early sale access"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Belk Rewards Card": {
    "meta": "Belk x Synchrony - $0 AF",
@@ -9516,7 +12745,22 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Belk rewards",
+    "summary": "Tiered rewards that improve with annual Belk spend.",
+    "rates": [
+     {
+      "rate": "Tiered",
+      "on": "Reward rate rises with annual Belk spend across cardholder tiers"
+     },
+     {
+      "rate": "Birthday",
+      "on": "An annual birthday bonus"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "Menards BIG Card": {
    "meta": "Menards x Capital One - $0 AF",
@@ -9560,7 +12804,22 @@
      "name": "Verify Current Offer",
      "desc": "Retail card rewards change frequently. Confirm current terms with the retailer before relying on them."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Menards rebate",
+    "summary": "2% rebate on Menards purchases, issued as store credit.",
+    "rates": [
+     {
+      "rate": "2%",
+      "on": "Menards purchases, as a merchandise rebate"
+     },
+     {
+      "rate": "Alt",
+      "on": "Special financing available instead of the rebate on qualifying purchases"
+     }
+    ],
+    "notes": "Rewards are redeemable only at this retailer. Store-card financing offers are almost always DEFERRED interest, not 0% APR. Interest accrues from the purchase date and is waived only if you clear the entire promotional balance before the period ends - miss it by any amount and you're billed all the back-interest on the original purchase. Verify current rates with the retailer; store card terms change frequently and quietly."
+   }
   },
   "SchoolsFirst Rewards": {
    "meta": "SchoolsFirst Federal Credit Union - $0 AF",
@@ -9600,7 +12859,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Credit union rewards",
+    "summary": "Rewards on every purchase with no annual fee - rates vary by product.",
+    "rates": [
+     {
+      "rate": "Varies",
+      "on": "All purchases - confirm your card's current rate with the credit union"
+     }
+    ],
+    "notes": "Rates are not reliably published and change without announcement, so this entry doesn't guess at a number. VERIFY current rates directly with the credit union. These programs get almost no financial press coverage and change without announcement, so third-party figures are frequently stale. Federal credit unions are capped at 18% APR by law, which is usually the bigger financial advantage over the rewards rate itself."
+   }
   },
   "SECU Cash Rewards": {
    "meta": "State Employees' Credit Union (NC) - $0 AF",
@@ -9640,7 +12910,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Credit union rewards",
+    "summary": "Rewards on every purchase with no annual fee - rates vary by product.",
+    "rates": [
+     {
+      "rate": "Varies",
+      "on": "All purchases - confirm your card's current rate with the credit union"
+     }
+    ],
+    "notes": "Rates are not reliably published and change without announcement, so this entry doesn't guess at a number. VERIFY current rates directly with the credit union. These programs get almost no financial press coverage and change without announcement, so third-party figures are frequently stale. Federal credit unions are capped at 18% APR by law, which is usually the bigger financial advantage over the rewards rate itself."
+   }
   },
   "Golden 1 Rewards": {
    "meta": "Golden 1 Credit Union - $0 AF",
@@ -9680,7 +12961,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Credit union rewards",
+    "summary": "Rewards on every purchase with no annual fee - rates vary by product.",
+    "rates": [
+     {
+      "rate": "Varies",
+      "on": "All purchases - confirm your card's current rate with the credit union"
+     }
+    ],
+    "notes": "Rates are not reliably published and change without announcement, so this entry doesn't guess at a number. VERIFY current rates directly with the credit union. These programs get almost no financial press coverage and change without announcement, so third-party figures are frequently stale. Federal credit unions are capped at 18% APR by law, which is usually the bigger financial advantage over the rewards rate itself."
+   }
   },
   "Suncoast Rewards": {
    "meta": "Suncoast Credit Union - $0 AF",
@@ -9720,7 +13012,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Credit union rewards",
+    "summary": "Rewards on every purchase with no annual fee - rates vary by product.",
+    "rates": [
+     {
+      "rate": "Varies",
+      "on": "All purchases - confirm your card's current rate with the credit union"
+     }
+    ],
+    "notes": "Rates are not reliably published and change without announcement, so this entry doesn't guess at a number. VERIFY current rates directly with the credit union. These programs get almost no financial press coverage and change without announcement, so third-party figures are frequently stale. Federal credit unions are capped at 18% APR by law, which is usually the bigger financial advantage over the rewards rate itself."
+   }
   },
   "RBFCU Really Free Rewards": {
    "meta": "Randolph-Brooks Federal Credit Union - $0 AF",
@@ -9760,7 +13063,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Credit union rewards",
+    "summary": "Rewards on every purchase with no annual fee - rates vary by product.",
+    "rates": [
+     {
+      "rate": "Varies",
+      "on": "All purchases - confirm your card's current rate with the credit union"
+     }
+    ],
+    "notes": "Rates are not reliably published and change without announcement, so this entry doesn't guess at a number. VERIFY current rates directly with the credit union. These programs get almost no financial press coverage and change without announcement, so third-party figures are frequently stale. Federal credit unions are capped at 18% APR by law, which is usually the bigger financial advantage over the rewards rate itself."
+   }
   },
   "America First Rewards": {
    "meta": "America First Credit Union - $0 AF",
@@ -9800,7 +13114,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Credit union rewards",
+    "summary": "Rewards on every purchase with no annual fee - rates vary by product.",
+    "rates": [
+     {
+      "rate": "Varies",
+      "on": "All purchases - confirm your card's current rate with the credit union"
+     }
+    ],
+    "notes": "Rates are not reliably published and change without announcement, so this entry doesn't guess at a number. VERIFY current rates directly with the credit union. These programs get almost no financial press coverage and change without announcement, so third-party figures are frequently stale. Federal credit unions are capped at 18% APR by law, which is usually the bigger financial advantage over the rewards rate itself."
+   }
   },
   "Mountain America Rewards": {
    "meta": "Mountain America Credit Union - $0 AF",
@@ -9840,7 +13165,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Credit union rewards",
+    "summary": "Rewards on every purchase with no annual fee - rates vary by product.",
+    "rates": [
+     {
+      "rate": "Varies",
+      "on": "All purchases - confirm your card's current rate with the credit union"
+     }
+    ],
+    "notes": "Rates are not reliably published and change without announcement, so this entry doesn't guess at a number. VERIFY current rates directly with the credit union. These programs get almost no financial press coverage and change without announcement, so third-party figures are frequently stale. Federal credit unions are capped at 18% APR by law, which is usually the bigger financial advantage over the rewards rate itself."
+   }
   },
   "Bethpage Cash Back": {
    "meta": "Bethpage Federal Credit Union - $0 AF",
@@ -9880,7 +13216,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Credit union rewards",
+    "summary": "Rewards on every purchase with no annual fee - rates vary by product.",
+    "rates": [
+     {
+      "rate": "Varies",
+      "on": "All purchases - confirm your card's current rate with the credit union"
+     }
+    ],
+    "notes": "Rates are not reliably published and change without announcement, so this entry doesn't guess at a number. VERIFY current rates directly with the credit union. These programs get almost no financial press coverage and change without announcement, so third-party figures are frequently stale. Federal credit unions are capped at 18% APR by law, which is usually the bigger financial advantage over the rewards rate itself."
+   }
   },
   "First Tech Choice Rewards": {
    "meta": "First Tech Federal Credit Union - $0 AF",
@@ -9920,7 +13267,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Credit union rewards",
+    "summary": "Rewards on every purchase with no annual fee - rates vary by product.",
+    "rates": [
+     {
+      "rate": "Varies",
+      "on": "All purchases - confirm your card's current rate with the credit union"
+     }
+    ],
+    "notes": "Rates are not reliably published and change without announcement, so this entry doesn't guess at a number. VERIFY current rates directly with the credit union. These programs get almost no financial press coverage and change without announcement, so third-party figures are frequently stale. Federal credit unions are capped at 18% APR by law, which is usually the bigger financial advantage over the rewards rate itself."
+   }
   },
   "VyStar Cash Back": {
    "meta": "VyStar Credit Union - $0 AF",
@@ -9960,7 +13318,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Credit union rewards",
+    "summary": "Rewards on every purchase with no annual fee - rates vary by product.",
+    "rates": [
+     {
+      "rate": "Varies",
+      "on": "All purchases - confirm your card's current rate with the credit union"
+     }
+    ],
+    "notes": "Rates are not reliably published and change without announcement, so this entry doesn't guess at a number. VERIFY current rates directly with the credit union. These programs get almost no financial press coverage and change without announcement, so third-party figures are frequently stale. Federal credit unions are capped at 18% APR by law, which is usually the bigger financial advantage over the rewards rate itself."
+   }
   },
   "Patelco Rewards": {
    "meta": "Patelco Credit Union - $0 AF",
@@ -10000,7 +13369,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Credit union rewards",
+    "summary": "Rewards on every purchase with no annual fee - rates vary by product.",
+    "rates": [
+     {
+      "rate": "Varies",
+      "on": "All purchases - confirm your card's current rate with the credit union"
+     }
+    ],
+    "notes": "Rates are not reliably published and change without announcement, so this entry doesn't guess at a number. VERIFY current rates directly with the credit union. These programs get almost no financial press coverage and change without announcement, so third-party figures are frequently stale. Federal credit unions are capped at 18% APR by law, which is usually the bigger financial advantage over the rewards rate itself."
+   }
   },
   "Wright-Patt Cash Rewards": {
    "meta": "Wright-Patt Credit Union - $0 AF",
@@ -10040,7 +13420,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Credit union rewards",
+    "summary": "Rewards on every purchase with no annual fee - rates vary by product.",
+    "rates": [
+     {
+      "rate": "Varies",
+      "on": "All purchases - confirm your card's current rate with the credit union"
+     }
+    ],
+    "notes": "Rates are not reliably published and change without announcement, so this entry doesn't guess at a number. VERIFY current rates directly with the credit union. These programs get almost no financial press coverage and change without announcement, so third-party figures are frequently stale. Federal credit unions are capped at 18% APR by law, which is usually the bigger financial advantage over the rewards rate itself."
+   }
   },
   "Security Service Power Rewards": {
    "meta": "Security Service Federal Credit Union - $0 AF",
@@ -10080,7 +13471,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Credit union rewards",
+    "summary": "Rewards on every purchase with no annual fee - rates vary by product.",
+    "rates": [
+     {
+      "rate": "Varies",
+      "on": "All purchases - confirm your card's current rate with the credit union"
+     }
+    ],
+    "notes": "Rates are not reliably published and change without announcement, so this entry doesn't guess at a number. VERIFY current rates directly with the credit union. These programs get almost no financial press coverage and change without announcement, so third-party figures are frequently stale. Federal credit unions are capped at 18% APR by law, which is usually the bigger financial advantage over the rewards rate itself."
+   }
   },
   "Delta Community Cash Back": {
    "meta": "Delta Community Credit Union - $0 AF",
@@ -10120,7 +13522,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Credit union rewards",
+    "summary": "Rewards on every purchase with no annual fee - rates vary by product.",
+    "rates": [
+     {
+      "rate": "Varies",
+      "on": "All purchases - confirm your card's current rate with the credit union"
+     }
+    ],
+    "notes": "Rates are not reliably published and change without announcement, so this entry doesn't guess at a number. VERIFY current rates directly with the credit union. These programs get almost no financial press coverage and change without announcement, so third-party figures are frequently stale. Federal credit unions are capped at 18% APR by law, which is usually the bigger financial advantage over the rewards rate itself."
+   }
   },
   "Consumers Credit Union Visa": {
    "meta": "Consumers Credit Union - $0 AF",
@@ -10160,7 +13573,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Credit union rewards",
+    "summary": "Rewards on every purchase with no annual fee - rates vary by product.",
+    "rates": [
+     {
+      "rate": "Varies",
+      "on": "All purchases - confirm your card's current rate with the credit union"
+     }
+    ],
+    "notes": "Rates are not reliably published and change without announcement, so this entry doesn't guess at a number. VERIFY current rates directly with the credit union. These programs get almost no financial press coverage and change without announcement, so third-party figures are frequently stale. Federal credit unions are capped at 18% APR by law, which is usually the bigger financial advantage over the rewards rate itself."
+   }
   },
   "OpenSky Secured Visa": {
    "meta": "Capital Bank - $35 AF",
@@ -10208,7 +13632,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "No rewards program",
+    "summary": "No rewards - this card exists to build credit history, not to earn.",
+    "rates": [
+     {
+      "rate": "None",
+      "on": "This card does not earn cash back, points, or miles"
+     }
+    ],
+    "notes": "Charges $35/yr with no rewards. Compare against the Capital One Platinum Secured or Discover it Secured, both $0 annual fee - the OpenSky fee is only worth paying if you can't qualify elsewhere. No credit check to apply."
+   }
   },
   "OpenSky Plus": {
    "meta": "Capital Bank - $0 AF",
@@ -10252,7 +13687,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "No rewards program",
+    "summary": "No rewards - a $0 fee secured card for building credit.",
+    "rates": [
+     {
+      "rate": "None",
+      "on": "This card does not earn cash back, points, or miles"
+     }
+    ],
+    "notes": "Strictly better than the $35 OpenSky Secured if you qualify. Still requires a refundable security deposit. No credit check to apply, and reports to all three bureaus."
+   }
   },
   "Discover it Secured": {
    "meta": "Discover - $0 AF",
@@ -10315,7 +13761,27 @@
      "name": "Known Coverage Gaps",
      "desc": "Discover cards carry no travel insurance, no rental car coverage, no purchase protection, no extended warranty, and no cell phone protection. Whether Capital One adds any of its own protections post-migration is still unknown."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Discover cash back",
+    "summary": "2% at gas and restaurants while you rebuild credit.",
+    "rates": [
+     {
+      "rate": "2%",
+      "on": "Gas stations and restaurants",
+      "cap": "$1,000 in combined quarterly purchases, then 1%"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "Match",
+      "on": "Cashback Match doubles all rewards earned in your first year"
+     }
+    ],
+    "notes": "Rare among secured cards in earning real rewards, with no annual fee. Discover reviews accounts for graduation to an unsecured card and refunds the deposit. Capital One began migrating Discover accounts to its own platform Jul 27, 2026. Capital One confirmed the category structure and Cashback Match both continue."
+   }
   },
   "Capital One Platinum Secured": {
    "meta": "Capital One - $0 AF",
@@ -10363,7 +13829,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "No rewards program",
+    "summary": "No rewards - built for approval and graduation, not earning.",
+    "rates": [
+     {
+      "rate": "None",
+      "on": "This card does not earn cash back, points, or miles"
+     }
+    ],
+    "notes": "A deposit as low as $49 can secure a $200 line. Capital One automatically reviews for graduation to an unsecured card, typically within 6-12 months, and refunds the deposit. If you can fund a deposit, the Quicksilver Secured earns 1.5% while building the same history."
+   }
   },
   "Capital One Quicksilver Secured": {
    "meta": "Capital One - $0 AF",
@@ -10411,7 +13888,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Capital One cash back",
+    "summary": "1.5% on everything while you rebuild credit.",
+    "rates": [
+     {
+      "rate": "1.5%",
+      "on": "All purchases, uncapped"
+     }
+    ],
+    "notes": "Rare among secured cards in earning full rewards at no annual fee, and it charges no foreign transaction fee. Capital One reviews for graduation to the unsecured Quicksilver and refunds the deposit."
+   }
   },
   "Chime Credit Builder": {
    "meta": "Chime x Stride Bank - $0 AF",
@@ -10455,7 +13943,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "No rewards program",
+    "summary": "No rewards - and no interest, no credit check, no minimum deposit.",
+    "rates": [
+     {
+      "rate": "None",
+      "on": "This card does not earn cash back, points, or miles"
+     }
+    ],
+    "notes": "Not a conventional credit card: Chime moves money you've already set aside into a spending limit, so you can't overspend or carry a balance. That also means you can't demonstrate the revolving behavior some scoring models reward. Requires a Chime Checking Account with qualifying direct deposit."
+   }
   },
   "Self Visa Secured": {
    "meta": "Self x Lead Bank - $25 AF",
@@ -10499,7 +13998,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "No rewards program",
+    "summary": "No rewards - and the deposit comes from a credit-builder loan first.",
+    "rates": [
+     {
+      "rate": "None",
+      "on": "This card does not earn cash back, points, or miles"
+     }
+    ],
+    "notes": "Unusual structure: you complete a Self credit-builder LOAN, and those savings become your card deposit. Two products report to the bureaus, but you pay loan interest and a $25 annual card fee before earning anything. Compare against a $0-fee secured card if you can fund a deposit directly."
+   }
   },
   "Credit One Platinum Visa": {
    "meta": "Credit One Bank - $75-$99 AF",
@@ -10539,7 +14049,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Credit One cash back",
+    "summary": "1% on eligible purchases - against a $75-$99 annual fee.",
+    "rates": [
+     {
+      "rate": "1%",
+      "on": "Eligible purchases"
+     }
+    ],
+    "notes": "REVIEW THIS CARD: 1% against a $75-$99 annual fee means roughly $7,500-$9,900 of annual spend just to break even, and Credit One commonly adds monthly maintenance fees on top. If your credit has recovered, a $0-fee 1.5% or 2% card will serve you far better."
+   }
   },
   "Indigo Mastercard": {
    "meta": "Concora Credit - $0-$99 AF",
@@ -10583,7 +14104,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "No rewards program",
+    "summary": "No rewards - an unsecured card for damaged credit.",
+    "rates": [
+     {
+      "rate": "None",
+      "on": "This card does not earn cash back, points, or miles"
+     }
+    ],
+    "notes": "Annual fee ranges from $0 to $99 by approval offer, with no rewards of any kind. Starting limits are typically $300-$700, so even small balances spike utilization. Once your score recovers, move to a $0-fee card."
+   }
   },
   "Milestone Mastercard": {
    "meta": "Concora Credit - $35-$99 AF",
@@ -10627,7 +14159,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "No rewards program",
+    "summary": "No rewards - an unsecured card for poor credit.",
+    "rates": [
+     {
+      "rate": "None",
+      "on": "This card does not earn cash back, points, or miles"
+     }
+    ],
+    "notes": "Annual fee ranges from $0 to $99 by approval offer, with no rewards. Read your cardmember agreement - the fee you were approved for may differ from the advertised range. Reports to all three bureaus, which is the one thing these cards do well."
+   }
   },
   "Discover it Student": {
    "meta": "Discover - $0 AF",
@@ -10690,7 +14233,27 @@
      "name": "Known Coverage Gaps",
      "desc": "Discover cards carry no travel insurance, no rental car coverage, no purchase protection, no extended warranty, and no cell phone protection. Whether Capital One adds any of its own protections post-migration is still unknown."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Discover cash back",
+    "summary": "5% on rotating quarterly categories, doubled in your first year.",
+    "rates": [
+     {
+      "rate": "5%",
+      "on": "Rotating quarterly bonus categories",
+      "cap": "$1,500 per quarter, then 1%. ACTIVATION REQUIRED each quarter"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     },
+     {
+      "rate": "Match",
+      "on": "Cashback Match doubles all rewards earned in your first year"
+     }
+    ],
+    "notes": "Identical earning to the standard Discover it Cash Back, with student-friendlier approval. Capital One began migrating Discover accounts to its own platform Jul 27, 2026 and confirmed the category structure and Cashback Match both continue."
+   }
   },
   "Capital One Savor Student": {
    "meta": "Capital One - $0 AF",
@@ -10738,7 +14301,31 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Capital One cash back",
+    "summary": "3% on dining, entertainment, groceries, and streaming.",
+    "rates": [
+     {
+      "rate": "3%",
+      "on": "Dining, entertainment, popular streaming, and grocery stores",
+      "cap": "Excludes superstores like Walmart and Target"
+     },
+     {
+      "rate": "8%",
+      "on": "Capital One Entertainment purchases"
+     },
+     {
+      "rate": "5%",
+      "on": "Hotels and rental cars booked through Capital One Travel"
+     },
+     {
+      "rate": "1%",
+      "on": "All other purchases"
+     }
+    ],
+    "notes": "Genuinely competitive with non-student cards, with no annual fee and no foreign transaction fee - useful for study abroad. Converts to the standard Savor after graduation, keeping your account age."
+   }
   },
   "Capital One Quicksilver Student": {
    "meta": "Capital One - $0 AF",
@@ -10786,7 +14373,22 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "Capital One cash back",
+    "summary": "1.5% on everything, no categories to track.",
+    "rates": [
+     {
+      "rate": "1.5%",
+      "on": "All purchases, uncapped"
+     },
+     {
+      "rate": "5%",
+      "on": "Hotels and rental cars booked through Capital One Travel"
+     }
+    ],
+    "notes": "The low-maintenance choice while you're focused on other things. No foreign transaction fee, which matters for study abroad."
+   }
   },
   "BofA Travel Rewards Student": {
    "meta": "Bank of America - $0 AF",
@@ -10838,7 +14440,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "BofA points",
+    "summary": "1.5x on everything, with no foreign transaction fee.",
+    "rates": [
+     {
+      "rate": "1.5x",
+      "on": "All purchases, uncapped"
+     }
+    ],
+    "notes": "The no-foreign-transaction-fee feature is the standout for students studying abroad, where most student cards charge 3%. Points redeem as a statement credit against travel and dining at 1 cent each."
+   }
   },
   "Wells Fargo Reflect": {
    "meta": "Wells Fargo - $0 AF",
@@ -10882,7 +14495,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "No rewards program",
+    "summary": "No rewards - the value is one of the longest 0% intro APR windows available.",
+    "rates": [
+     {
+      "rate": "None",
+      "on": "This card does not earn cash back, points, or miles"
+     }
+    ],
+    "notes": "Built for a specific payoff goal, not ongoing spending. The promotional balance transfer rate usually requires transferring within the first 120 days. Divide your balance by the intro months and pay at least that much each month."
+   }
   },
   "Citi Simplicity": {
    "meta": "Citi - $0 AF",
@@ -10930,7 +14554,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "No rewards program",
+    "summary": "No rewards - but no late fees and no penalty APR, ever.",
+    "rates": [
+     {
+      "rate": "None",
+      "on": "This card does not earn cash back, points, or miles"
+     }
+    ],
+    "notes": "The no-late-fee and no-penalty-APR structure is genuinely rare and meaningful if your cash flow is unpredictable. Late payments still damage your credit report once 30+ days past due. Balance transfers typically must be made within the first four months."
+   }
   },
   "Citi Diamond Preferred": {
    "meta": "Citi - $0 AF",
@@ -10978,7 +14613,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "No rewards program",
+    "summary": "No rewards - built for a long balance transfer runway.",
+    "rates": [
+     {
+      "rate": "None",
+      "on": "This card does not earn cash back, points, or miles"
+     }
+    ],
+    "notes": "Aimed squarely at debt consolidation. Verify the current intro length and transfer deadline at citi.com. Transfers usually carry a 3-5% fee, which offsets part of the interest savings."
+   }
   },
   "Capital One Platinum": {
    "meta": "Capital One - $0 AF",
@@ -11018,7 +14664,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "No rewards program",
+    "summary": "No rewards - an unsecured starter card with no intro APR either.",
+    "rates": [
+     {
+      "rate": "None",
+      "on": "This card does not earn cash back, points, or miles"
+     }
+    ],
+    "notes": "Exists purely to establish or rebuild credit. Capital One reviews for a credit line increase, typically within about six months. The Quicksilver Secured earns 1.5% while building the same history if you can fund a deposit. Product-change rather than close once your credit supports it."
+   }
   },
   "Chase Slate Edge": {
    "meta": "Chase - $0 AF",
@@ -11066,7 +14723,18 @@
      "name": "Zero Liability",
      "desc": "Not liable for unauthorized charges on the account."
     }
-   ]
+   ],
+   "earn": {
+    "currency": "No rewards program",
+    "summary": "No rewards - the value is an APR reduction for on-time payment.",
+    "rates": [
+     {
+      "rate": "None",
+      "on": "This card does not earn cash back, points, or miles"
+     }
+    ],
+    "notes": "Chase has offered an automatic APR reduction for cardholders who pay on time and meet an annual spend threshold - a mechanic no other issuer replicates. Verify current terms with Chase, as it has changed since launch. Note it uses one of your five 5/24 slots."
+   }
   }
  }
 }

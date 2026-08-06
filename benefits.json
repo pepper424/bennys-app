@@ -1536,7 +1536,7 @@
    "meta": "Citi Strata Elite - $595 AF",
    "tab_label": "Citi Elite",
    "annual_fee": 595,
-   "has_anniversary_benefits": false,
+   "has_anniversary_benefits": true,
    "benefits": [
     {
      "benefit": "$300 Annual Hotel Benefit",
@@ -4924,7 +4924,7 @@
    "meta": "Citi x American - $595 AF",
    "tab_label": "AA Exec",
    "annual_fee": 595,
-   "has_anniversary_benefits": false,
+   "has_anniversary_benefits": true,
    "benefits": [
     {
      "benefit": "Admirals Club Membership (+2 Guests)",

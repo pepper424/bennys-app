@@ -38,7 +38,7 @@
   };
 
   var CARD_ORDER = [];
-  var BUILD = "3.3.1";
+  var BUILD = "3.4.0";
 
   /* ================= helpers ================= */
   function esc(s) { return L.esc(s); }
@@ -703,6 +703,25 @@
       '<div class="vlab">' + label + '</div></div>';
   }
 
+  function earnDetailsHTML(card) {
+    var e = S.catalog.cards[card] && S.catalog.cards[card].earn;
+    if (!e || !e.summary) return "";
+    var rows = (e.rates || []).map(function (r) {
+      var none = /^none$/i.test(r.rate || "");
+      return '<li><span class="rt' + (none ? " none" : "") + '">' +
+        esc(r.rate || "") + '</span><div class="rd">' +
+        '<span class="ron">' + esc(r.on || "") + '</span>' +
+        (r.cap ? '<span class="rcap">' + esc(r.cap) + '</span>' : '') +
+        '</div></li>';
+    }).join("");
+    return '<p class="earn-summary">' + esc(e.summary) + '</p>' +
+      '<details class="qa earn-qa"><summary>Earn details' +
+      '<span class="qa-cur">' + esc(e.currency || "") + '</span></summary>' +
+      '<div class="qa-a"><ul class="rates">' + rows + '</ul>' +
+      (e.notes ? '<p class="earn-notes">' + esc(e.notes) + '</p>' : '') +
+      '</div></details>';
+  }
+
   function cardNoteHTML(card) {
     var note = (S.profile.cardNotes || {})[card] || "";
     if (note) {
@@ -969,6 +988,7 @@
         '<div class="h-name">' + esc(cardLabel(card)) + '</div></div>' +
         '<div class="h-meta">' +
         esc(S.catalog.cards[card].meta) + '</div>' +
+        earnDetailsHTML(card) +
         '<div class="h-stats">' + gAvail.length + ' available &middot; ' +
         gUrg.length + ' expiring soon</div>' +
         (gc.total ? progressHTML(gc.used, gc.total, gCur,

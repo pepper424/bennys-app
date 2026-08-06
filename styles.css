@@ -853,3 +853,36 @@ hr.thin { border: none; border-top: 1px solid var(--hairline);
     border-color: rgba(224,86,79,.5) !important;
     background: rgba(224,86,79,.08) !important; }
 }
+
+/* ---------- earn rates: "Read more" on each card ---------- */
+.earn-summary { font-size: .82rem; line-height: 1.5; color: var(--ink-dim);
+  margin: var(--s2) 0 0; }
+.earn-qa { margin: var(--s3) 0 0; background: transparent;
+  border: none; border-top: 1px solid var(--hairline);
+  border-radius: 0; padding-top: var(--s3); }
+.earn-qa > summary { display: flex; align-items: center;
+  justify-content: space-between; gap: var(--s2);
+  color: var(--teal); font-size: .74rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase; padding: 0; }
+.earn-qa > summary::after { content: "+"; float: none;
+  color: var(--teal); font-size: .95rem; }
+.earn-qa[open] > summary::after { content: "\2212"; }
+.earn-qa[open] > summary { color: var(--teal); }
+.qa-cur { font-weight: 600; letter-spacing: .01em; text-transform: none;
+  color: var(--ink-faint); font-size: .68rem; }
+.earn-qa .qa-a { padding: var(--s3) 0 0; }
+
+ul.rates { list-style: none; margin: 0; padding: 0; }
+ul.rates li { display: flex; gap: var(--s3); padding: var(--s2) 0;
+  border-bottom: 1px solid var(--hairline); }
+ul.rates li:last-child { border-bottom: none; }
+.rt { font-family: var(--display); font-weight: 700; font-size: .84rem;
+  color: var(--teal); min-width: 40px; flex: 0 0 auto;
+  font-variant-numeric: tabular-nums; }
+.rt.none { color: var(--ink-faint); }
+.rd { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ron { font-size: .8rem; line-height: 1.4; color: var(--ink); }
+.rcap { font-size: .7rem; color: var(--amber); line-height: 1.3; }
+.earn-notes { margin: var(--s3) 0 0; font-size: .74rem; line-height: 1.55;
+  color: var(--ink-faint); border-left: 2px solid var(--hairline);
+  padding-left: var(--s3); }
